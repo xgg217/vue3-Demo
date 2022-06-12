@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import ButtonCmp from "./Cmp/ButtonCmp.vue";
+console.log(1);
 </script>
 
 <template>
-  <!-- 自定义 -->
-  <ButtonCmp>12</ButtonCmp>
-
-  <!-- 组件 -->
-  <el-button>Default</el-button>
+  <button>
+    <span>Default</span>
+  </button>
 </template>
 
 <style>
