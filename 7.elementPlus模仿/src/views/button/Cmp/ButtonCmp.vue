@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import { buttonTypes } from "./button";
 const props = defineProps<{
   type?: "primary" | "success" | "info" | "warning" | "danger"; // 按钮类型
   plain?: boolean; // 是否为平面按钮
