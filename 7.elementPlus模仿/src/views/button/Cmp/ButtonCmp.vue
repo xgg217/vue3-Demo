@@ -1,5 +1,10 @@
 <script setup lang="ts">
-console.log(1);
+// import { buttonTypes } from "./button";
+const props = defineProps<{
+  type?: "primary" | "success" | "info" | "warning" | "danger"; // 按钮类型
+  plain?: boolean; // 是否为平面按钮
+  round?: boolean; // 圆角
+}>();
 </script>
 
 <template>
@@ -8,7 +13,7 @@ console.log(1);
   </button>
 </template>
 
-<style>
+<style scoped>
 button {
   line-height: 1;
   height: 32px;
