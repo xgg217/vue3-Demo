@@ -4,7 +4,7 @@ import ButtonCmp from "./Cmp/ButtonCmp.vue";
 
 <template>
   <!-- 自定义 -->
-  <ButtonCmp type="info">12</ButtonCmp>
+  <ButtonCmp type="info" plain round>12</ButtonCmp>
 
   <!-- 组件 -->
   <el-button>Default</el-button>
