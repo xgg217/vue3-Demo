@@ -3,11 +3,10 @@
   <p>{{ val }}</p>
   <button @click="handleAdd"> 点击</button>
   <button @click="handlerShow">显示/隐藏</button>
-  <demo v-if="isBool" />
 </template>
 
 <script setup lang="ts">
-import Demo from '@/components/Demo.vue';
+
 import { ref } from 'vue';
 const val  = ref(1);
 const isBool = ref(false);

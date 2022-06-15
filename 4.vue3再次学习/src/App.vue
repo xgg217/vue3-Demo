@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+// import { reactive } from 'vue';
 
 
-import HelloWorld from '@/components/HelloWorld.vue';
+// import HelloWorld from '@/components/HelloWorld.vue';
 // interface Book {
 //   title: string
 //   year?: number
@@ -18,9 +18,8 @@ import HelloWorld from '@/components/HelloWorld.vue';
 <template>
   <!-- <router-link to="/" class="router-link-exact-active">index</router-link>
   <router-link to="/user/myuser">user</router-link> -->
-  <!-- <router-view />
-  <p>{{ book.title }}</p> -->
-  <HelloWorld foo="xgg" />
+  <router-view />
+  <!-- <HelloWorld foo="xgg" /> -->
 </template>
 
 
