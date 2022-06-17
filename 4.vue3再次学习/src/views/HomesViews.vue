@@ -11,7 +11,6 @@ import { ref } from 'vue';
 const val  = ref(1);
 const isBool = ref(false);
 
-
 const handleAdd = function handleAdd() {
   val.value = val.value + 1;
 };
