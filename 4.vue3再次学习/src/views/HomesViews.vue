@@ -10,6 +10,10 @@
 import { ref } from 'vue';
 const val  = ref(1);
 const isBool = ref(false);
+const info = ref({
+  name: '',
+  age: '',
+});
 
 const handleAdd = function handleAdd() {
   val.value = val.value + 1;
@@ -18,6 +22,9 @@ const handleAdd = function handleAdd() {
 const handlerShow = function handlerShow() {
   isBool.value = !isBool.value;
 };
+
+info.value.name = '张三';
+
 
 
 </script>
