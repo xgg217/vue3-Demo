@@ -6,3 +6,9 @@
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.main {
+  margin: 40% auto;
+  width: 500px;
+  max-height: 100%;
+}
