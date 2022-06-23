@@ -6,16 +6,31 @@
   <!-- <p>{{ text }}</p>
   <input v-model="text"> -->
 
-  <p>{{ val }}</p>
+  <!-- <p>{{ val }}</p> -->
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-const text = ref('hello');
+import { ref, computed, watchEffect } from 'vue';
 
-const val = computed(() => {
-  return 'xiaom' +  text.value;
+
+const count = ref(0);
+const stop = watchEffect(() => {
+  console.log(count.value);
 });
+
+setTimeout(() => {
+  count.value++;
+}, 1000);
+
+setTimeout(() => {
+  stop();
+}, 3000);
+
+setTimeout(() => {
+  count.value++;
+}, 6000);
+
+
 
 
 
