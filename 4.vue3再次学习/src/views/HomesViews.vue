@@ -1,5 +1,5 @@
 <template>
-  <div>homes页面</div>
+  <div>homes页面111</div>
   <!-- <p>{{ val }}</p> -->
   <!-- <button @click="handleAdd"> 点击</button>
   <button @click="handlerShow">显示/隐藏</button> -->
@@ -10,34 +10,37 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watchEffect } from 'vue';
-
+import { ref, reactive, watch, computed, watchEffect } from 'vue';
 
 const count = ref(0);
-const stop = watchEffect(() => {
-  console.log(count.value);
+const obj = reactive({ a:' 张三' });
+
+setTimeout(() => {
+  count.value++;
+}, 2000);
+
+setTimeout(() => {
+  obj.a = '李四';
+}, 2000);
+
+watch(() => {return [count.value, obj.a]; }, ([newCount, newName],[oldCount, oldName]) => {
+  console.log(newCount, newName);
+  console.log(oldCount, oldName);
 });
 
-setTimeout(() => {
-  count.value++;
-}, 1000);
-
-setTimeout(() => {
-  stop();
-}, 3000);
-
-setTimeout(() => {
-  count.value++;
-}, 6000);
+// watch(
+//   [() => obj.a], (newValue, oldValue) => {
+//     console.log(newValue, oldValue);
+//   });
 
 
 
-
-
-
-
-
-
+// const state = reactive({ a: 1, b: 2 });
+// watch(() => state.a , (newValue, oldValue) => {
+//   // ...
+//   console.log(newValue, oldValue);
+// });
+// state.a = 10;
 
 </script>
 
