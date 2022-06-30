@@ -28,19 +28,6 @@ watch(() => {return [count.value, obj.a]; }, ([newCount, newName],[oldCount, old
   console.log(oldCount, oldName);
 });
 
-// watch(
-//   [() => obj.a], (newValue, oldValue) => {
-//     console.log(newValue, oldValue);
-//   });
-
-
-
-// const state = reactive({ a: 1, b: 2 });
-// watch(() => state.a , (newValue, oldValue) => {
-//   // ...
-//   console.log(newValue, oldValue);
-// });
-// state.a = 10;
 
 </script>
 
