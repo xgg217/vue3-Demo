@@ -12,12 +12,12 @@ export default defineConfig({
   plugins: [vue()],
 
   server: {
-    // host: '0.0.0.0',
+    host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'http://192.168.110.16:9090/',
+        target: 'http://mmobile.hk.test.cn-cic.com/',
         changeOrigin: true, // 是否跨域
-        // rewrite: (path) => path.replace(/^\/user/, '')
+        rewrite: (path:string) => path.replace(/^\/api/, ''),
       },
     },
   },
