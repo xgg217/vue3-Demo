@@ -11,34 +11,34 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { ref, reactive, readonly, isReactive, isReadonly, isProxy, watch, computed, watchEffect } from 'vue';
+// import { ref, reactive, readonly, isReactive, isReadonly, isProxy, watch, computed, watchEffect } from 'vue';
 
-const count = ref(0);
-const obj1 = reactive({ a:' 张三' });
-const obj2 = readonly({ a:' 张三' });
-const obj3 = { a:' 张三' };
+// const count = ref(0);
+// const obj1 = reactive({ a:' 张三' });
+// const obj2 = readonly({ a:' 张三' });
+// const obj3 = { a:' 张三' };
 
-const obj4 = new Proxy({
-  name: 1,
-}, {});
+// const obj4 = new Proxy({
+//   name: 1,
+// }, {});
 
-console.log(isProxy(count)); // false
-console.log(isProxy(obj1)); // true
-console.log(isProxy(obj2)); // true
-console.log(isProxy(obj3)); // false
-console.log(isProxy(obj4)); // false
+// console.log(isProxy(count)); // false
+// console.log(isProxy(obj1)); // true
+// console.log(isProxy(obj2)); // true
+// console.log(isProxy(obj3)); // false
+// console.log(isProxy(obj4)); // false
 
-console.log(isReactive(obj1)); // true
-console.log(isReactive(obj2)); // false
-
-const obj6 = readonly(obj1);
-console.log(isReactive(obj6)); // false
+// console.log(isReactive(obj1)); // true
+// console.log(isReactive(obj2)); // false
 
 // const obj6 = readonly(obj1);
-console.log(isReadonly(obj2)); // false
+// console.log(isReactive(obj6)); // false
 
-const obj7 = readonly(obj1);
-console.log(isReadonly(obj7)); // true
+// // const obj6 = readonly(obj1);
+// console.log(isReadonly(obj2)); // false
+
+// const obj7 = readonly(obj1);
+// console.log(isReadonly(obj7)); // true
 
 // setTimeout(() => {
 //   count.value++;
