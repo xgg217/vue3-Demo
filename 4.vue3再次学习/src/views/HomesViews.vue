@@ -11,9 +11,9 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-// import { ref, reactive, readonly, isReactive, isReadonly, isProxy, watch, computed, watchEffect } from 'vue';
+import { ref, reactive, readonly, isReactive, isReadonly, isProxy, watch, computed, watchEffect } from 'vue';
 
-// const count = ref(0);
+const count = ref(0);
 // const obj1 = reactive({ a:' 张三' });
 // const obj2 = readonly({ a:' 张三' });
 // const obj3 = { a:' 张三' };
