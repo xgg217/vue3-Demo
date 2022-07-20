@@ -23,7 +23,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://v.juhe.cn/",
+        target: "http://v.juhe.cn/calendar/",
         changeOrigin: true, // 开发模式，默认的origin是真实的 origin:localhost:3000 代理服务会把origin修改为目标地址
         ws: true, // 是否代理websockets
         secure: false, // 是否https接口
