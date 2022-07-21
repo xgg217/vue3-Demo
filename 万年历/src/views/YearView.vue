@@ -1,7 +1,9 @@
-<!-- <script setup lang="ts">
-
-</script> -->
+<script setup lang="ts">
+import HeaderNav from "@/components/HeaderNav.vue";
+</script>
 
 <template>
-  <div>年</div>
+  <HeaderNav title="年" />
 </template>
+
+<style scoped></style>
