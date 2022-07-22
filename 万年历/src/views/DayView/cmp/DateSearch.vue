@@ -3,7 +3,7 @@ import { ActionSheet, DatetimePicker } from "vant";
 // import type { DatetimePickerInstance } from 'vant';
 import { ref } from "vue";
 
-const show = ref(true);
+const show = ref(false);
 const currentDate = ref(new Date(2021, 0, 17));
 // const currentTime = ref(["12", "00"]);
 
