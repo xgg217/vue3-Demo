@@ -19,6 +19,8 @@ declare module '@vue/runtime-core' {
     TheWelcome: typeof import("./src/components/TheWelcome.vue")["default"]
     VanActionSheet: typeof import('vant/es')['ActionSheet']
     VanCalendar: typeof import("vant/es")["Calendar"]
+    VanCell: typeof import('vant/es')['Cell']
+    VanCellGroup: typeof import('vant/es')['CellGroup']
     VanConfigProvider: typeof import("vant/es")["ConfigProvider"]
     VanDatePicker: typeof import("vant/es")["DatePicker"]
     VanDatetimePicker: typeof import('vant/es')['DatetimePicker']
