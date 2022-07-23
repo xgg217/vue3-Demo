@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import HeaderNav from "@/components/HeaderNav.vue";
 import DateSearch from "./cmp/DateSearch.vue";
+
+const handleGetDate = (dataStr: string) => {
+  console.log(dataStr);
+};
 </script>
 
 <template>
   <HeaderNav title="当天信息" />
-  <DateSearch></DateSearch>
+  <DateSearch @change="handleGetDate" />
 </template>
 
 <style scoped>

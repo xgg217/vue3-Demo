@@ -1,38 +1,26 @@
 <script setup lang="ts">
-import { ActionSheet, DatetimePicker } from "vant";
-// import type { DatetimePickerInstance } from 'vant';
 import { ref } from "vue";
+import { ActionSheet, DatetimePicker } from "vant";
+import dayjs from "dayjs";
 
 const show = ref(false);
 const currentDate = ref(new Date(2021, 0, 17));
-// const currentTime = ref(["12", "00"]);
 
 // 确定选择日期
 const handleConfirm = (value: Date) => {
-  console.log(value);
+  // console.log(dayjs(value).format("YYYY-M-D"));
+  emit("change", dayjs(value).format("YYYY-M-D"));
 };
 
-// 格式化
-const formatter = (type: string, val: string) => {
-  // console.log(type);
-  // console.log(typeof val);
-  if (type === "year") {
-    return `${val}年`;
-  }
-  if (type === "month") {
-    return `${Number(val)}月`;
-  }
-
-  if (type === "day") {
-    return `${Number(val)}日`;
-  }
-  return val;
-};
+// 基于类型
+const emit = defineEmits<{
+  (e: "change", dateStr: string): void;
+}>();
 </script>
 
 <template>
   <div class="search">
-    <p></p>
+    <p @click="show = true"></p>
   </div>
 
   <van-action-sheet v-model:show="show">
@@ -40,7 +28,6 @@ const formatter = (type: string, val: string) => {
       <van-datetime-picker
         v-model="currentDate"
         type="date"
-        :formatter="formatter"
         title="选择年月日"
         @confirm="handleConfirm"
       />
