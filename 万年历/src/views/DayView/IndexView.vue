@@ -4,6 +4,9 @@ import HeaderNav from "@/components/HeaderNav.vue";
 import DateSearch from "./cmp/DateSearch.vue";
 import { reactive } from "vue";
 
+import dayjs from "dayjs";
+import { apiPostDay } from "@/api/request";
+
 interface IDay {
   holiday: string; //假日
   avoid: string; //忌
@@ -13,26 +16,59 @@ interface IDay {
   suit: string; //宜
   lunarYear: string; //纪年
   lunar: string; //农历
-  yearMonth: string; //年份和月份
+  // yearMonth: string; //年份和月份
   date: string; //具体日期
 }
 
-const dayObj = reactive({});
+const dayObj: IDay = reactive({
+  date: "", //具体日期
+  lunar: "", //农历
+  weekday: "", //周几
+  holiday: "", //假日
+  animalsYear: "", //属相
+  lunarYear: "", //纪年
+  suit: "", //宜
+  avoid: "", //忌
+  desc: "", //假日描述
+  // yearMonth: "", //年份和月份
+});
 
+// 选择日期
 const handleGetDate = (dataStr: string) => {
   console.log(dataStr);
 };
+
+const asyncPostDay = (dateStr: string) => {
+  apiPostDay(dateStr)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+// 初始化日期
+// (function () {
+//   const day = dayjs().format("YYYY-M-D");
+
+//   asyncPostDay(day);
+// })();
 </script>
 
 <template>
   <HeaderNav title="当天信息" />
   <DateSearch @change="handleGetDate" />
   <van-cell-group>
-    <van-cell title="当前年月" value="内容" />
-    <van-cell title="今年属相" value="内容" />
-    <van-cell title="农历年名" value="内容" />
-    <van-cell title="事宜事件" value="内容" />
-    <van-cell title="避免事件" value="内容" />
+    <van-cell title="具体日期" :value="dayObj.date" />
+    <van-cell title="农历" :value="dayObj.lunar" />
+    <van-cell title="星期" :value="dayObj.weekday" />
+    <van-cell title="假日" :value="dayObj.holiday" />
+    <van-cell title="假日说明" :value="dayObj.desc" />
+    <van-cell title="今年属相" :value="dayObj.animalsYear" />
+    <van-cell title="农历年名" :value="dayObj.lunarYear" />
+    <van-cell title="事宜事件" :value="dayObj.suit" />
+    <van-cell title="避免事件" :value="dayObj.avoid" />
   </van-cell-group>
 </template>
 
