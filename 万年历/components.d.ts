@@ -8,28 +8,14 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     HeaderNav: typeof import('./src/components/HeaderNav.vue')['default']
-    HelloWorld: typeof import("./src/components/HelloWorld.vue")["default"]
-    IconCommunity: typeof import("./src/components/icons/IconCommunity.vue")["default"]
-    IconDocumentation: typeof import("./src/components/icons/IconDocumentation.vue")["default"]
-    IconEcosystem: typeof import("./src/components/icons/IconEcosystem.vue")["default"]
-    IconSupport: typeof import("./src/components/icons/IconSupport.vue")["default"]
-    IconTooling: typeof import("./src/components/icons/IconTooling.vue")["default"]
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TheWelcome: typeof import("./src/components/TheWelcome.vue")["default"]
     VanActionSheet: typeof import('vant/es')['ActionSheet']
-    VanCalendar: typeof import("vant/es")["Calendar"]
     VanCell: typeof import('vant/es')['Cell']
     VanCellGroup: typeof import('vant/es')['CellGroup']
-    VanConfigProvider: typeof import("vant/es")["ConfigProvider"]
-    VanDatePicker: typeof import("vant/es")["DatePicker"]
     VanDatetimePicker: typeof import('vant/es')['DatetimePicker']
     VanNavBar: typeof import('vant/es')['NavBar']
-    VanPopu: typeof import("vant/es")["Popu"]
-    VanPopup: typeof import("vant/es")["Popup"]
     VanTabbar: typeof import('vant/es')['Tabbar']
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
-    VanTimePicker: typeof import("vant/es")["TimePicker"]
-    WelcomeItem: typeof import("./src/components/WelcomeItem.vue")["default"]
   }
 }
