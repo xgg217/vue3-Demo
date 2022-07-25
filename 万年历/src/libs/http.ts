@@ -1,6 +1,13 @@
 import axios from "axios";
-import { stringify } from "qs";
 import { JUHE_APP_KEY } from "@/config/keys";
+
+interface IHttpResponse {
+  error_code: number; // 错误码
+  reason: string; // 错误原因
+  result: {
+    data: unknown;
+  }; // 返回实体内容
+}
 
 const instance = axios.create({
   timeout: 5 * 1000,
@@ -14,10 +21,10 @@ instance.interceptors.request.use(
       "Content-Type": "application/x-www-form-urlencoded",
     };
 
-    config.data = stringify({
-      ...config.data,
+    config.params = {
+      ...config.params,
       key: JUHE_APP_KEY,
-    });
+    };
 
     return config;
   },
@@ -32,10 +39,11 @@ instance.interceptors.response.use(
   (response) => {
     // 对响应数据做点什么
     const { data } = response;
-    const { error_code: errorCode, reason } = data;
+    const { error_code, reason } = data as IHttpResponse;
+    const errorCode = error_code + "";
 
     // 错误
-    if (errorCode[errorCode as number]) {
+    if (errorCode in errorCodeObj) {
       return Promise.reject(reason);
     }
 
@@ -47,7 +55,7 @@ instance.interceptors.response.use(
   }
 );
 
-const errorCode = {
+const errorCodeObj = {
   10001: "错误的请求KEY",
   10002: "该KEY无请求权限",
   10003: "KEY过期",
