@@ -5,25 +5,16 @@ import type { AxiosPromise } from "axios";
 //   error_code: number; // 错误码
 //   reason: string; // 错误原因
 //   result: string; // 返回实体内容
-//   holiday: string; // 当月近期假日
-//   holiday_array:
-//   status
 // }
-
-interface IHttpResponseDay {
-  error_code: number; // 错误码
-  reason: string; // 错误原因
-  result: string; // 返回实体内容
-}
 
 /**
  * 根据传入日期返回当天详细信息
  * @param data 指定日期,格式为YYYY-MM-DD,如月份和日期小于10,则取个位,如:2012-1-1
  * @returns
  */
-export function apiPostDay(date: string): AxiosPromise<IHttpResponseDay> {
-  return request.post("/api/day", {
-    data: {
+export function apiPostDay(date: string) {
+  return request.get("/api/day", {
+    params: {
       date,
     },
   });
@@ -35,10 +26,8 @@ export function apiPostDay(date: string): AxiosPromise<IHttpResponseDay> {
  * @returns
  */
 export function apiPostMonth(data: string) {
-  return request({
-    url: "/api/month",
-    method: "post",
-    data: {
+  return request.get("/api/month", {
+    params: {
       "year-month": data,
     },
   });
@@ -50,10 +39,8 @@ export function apiPostMonth(data: string) {
  * @returns
  */
 export function apiPostYear(data: string) {
-  return request({
-    url: "/api/year",
-    method: "post",
-    data: {
+  return request.get("/api/year", {
+    params: {
       year: data,
     },
   });
