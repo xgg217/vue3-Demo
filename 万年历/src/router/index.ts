@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: "/month",
       name: "month",
-      component: () => import("@/views/MonthView.vue"),
+      component: () => import("@/views/MonthView/MonthView.vue"),
     },
     {
       path: "/year",
