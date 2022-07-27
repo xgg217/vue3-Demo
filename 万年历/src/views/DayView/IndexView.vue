@@ -58,7 +58,7 @@ const asyncPostDay = (dateStr: string) => {
 
 <template>
   <HeaderNav title="当天信息" />
-  <DateSearch @change="handleGetDate" />
+  <DateSearch type="date" @change="handleGetDate" />
   <van-cell-group>
     <van-cell title="具体日期" :value="dayObj.date" />
     <van-cell title="农历" :value="dayObj.lunar" />

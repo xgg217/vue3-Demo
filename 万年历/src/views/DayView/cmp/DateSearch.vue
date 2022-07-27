@@ -6,10 +6,21 @@ import dayjs from "dayjs";
 const show = ref(false);
 const currentDate = ref(new Date(2021, 0, 17));
 
+interface Props {
+  type: "date" | "year-month"; // 日期类型 年月日 | 年月
+}
+// eslint-disable-next-line vue/no-setup-props-destructure
+const { type = "date" } = defineProps<Props>();
+
 // 确定选择日期
 const handleConfirm = (value: Date) => {
-  // console.log(dayjs(value).format("YYYY-M-D"));
-  emit("change", dayjs(value).format("YYYY-M-D"));
+  if (type === "date") {
+    emit("change", dayjs(value).format("YYYY-M-D"));
+  } else {
+    emit("change", dayjs(value).format("YYYY-M"));
+  }
+
+  show.value = false;
 };
 
 // 基于类型
@@ -27,7 +38,7 @@ const emit = defineEmits<{
     <div class="content">
       <van-datetime-picker
         v-model="currentDate"
-        type="date"
+        :type="type"
         title="选择年月日"
         @confirm="handleConfirm"
       />
@@ -37,10 +48,11 @@ const emit = defineEmits<{
 
 <style scoped>
 .search {
-  width: 100vw;
+  /* width: 100vw; */
   height: 40px;
-  border: 1px solid red;
+  border: 1px solid blue;
   padding: 5px 10px;
+  box-sizing: border-box;
 }
 
 .search p {
@@ -51,6 +63,6 @@ const emit = defineEmits<{
 
 .content {
   height: 40vh;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 </style>
