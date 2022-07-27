@@ -10,7 +10,7 @@ const handleYear = (year: number) => {
 </script>
 
 <template>
-  <HeaderNav title="年" />
+  <HeaderNav title="当年假期" />
   <DateSearch @change="handleYear" />
 
   <ul class="year-list">
