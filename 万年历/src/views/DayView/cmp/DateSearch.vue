@@ -12,6 +12,11 @@ interface Props {
 // eslint-disable-next-line vue/no-setup-props-destructure
 const { type = "date" } = defineProps<Props>();
 
+// 自定义事件
+const emit = defineEmits<{
+  (e: "change", dateStr: string): void;
+}>();
+
 // 确定选择日期
 const handleConfirm = (value: Date) => {
   if (type === "date") {
@@ -22,11 +27,6 @@ const handleConfirm = (value: Date) => {
 
   show.value = false;
 };
-
-// 基于类型
-const emit = defineEmits<{
-  (e: "change", dateStr: string): void;
-}>();
 </script>
 
 <template>

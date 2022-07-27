@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: "/year",
       name: "year",
-      component: () => import("@/views/YearView.vue"),
+      component: () => import("@/views/YearView/YearView.vue"),
     },
   ],
 });
