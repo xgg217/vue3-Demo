@@ -1,13 +1,22 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  name: string; //假日名称
+  festival: string; //年月日
+  desc: string; //假日描述
+  rest: string; //拼假建议
+}
+// eslint-disable-next-line vue/no-setup-props-destructure
+const { name = "", festival = "", desc = "", rest = "" } = defineProps<Props>();
+</script>
 
 <template>
   <div class="car">
     <div class="car-name">
-      <p class="car-jr">端午节</p>
-      <p class="car-date">2020年6月25日</p>
+      <p class="car-jr">{{ name }}</p>
+      <p class="car-date">{{ festival }}</p>
     </div>
-    <p class="car-ms">假期描述：</p>
-    <p class="car-jy">拼假建议：</p>
+    <p class="car-ms">假期描述：{{ desc }}</p>
+    <p class="car-jy">拼假建议：{{ rest }}</p>
   </div>
 </template>
 
