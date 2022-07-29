@@ -42,6 +42,26 @@ const asyncPostDay = (dateStr: string) => {
   apiPostDay(dateStr)
     .then((res) => {
       console.log(res);
+      const {
+        animalsYear,
+        avoid,
+        date,
+        desc,
+        holiday,
+        lunar,
+        lunarYear,
+        suit,
+        weekday,
+      } = res as unknown as IDay;
+      dayObj.date = date;
+      dayObj.lunar = lunar;
+      dayObj.weekday = weekday;
+      dayObj.holiday = holiday;
+      dayObj.animalsYear = animalsYear;
+      dayObj.lunarYear = lunarYear;
+      dayObj.suit = suit;
+      dayObj.avoid = avoid;
+      dayObj.desc = desc;
     })
     .catch((err) => {
       console.error(err);
@@ -49,11 +69,11 @@ const asyncPostDay = (dateStr: string) => {
 };
 
 // 初始化日期
-// (function () {
-//   const day = dayjs().format("YYYY-M-D");
+(function () {
+  const day = dayjs().format("YYYY-M-D");
 
-//   asyncPostDay(day);
-// })();
+  asyncPostDay(day);
+})();
 </script>
 
 <template>

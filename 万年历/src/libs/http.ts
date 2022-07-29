@@ -47,7 +47,7 @@ instance.interceptors.response.use(
       return Promise.reject(reason);
     }
 
-    return response.data;
+    return response.data.result.data;
   },
   (error) => {
     // 对响应错误做点什么
