@@ -10,21 +10,11 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/OpJsq',
-      component: () => import('@/views/OpJsq.vue')
+      path: '/',
+      name: 'useTitle',
+      component: () => import('@/views/useTitle/index.vue')
     },
-    {
-      path: '/CmJsq',
-      component: () => import('@/views/CmJsq/index.vue')
-    },
-    {
-      path: '/setTitle',
-      component: () => import('@/views/setTitle/index.vue')
-    },
-    {
-      path: '/ScrollPosition',
-      component: () => import('@/views/ScrollPosition/index.vue')
-    }
+  
   ]
 })
 
