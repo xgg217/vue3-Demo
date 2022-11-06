@@ -1,15 +1,18 @@
 <script setup lang="ts">
+// import { useTitle } from '@vueuse/core'
+import myuseTitle from './useTitle'
 import { ref } from 'vue';
 // import useTitle from './useTitle';
-const myTitle = ref('')
-const title = ref('')
+const myTitle = myuseTitle('')
+
+// const title = useTitle('111')
 </script>
 
 <template>
   <div class="aaa c">
     <input type="text" v-model="myTitle">
     <div>----------VueUse库------</div>
-    <input type="text" v-model="title">
+    <!-- <input type="text" v-model="title"> -->
   </div>
 </template>
 
