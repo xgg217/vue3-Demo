@@ -6,7 +6,7 @@ import { RouterLink } from "vue-router";
   <main>
     <ul>
       <li>
-        <RouterLink to="/useTitle">修改网页标题</RouterLink>
+        <RouterLink to="/useTitle">修改网页标题useTitle</RouterLink>
       </li>
     </ul>
   </main>
