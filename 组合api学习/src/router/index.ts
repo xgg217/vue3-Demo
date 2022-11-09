@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'useTitle',
       component: () => import('@/views/useTitle/index.vue')
     },
+    {
+      path: '/useClipboard',
+      name: 'useClipboard',
+      component: () => import('@/views/useClipboard/index.vue')
+    },
   
   ]
 })

@@ -3,6 +3,8 @@
 import myuseTitle from './useTitle'
 import { ref } from 'vue';
 // import useTitle from './useTitle';
+const t = ref('123')
+// const myTitle = myuseTitle(t)
 const myTitle = myuseTitle('')
 
 // const title = useTitle('111')
