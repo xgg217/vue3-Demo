@@ -19,6 +19,11 @@ const router = createRouter({
       name: 'useClipboard',
       component: () => import('@/views/useClipboard/index.vue')
     },
+    {
+      path: '/useColorMode',
+      name: 'useColorMode',
+      component: () => import('@/views/useColorMode/index.vue')
+    },
   
   ]
 })

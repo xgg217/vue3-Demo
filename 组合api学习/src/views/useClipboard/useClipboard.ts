@@ -3,14 +3,12 @@
 
 import { ref, computed } from "vue";
 export default function useClipboard() {
-  // const text, copy, copied, isSupported
   const text = ref('') // 是当前从剪切板读取到的文本
   const copied = ref(false) // copied用于判断是否复制成功
 
   // isSupported用于判断当前浏览器是否支持剪切板API
   const isSupported = computed(() => {
-    console.log('执行');
-    
+    // console.log('执行');
     return navigator.clipboard ? true : false
   })
 
