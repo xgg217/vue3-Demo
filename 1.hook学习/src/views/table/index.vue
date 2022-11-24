@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
+import type { tableType } from './types'
+
+
+const dateRef = ref<tableType[]>([])
+
 const data = [
   {
     row: 'X',
@@ -29,13 +34,15 @@ const data = [
     ]
   }
 ]
+dateRef.value = data
+
 </script>
 
 <template>
   <div>表格操作</div>
 
   <table border="1">
-    <tr v-for="item of data">
+    <tr v-for="item of dateRef">
       <td>{{ item.row }}</td>
       <td v-for="key of item.data">{{ key.content }}</td>
     </tr>
