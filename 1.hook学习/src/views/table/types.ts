@@ -1,9 +1,17 @@
 type dataType = {
   id: number;
   content: number;
+  selected: boolean;
 }
 
-export type tableType = {
+type tableType = {
   row: string;
-  data: dataType[]
+  data: dataType[],
+
+}
+
+export type stateType = {
+  dateRef: tableType[];
+  selectedData: tableType;
+  selectedAredData: tableType[]
 }
