@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { reactive, watch } from "vue";
-import type { stateType } from './types'
-import vtableSelect from './tableSelect'
+import { ref,reactive, watch } from "vue";
+import type { stateType, tableType, dataType } from './types'
+import vTableSelect from './tableSelect'
 
-const state:stateType = reactive({
+const state = reactive<stateType>({
   dateRef: [], //
-  selectedData: {}, // 选中的数据
+  selectedData: null, // 选中的数据
   selectedAredData: [] // 多选选中的数据
 })
+// const state:stateType = reactive({
+//   dateRef: [],
+//   selectedData: {},
+//   selectedAredData: []
+// })
 
-// const dateRef = ref<tableType[]>([])
-// const selectedData = ref<dataType>({}) // 选中的数据
-// const selectedAredData = ref<dataType[]>([]) // 多选选中的数据
-
-
-const data = [
+const data:tableType[] = [
   {
     row: 'X',
     data: [
@@ -43,10 +43,17 @@ const data = [
     ]
   }
 ]
+
+// const dateRef = ref<tableType[]>(data)
+// const selectedData = ref<dataType>() // 选中的数据
+// const selectedAredData = ref<dataType[]>([]) // 多选选中的数据
+
+
+
 state.dateRef = data
 
 // 监听单击选中事件
-watch(()=> state.selectedData, (val) => {
+watch(() => state.selectedData, (val) => {
   console.log(val)
 })
 
@@ -59,13 +66,15 @@ watch(() => state.selectedAredData, (val) => {
 <template>
   <div>表格操作</div>
 
-  <table border="1" v-table-selected="state">
-    <tr v-for="(item,index) of state.dateRef" :key="index">
-      <td>{{ item.row }}</td>
+  <table border="1" v-table-select="state">
+    <tr v-for="(item, rowIndex) of state.dateRef" :key="rowIndex">
+      <th>{{ item.row }}</th>
       <td
-        v-for="(key, ind) of item.data"
-        :key="ind"
+        v-for="(key, columnIndex) of item.data"
+        :key="columnIndex"
         :class="{ selected: key.selected }"
+        :data-row="rowIndex"
+        :data-column="columnIndex"
       >{{ key.content }}</td>
     </tr>
   </table>
