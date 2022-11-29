@@ -2,7 +2,7 @@ import type { DirectiveBinding } from "vue";
 import type { stateType } from "./types";
 
 const vTableSelect = {
-  mounted(el: HTMLElement, bindings: DirectiveBinding<stateType>) {
+  mounted(el: HTMLElement, bindings: DirectiveBinding) {
     console.log(el);
     console.log(bindings.value);
 
@@ -30,8 +30,9 @@ function handleTDClick(value: stateType[], e:MouseEvent) {
   // console.log(e.target.name);
   if((target as HTMLElement).tagName === 'TD') {
     console.log('td');
-    const { row, column } = getRowAndColumn(target as HTMLElement)
-    console.log(row, column);
+
+    // console.log(row, column);
+    getTargetData(target as HTMLElement, value.tableType)
 
   }
 }
@@ -68,8 +69,15 @@ function getRowAndColumn(e: HTMLElement) {
 }
 
 // 获取 指定数据
-function getTargetData(data:stateType[], row:number, column:number) {
+function getTargetData(target:HTMLElement, data:stateType[]) {
   // return data[row][column]
+
+  const { row, column } = getRowAndColumn(target)
+
+  return {
+    row: data[row].dateRef,
+    column: data[row].dateRef
+  }
 }
 
 export default vTableSelect
