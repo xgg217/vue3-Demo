@@ -32,7 +32,7 @@ function handleTDClick(value: stateType, e:MouseEvent) {
 
   const { row, column } = getRowAndColumn(target as HTMLElement)
   const selectedTD = value.dateRef[row].data[column]
-  // console.log(selectedTD);
+
   if(value.selectedData !== selectedTD) {
     value.selectedData = {...selectedTD}
     value.selectedData.selected = true
@@ -45,14 +45,15 @@ function handleTDClick(value: stateType, e:MouseEvent) {
 function handleTDDblclick(value: stateType, e: MouseEvent) {
   const { target } = e
   e.stopPropagation();
-  console.log(value);
+  // console.log(value);
 }
 
 // 事件处理
 function handleWindowClick(value: stateType, e: MouseEvent) {
   const { target } = e
   e.stopPropagation();
-  console.log(value);
+  // console.log(value);
+  resetSelectedState(value) // 恢复选中状态
 }
 
 // 事件处理
