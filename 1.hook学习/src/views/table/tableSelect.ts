@@ -1,5 +1,5 @@
 import type { DirectiveBinding } from "vue";
-import type { stateType } from "./types";
+import type { stateType, tableType } from "./types";
 
 const vTableSelect = {
   mounted(el: HTMLElement, bindings: DirectiveBinding) {
@@ -12,7 +12,7 @@ const vTableSelect = {
 }
 
 // 事件委托
-function bindEvent(el: HTMLElement, value: stateType[]) {
+function bindEvent(el: HTMLElement, value:stateType) {
   el.addEventListener('click', handleTDClick.bind(el, value));
   el.addEventListener('dblclick', handleTDDblclick.bind(el, value));
   el.addEventListener('mousedown', handleTDMousedown.bind(el, value));
@@ -23,36 +23,40 @@ function bindEvent(el: HTMLElement, value: stateType[]) {
  * 事件处理 - 单击
  * @param value
  */
-function handleTDClick(value: stateType[], e:MouseEvent) {
+function handleTDClick(value: stateType, e:MouseEvent) {
   const { target } = e
   e.stopPropagation();
-  console.log(value);
-  // console.log(e.target.name);
-  if((target as HTMLElement).tagName === 'TD') {
-    console.log('td');
 
-    // console.log(row, column);
-    getTargetData(target as HTMLElement, value.tableType)
+  resetSelectedState(value) // 恢复选中状态
+  if((target as HTMLElement).tagName !== 'TD') { return }
 
+  const { row, column } = getRowAndColumn(target as HTMLElement)
+  const selectedTD = value.dateRef[row].data[column]
+  // console.log(selectedTD);
+  if(value.selectedData !== selectedTD) {
+    value.selectedData = {...selectedTD}
+    value.selectedData.selected = true
+
+    value.dateRef[row].data[column] = value.selectedData // 重新赋值
   }
 }
 
 // 事件处理
-function handleTDDblclick(value: stateType[], e: MouseEvent) {
+function handleTDDblclick(value: stateType, e: MouseEvent) {
   const { target } = e
   e.stopPropagation();
   console.log(value);
 }
 
 // 事件处理
-function handleWindowClick(value: stateType[], e: MouseEvent) {
+function handleWindowClick(value: stateType, e: MouseEvent) {
   const { target } = e
   e.stopPropagation();
   console.log(value);
 }
 
 // 事件处理
-function handleTDMousedown(value: stateType[], e: MouseEvent) {
+function handleTDMousedown(value: stateType, e: MouseEvent) {
   const { target } = e
   e.stopPropagation();
 
@@ -68,16 +72,24 @@ function getRowAndColumn(e: HTMLElement) {
   }
 }
 
-// 获取 指定数据
-function getTargetData(target:HTMLElement, data:stateType[]) {
-  // return data[row][column]
-
-  const { row, column } = getRowAndColumn(target)
-
-  return {
-    row: data[row].dateRef,
-    column: data[row].dateRef
-  }
+// 恢复选中状态
+function resetSelectedState(value: stateType) {
+  value.dateRef.forEach((item: tableType) => {
+    item.data.forEach((td: any) => {
+      td.selected = false
+    })
+  })
 }
+
+// 获取 指定数据
+// function getTargetData(target:HTMLElement, data:tableType[]) {
+
+//   // const { row, column } = getRowAndColumn(target)
+//   const { dataset } = target
+//   const row = Number(dataset.row)
+//   const column = Number(dataset.column)
+
+//   return data[row].data[column]
+// }
 
 export default vTableSelect

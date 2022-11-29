@@ -72,7 +72,7 @@ watch(() => state.selectedAredData, (val) => {
       <td
         v-for="(key, columnIndex) of item.data"
         :key="columnIndex"
-        :class="{ selected: key.selected }"
+        :class="{ 'selected': key.selected }"
         :data-row="rowIndex"
         :data-column="columnIndex"
       >{{ key.content }}</td>
