@@ -14,3 +14,10 @@ export type stateType = {
   selectedData: dataType | null;
   selectedAredData: dataType[]
 }
+
+export type selectedObjType = {
+  startRow: number;
+  startColumn: number;
+  endRow: number;
+  endColumn: number;
+}
