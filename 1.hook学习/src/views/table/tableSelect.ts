@@ -1,5 +1,5 @@
 import type { DirectiveBinding } from "vue";
-import type { stateType, tableType, selectedObjType } from "./types";
+import type { stateType, tableType, selectedObjType, dataType } from "./types";
 
 const selectedObj:selectedObjType = {
   startRow: 0, // 开始行
@@ -102,7 +102,7 @@ function handleTDMouseup(value: stateType, e: MouseEvent) {
 // 事件处理 - 鼠标抬起
 function handleTDMouseOver(value: stateType, e: MouseEvent) {
   const { target } = e
-  console.log(target);
+  // console.log(target);
 
   if((target as HTMLElement).tagName !== 'TD') { return }
 
@@ -111,7 +111,9 @@ function handleTDMouseOver(value: stateType, e: MouseEvent) {
   selectedObj.endRow = row
   selectedObj.endColumn = column
 
-  getSelectedAreaData(selectedObj)
+  const arr = getSelectedAreaData(selectedObj)
+  console.log(arr);
+
 
 }
 
@@ -133,8 +135,45 @@ function resetSelectedState(value: stateType) {
   })
 }
 
-function getSelectedAreaData( selectedObj: selectedObjType) {
+function getSelectedAreaData( selectedObj: selectedObjType):dataType[] {
+  const { dateRef } = stateTypeObj;
+  const { startRow, startColumn, endRow, endColumn } = selectedObj
+  const arr:dataType[] = [];
+  if(startRow <= endRow) {
+    // 从上往下
+    for(let i = startRow; i <= endRow; i++) {
+      setSelectedAredData(dateRef[i].data, startColumn, endColumn)
+    }
 
+  } else {
+    // 从下往上
+    for(let i = startRow; i >= endRow; i--) {
+      setSelectedAredData(dateRef[i].data, startColumn, endColumn)
+    }
+
+  }
+
+  //
+  function setSelectedAredData(rowData:dataType[], startColumn:number, endColumn:number) {
+    if(startColumn <= endColumn) {
+      // 从左往右
+      for(let i = startColumn; i <= endColumn; i++) {
+        pushColumnData(rowData[i])
+      }
+    } else {
+      // 从右往左
+      for(let i = startColumn; i >= endColumn; i--) {
+        pushColumnData(rowData[i])
+      }
+    }
+  }
+
+  function pushColumnData(columnData:dataType) {
+    columnData.selected = true;
+    arr.push(columnData);
+  }
+
+  return arr
 }
 
 // 获取 指定数据
