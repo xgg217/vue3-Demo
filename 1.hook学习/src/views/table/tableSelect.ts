@@ -1,6 +1,7 @@
 import type { DirectiveBinding } from "vue";
 import type { stateType, tableType } from "./types";
 
+// 鼠标拖动涉及到的区域
 const selectedObj = {
   startRow: 0,
   startColumn: 0,
