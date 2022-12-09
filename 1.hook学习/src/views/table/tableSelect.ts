@@ -1,18 +1,29 @@
 import type { DirectiveBinding } from "vue";
-import type { stateType, tableType } from "./types";
+import type { stateType, tableType, selectedObjType, dataType } from "./types";
 
 // 鼠标拖动涉及到的区域
-const selectedObj = {
-  startRow: 0,
-  startColumn: 0,
-  endRow: 0,
-  endColumn: 0,
+const selectedObj:selectedObjType = {
+  startRow: 0, // 开始行
+  startColumn: 0, // 开始列
+  endRow: 0, // 结束行
+  endColumn: 0, // 结束列
+}
+const stateTypeObj:stateType = {
+  dateRef: [],
+  selectedData: null,
+  selectedAredData: []
 }
 
 const vTableSelect = {
   mounted(el: HTMLElement, bindings: DirectiveBinding) {
     console.log(el);
     console.log(bindings.value);
+
+    stateTypeObj.dateRef = bindings.value.dateRef
+    stateTypeObj.selectedData = bindings.value.selectedData
+    stateTypeObj.selectedAredData = bindings.value.selectedAredData
+
+
 
     // 触发事件委托
     bindEvent(el, bindings.value);
@@ -71,11 +82,14 @@ function handleTDMousedown(value: stateType, e: MouseEvent) {
   e.stopPropagation();
   resetSelectedState(value) // 恢复选中状态
 
-  document.addEventListener('mousemove',  handleTDMousemove.bind(target, value));
+  document.addEventListener('mouseover',  handleTDMouseOver.bind(target, value));
   document.addEventListener('mouseup', handleTDMouseup.bind(target, value));
 
   if((target as HTMLElement).tagName !== 'TD') { return }
   const { row, column } = getRowAndColumn(target as HTMLElement)
+
+  selectedObj.startRow = row
+  selectedObj.startColumn = column
 
 }
 
@@ -83,13 +97,25 @@ function handleTDMousedown(value: stateType, e: MouseEvent) {
 function handleTDMouseup(value: stateType, e: MouseEvent) {
   const { target } = e
   document.removeEventListener('mouseup', handleTDMouseup.bind(target, value));
-  document.removeEventListener('mousemove', handleTDMousemove.bind(target, value));
+  document.removeEventListener('mouseover', handleTDMouseOver.bind(target, value));
 }
 
 // 事件处理 - 鼠标抬起
-function handleTDMousemove(value: stateType, e: MouseEvent) {
+function handleTDMouseOver(value: stateType, e: MouseEvent) {
   const { target } = e
-  document.removeEventListener('mouseup', handleTDMouseup.bind(target, value));
+  // console.log(target);
+
+  if((target as HTMLElement).tagName !== 'TD') { return }
+
+  const { row, column } = getRowAndColumn(target as HTMLElement)
+
+  selectedObj.endRow = row
+  selectedObj.endColumn = column
+
+  const arr = getSelectedAreaData(selectedObj)
+  console.log(arr);
+
+
 }
 
 // 获取 行 和 列
@@ -108,6 +134,47 @@ function resetSelectedState(value: stateType) {
       td.selected = false
     })
   })
+}
+
+function getSelectedAreaData( selectedObj: selectedObjType):dataType[] {
+  const { dateRef } = stateTypeObj;
+  const { startRow, startColumn, endRow, endColumn } = selectedObj
+  const arr:dataType[] = [];
+  if(startRow <= endRow) {
+    // 从上往下
+    for(let i = startRow; i <= endRow; i++) {
+      setSelectedAredData(dateRef[i].data, startColumn, endColumn)
+    }
+
+  } else {
+    // 从下往上
+    for(let i = startRow; i >= endRow; i--) {
+      setSelectedAredData(dateRef[i].data, startColumn, endColumn)
+    }
+
+  }
+
+  //
+  function setSelectedAredData(rowData:dataType[], startColumn:number, endColumn:number) {
+    if(startColumn <= endColumn) {
+      // 从左往右
+      for(let i = startColumn; i <= endColumn; i++) {
+        pushColumnData(rowData[i])
+      }
+    } else {
+      // 从右往左
+      for(let i = startColumn; i >= endColumn; i--) {
+        pushColumnData(rowData[i])
+      }
+    }
+  }
+
+  function pushColumnData(columnData:dataType) {
+    columnData.selected = true;
+    arr.push(columnData);
+  }
+
+  return arr
 }
 
 // 获取 指定数据
