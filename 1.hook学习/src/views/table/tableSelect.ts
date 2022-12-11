@@ -96,8 +96,10 @@ function handleTDMousedown(value: stateType, e: MouseEvent) {
 // 事件处理 - 鼠标抬起
 function handleTDMouseup(value: stateType, e: MouseEvent) {
   const { target } = e
+  console.log('鼠标抬起');
   document.removeEventListener('mouseup', handleTDMouseup.bind(target, value));
   document.removeEventListener('mouseover', handleTDMouseOver.bind(target, value));
+  document.removeEventListener('mousedown', handleTDMousedown.bind(target, value));
 }
 
 // 事件处理 - 鼠标抬起
