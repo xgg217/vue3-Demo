@@ -33,19 +33,21 @@ const vTableSelect = {
 // 事件委托
 function bindEvent(el: HTMLElement, value:stateType) {
 
-  el.addEventListener('click', handleTDClick.bind(el, value));
-  el.addEventListener('dblclick', handleTDDblclick.bind(el, value));
-  el.addEventListener('mousedown', handleTDMousedown.bind(el, value));
-  window.addEventListener('click', handleWindowClick.bind(el, value));
+  el.addEventListener('click', handleTDClick);
+  el.addEventListener('dblclick', handleTDDblclick);
+  window.addEventListener('click', handleWindowClick);
+  el.addEventListener('mousedown', handleTDMousedown);
 }
 
 /**
  * 事件处理 - 单击
  * @param value
  */
-function handleTDClick(value: stateType, e:MouseEvent) {
+function handleTDClick(e:MouseEvent) {
   const { target } = e
   e.stopPropagation();
+
+  const value  = stateTypeObj
 
   resetSelectedState(value) // 恢复选中状态
   if((target as HTMLElement).tagName !== 'TD') { return }
@@ -62,28 +64,31 @@ function handleTDClick(value: stateType, e:MouseEvent) {
 }
 
 // 事件处理 - 双击
-function handleTDDblclick(value: stateType, e: MouseEvent) {
+function handleTDDblclick(e: MouseEvent) {
   const { target } = e
   e.stopPropagation();
-  // console.log(value);
+  const value  = stateTypeObj
+  console.log(value);
 }
 
 // 事件处理 - 全局点击
-function handleWindowClick(value: stateType, e: MouseEvent) {
+function handleWindowClick(e: MouseEvent) {
   const { target } = e
   e.stopPropagation();
   // console.log(value);
+  const value  = stateTypeObj
   resetSelectedState(value) // 恢复选中状态
 }
 
 // 事件处理 - 鼠标按下
-function handleTDMousedown(value: stateType, e: MouseEvent) {
+function handleTDMousedown(e: MouseEvent) {
   const { target } = e
   e.stopPropagation();
+  const value  = stateTypeObj
   resetSelectedState(value) // 恢复选中状态
 
-  document.addEventListener('mouseover',  handleTDMouseOver.bind(target, value));
-  document.addEventListener('mouseup', handleTDMouseup.bind(target, value));
+  document.addEventListener('mouseover',  handleTDMouseOver);
+  document.addEventListener('mouseup', handleTDMouseup);
 
   if((target as HTMLElement).tagName !== 'TD') { return }
   const { row, column } = getRowAndColumn(target as HTMLElement)
@@ -94,14 +99,14 @@ function handleTDMousedown(value: stateType, e: MouseEvent) {
 }
 
 // 事件处理 - 鼠标抬起
-function handleTDMouseup(value: stateType, e: MouseEvent) {
+function handleTDMouseup(e: MouseEvent) {
   const { target } = e
-  document.removeEventListener('mouseup', handleTDMouseup.bind(target, value));
-  document.removeEventListener('mouseover', handleTDMouseOver.bind(target, value));
+  document.removeEventListener('mouseup', handleTDMouseup);
+  document.removeEventListener('mouseover', handleTDMouseOver);
 }
 
 // 事件处理 - 鼠标抬起
-function handleTDMouseOver(value: stateType, e: MouseEvent) {
+function handleTDMouseOver(e: MouseEvent) {
   const { target } = e
   // console.log(target);
 
