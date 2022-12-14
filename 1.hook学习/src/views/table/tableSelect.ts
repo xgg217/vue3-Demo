@@ -103,6 +103,7 @@ function handleTDMouseup(e: MouseEvent) {
   const { target } = e
   document.removeEventListener('mouseup', handleTDMouseup);
   document.removeEventListener('mouseover', handleTDMouseOver);
+  document.removeEventListener('mousedown', handleTDMousedown);
 }
 
 // 事件处理 - 鼠标抬起
