@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/table',
       name: 'table',
       component: () => import('../views/table/index.vue')
+    },
+    {
+      path: '/transfer',
+      name: 'transfer',
+      component: () => import('../views/transfer/index.vue')
     }
   ]
 })
