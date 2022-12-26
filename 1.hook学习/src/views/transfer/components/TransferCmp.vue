@@ -2,6 +2,11 @@
 import { ref } from 'vue';
 
 import ListCmp from './ListCmp.vue';
+import type { IItem } from './../types'
+
+const props = defineProps<{
+  data: IItem[]
+}>()
 
 
 const leftList = ref([]) // 左侧列表所有数据

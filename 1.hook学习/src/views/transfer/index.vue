@@ -3,13 +3,15 @@ import { ref } from 'vue'
 import type { IItem } from './types'
 
 const generateData = () => {
-  const data: Option[] = []
+  const data: IItem[] = []
   for (let i = 1; i <= 15; i++) {
-    data.push({
+    const obj: IItem  = {
       key: i,
       label: `Option ${i}`,
       disabled: i % 4 === 0,
-    })
+      checked: false
+    }
+    data.push(obj)
   }
   return data
 }
