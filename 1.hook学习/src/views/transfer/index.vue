@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { IItem } from './types'
+import TransferCmp from './components/TransferCmp.vue'
 
 const generateData = () => {
   const data: IItem[] = []
@@ -21,7 +22,7 @@ const value = ref([])
 
 
 
-import TransferCmp from './components/TransferCmp.vue'
+
 </script>
 
 <template>

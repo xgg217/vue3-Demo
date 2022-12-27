@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch, computed } from 'vue';
 
 import ListCmp from './ListCmp.vue';
 import type { IItem } from './../types'
@@ -9,25 +9,67 @@ const props = defineProps<{
 }>()
 
 
-const leftList = ref([]) // 左侧列表所有数据
-const leftSelectedList = ref([]) // 左侧列表选中数据
-const rightList = ref([]) // 右侧列表所有数据
-const rightSelectedList = ref([]) // 右侧列表选中数据
+const leftList = ref<IItem[]>([]) // 左侧列表所有数据
+const rightList = ref<IItem[]>([]) // 右侧列表所有数据
+
+watch(() => props.data, (val) => {
+  leftList.value = val.map((item) => {
+    return {
+      ...item,
+      checked: false
+    }
+  })
+}, { immediate: true })
+
+// 左侧是否选中
+const isLeft = computed(() => {
+  return leftList.value.filter(item => item.checked).length === 0
+})
+
+// 右侧是否选中
+const isRight = computed(() => {
+  return rightList.value.filter(item => item.checked).length === 0
+})
+
+// 向右 添加
+const hanldeAddRight = () => {
+  const arr = leftList.value.filter(item => item.checked)
+  rightList.value = [...rightList.value, ...arr].map(item => {
+    return {
+      ...item,
+      checked: false
+    }
+  })
+  leftList.value = leftList.value.filter(item => !item.checked)
+}
+
+// 向左 添加
+const hanldeAddLeft = () => {
+  const arr = rightList.value.filter(item => item.checked)
+  leftList.value = [...leftList.value, ...arr].map(item => {
+    return {
+      ...item,
+      checked: false
+    }
+  })
+  rightList.value = rightList.value.filter(item => !item.checked)
+}
+
 </script>
 
 <template>
   <div class="warpp">
     <!-- 左侧 -->
-    <ListCmp></ListCmp>
+    <ListCmp :data="leftList"></ListCmp>
 
     <!-- 按钮 -->
     <div class="but">
-      <button type="button">向左</button>
-      <button type="button">向右</button>
+      <button type="button" :disabled="isRight" @click="hanldeAddLeft">向左</button>
+      <button type="button" :disabled="isLeft" @click="hanldeAddRight">向右</button>
     </div>
 
     <!-- 右侧 -->
-    <ListCmp></ListCmp>
+    <ListCmp :data="rightList"></ListCmp>
 
   </div>
 </template>

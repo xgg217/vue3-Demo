@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import type { IItem } from './../types'
+const props = defineProps<{
+  data: IItem[]
+}>()
 </script>
 
 <template>
@@ -13,65 +17,17 @@
 
     <div class="list">
       <ul>
-        <li>
+        <!-- <li>
           <label>
             <input type="checkbox" value="" />
             <p>List 1</p>
           </label>
-        </li>
-        <li>
-          <label>
-            <input type="checkbox" value="" />
-            <p>List 1</p>
-          </label>
-        </li>
-        <li>
-          <label>
-            <input type="checkbox" value="" />
-            <p>List 1</p>
-          </label>
-        </li>
-        <li>
-          <label>
-            <input type="checkbox" value="" />
-            <p>List 1</p>
-          </label>
-        </li>
-        <li>
-          <label>
-            <input type="checkbox" value="" />
-            <p>List 1</p>
-          </label>
-        </li>
+        </li> -->
 
-        <li>
+         <li v-for="item of props.data">
           <label>
-            <input type="checkbox" value="" />
-            <p>List 1</p>
-          </label>
-        </li>
-        <li>
-          <label>
-            <input type="checkbox" value="" />
-            <p>List 1</p>
-          </label>
-        </li>
-        <li>
-          <label>
-            <input type="checkbox" value="" />
-            <p>List 1</p>
-          </label>
-        </li>
-        <li>
-          <label>
-            <input type="checkbox" value="" />
-            <p>List 1</p>
-          </label>
-        </li>
-        <li>
-          <label>
-            <input type="checkbox" value="" />
-            <p>List 1</p>
+            <input type="checkbox" v-model="item.checked" />
+            <p>{{ item.label }}</p>
           </label>
         </li>
       </ul>
