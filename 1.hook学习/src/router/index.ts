@@ -10,20 +10,10 @@ const router = createRouter({
       component: Home
     },
     {
-      path: '/table',
-      name: 'table',
-      component: () => import('../views/table/index.vue')
+      path: '/useRect',
+      name: 'useRect',
+      component: () => import('../views/useRect/index.vue')
     },
-    {
-      path: '/transfer',
-      name: 'transfer',
-      component: () => import('../views/transfer/index.vue')
-    },
-    {
-      path: '/lazyload',
-      name: 'lazyload',
-      component: () => import('../views/Lazyload/index.vue')
-    }
   ]
 })
 

@@ -5,13 +5,7 @@ import { RouterLink } from "vue-router";
 <template>
   <ul>
     <li>
-      <RouterLink to="/table">自定义指令-表格的封装</RouterLink>
-    </li>
-    <li>
-      <RouterLink to="/transfer">模仿element push 穿梭框</RouterLink>
-    </li>
-    <li>
-      <RouterLink to="/transfer"> 图片懒加载</RouterLink>
+      <RouterLink to="/useRect">获取元素的大小及其相对于视口的位置，等价于 Element.getBoundingClientRect</RouterLink>
     </li>
   </ul>
 </template>
