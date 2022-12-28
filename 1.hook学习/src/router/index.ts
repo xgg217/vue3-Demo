@@ -18,6 +18,11 @@ const router = createRouter({
       path: '/transfer',
       name: 'transfer',
       component: () => import('../views/transfer/index.vue')
+    },
+    {
+      path: '/lazyload',
+      name: 'lazyload',
+      component: () => import('../views/Lazyload/index.vue')
     }
   ]
 })

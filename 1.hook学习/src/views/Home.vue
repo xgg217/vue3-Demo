@@ -10,6 +10,9 @@ import { RouterLink } from "vue-router";
     <li>
       <RouterLink to="/transfer">模仿element push 穿梭框</RouterLink>
     </li>
+    <li>
+      <RouterLink to="/transfer"> 图片懒加载</RouterLink>
+    </li>
   </ul>
 </template>
 
