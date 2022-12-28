@@ -3,6 +3,9 @@ import { ref, watch, computed } from 'vue';
 
 import ListCmp from './ListCmp.vue';
 import type { IItem } from './../types'
+const emit = defineEmits<{
+  (event: 'change', args: IItem[]): void
+}>()
 
 const props = defineProps<{
   data: IItem[]
@@ -41,6 +44,8 @@ const hanldeAddRight = () => {
     }
   })
   leftList.value = leftList.value.filter(item => !item.checked)
+
+  emit('change', rightList.value)
 }
 
 // 向左 添加
@@ -53,6 +58,8 @@ const hanldeAddLeft = () => {
     }
   })
   rightList.value = rightList.value.filter(item => !item.checked)
+
+  emit('change', rightList.value)
 }
 
 </script>
