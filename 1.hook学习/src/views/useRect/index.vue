@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import useRect1 from './useRect';
 import { useRect } from '@vant/use';
 
+
 const root = ref();
 
 onMounted(() => {
