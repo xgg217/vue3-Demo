@@ -12,7 +12,12 @@ const router = createRouter({
     {
       path: '/useRect',
       name: 'useRect',
-      component: () => import('../views/useRect/index.vue')
+      component: () => import('@/views/useRect/index.vue')
+    },
+    {
+      path: '/useCountDown',
+      name: 'useCountDown',
+      component: () => import('@/views/useCountDown/index.vue')
     },
   ]
 })
