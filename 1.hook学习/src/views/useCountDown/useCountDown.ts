@@ -62,7 +62,9 @@ export default function useCountDown(options: UseCountDownOptions):CountDown {
   current.total = total;
 
   // 开始计时
-  const start = () => {}
+  const start = () => {
+
+  }
 
   // 暂停计时
   const pause = () => {}
