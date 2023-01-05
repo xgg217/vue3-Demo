@@ -24,6 +24,15 @@ type CountDown = {
   current: CurrentTime; // 当前时间
 };
 
+const current = {
+  days: 0,
+  hours: 0,
+  total: 0,
+  minutes: 0,
+  seconds: 0,
+  milliseconds: 0,
+}
+
 // 时间处理
 const formatTime = (time: number) => {
   const days = Math.floor(time / 1000 / 60 / 60 / 24);
@@ -41,29 +50,39 @@ const formatTime = (time: number) => {
   };
 }
 
-export default function useCountDown(options: UseCountDownOptions):CountDown {
+let timer = 0;
 
-  const current = {
-    days: 0,
-    hours: 0,
-    total: 0,
-    minutes: 0,
-    seconds: 0,
-    milliseconds: 0,
-  }
+// 定时器
+const setD = () => {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    console.log('timer');
+    current.total = current.total - 1000;
+    setData(current.total)
+    setD();
+  }, 1000);
+}
 
-  console.log(formatTime(options.time));
-  const { days, hours, minutes, seconds, milliseconds, total } = formatTime(options.time);
+// 数据处理
+const setData = (time: number) => {
+  const { days, hours, minutes, seconds, milliseconds, total } = formatTime(time);
   current.days = days;
   current.hours = hours;
   current.minutes = minutes;
   current.seconds = seconds;
   current.milliseconds = milliseconds;
   current.total = total;
+}
+
+
+
+export default function useCountDown(options: UseCountDownOptions):CountDown {
+
+  setData(options.time);
 
   // 开始计时
   const start = () => {
-
+    setD()
   }
 
   // 暂停计时

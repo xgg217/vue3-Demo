@@ -12,7 +12,7 @@ const { current } = (() => {
     });
 
     // 开始倒计时
-    // countDown.start();
+    countDown.start();
 
   return {
     current: countDown.current,
@@ -27,6 +27,8 @@ const {
     // 倒计时 24 小时
     time: TIME,
   });
+
+  countDown.start();
 
   return {
     newCurrent: countDown.current
