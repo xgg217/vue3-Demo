@@ -50,11 +50,16 @@ const formatTime = (time: number) => {
   };
 }
 
+// 是否暂停
+let isStop = false;
+
 let timer = 0;
 
 // 定时器
 const setD = () => {
+  if(isStop) return
   clearTimeout(timer);
+
   timer = setTimeout(() => {
     console.log('timer');
     current.total = current.total - 1000;
@@ -86,7 +91,9 @@ export default function useCountDown(options: UseCountDownOptions):CountDown {
   }
 
   // 暂停计时
-  const pause = () => {}
+  const pause = () => {
+    isStop = true
+  }
 
   // 重置计时
   const reset = (totalTime: number) => {}

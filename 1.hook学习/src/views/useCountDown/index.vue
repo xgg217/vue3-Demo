@@ -5,17 +5,25 @@ import useCountDowns from './useCountDown';
 const TIME = 23 *60 * 60 * 1000
 
 // vant 提供的倒计时
-const { current } = (() => {
-   const countDown = useCountDown({
-      // 倒计时 24 小时
-      time: TIME,
-    });
+const {
+  current,
+  handleCStop,
+} = (() => {
+  const countDown = useCountDown({
+    // 倒计时 24 小时
+    time: TIME,
+  });
 
-    // 开始倒计时
-    countDown.start();
+  // 开始倒计时
+  countDown.start();
+
+  const handleCStop = () => {
+    countDown.pause()
+  }
 
   return {
     current: countDown.current,
+    handleCStop,
   }
 })();
 
@@ -23,15 +31,15 @@ const { current } = (() => {
 const {
   newCurrent
 } = (() => {
-  const countDown = useCountDowns({
+  const newCurrent = useCountDowns({
     // 倒计时 24 小时
     time: TIME,
   });
 
-  countDown.start();
+  newCurrent.start();
 
   return {
-    newCurrent: countDown.current
+    newCurrent: newCurrent.current
   }
 
 })();
@@ -47,6 +55,7 @@ const {
     <span>剩余分钟：{{ current.minutes }}</span>
     <span>剩余秒数：{{ current.seconds }}</span>
     <span>剩余毫秒：{{ current.milliseconds }}</span>
+    <button @click="handleCStop">暂停</button>
   </div>
 
   <div class="box">
