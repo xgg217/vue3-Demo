@@ -166,9 +166,9 @@ export default function useCountDown(options: UseCountDownOptions) {
   });
 
   return {
-    start, // 开始计时
-    pause, // 暂停计时
-    reset, // 重置计时
-    current // 当前时间
+    start, // 开始倒计时
+    pause, // 暂停倒计时
+    reset, // 重置倒计时，支持传入新的倒计时时长
+    current // 当前剩余的时间
   }
 }
