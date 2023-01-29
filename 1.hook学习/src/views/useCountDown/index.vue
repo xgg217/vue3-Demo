@@ -8,6 +8,7 @@ const TIME = 23 *60 * 60 * 1000
 const {
   current,
   handleCStop,
+  handleCReset,
 } = (() => {
   const countDown = useCountDown({
     // 倒计时 24 小时
@@ -17,19 +18,28 @@ const {
   // 开始倒计时
   countDown.start();
 
+  // 暂停计时
   const handleCStop = () => {
     countDown.pause()
+  }
+
+  // 重置计时
+  const handleCReset = () => {
+    countDown.reset()
   }
 
   return {
     current: countDown.current,
     handleCStop,
+    handleCReset
   }
 })();
 
 //  自定义倒计时
 const {
-  newCurrent
+  newCurrent,
+  handleReset,
+  handleStop,
 } = (() => {
   const newCurrent = useCountDowns({
     // 倒计时 24 小时
@@ -38,8 +48,21 @@ const {
 
   newCurrent.start();
 
+   // 暂停计时
+   const handleStop = () => {
+    newCurrent.pause()
+  }
+
+  // 重置计时
+  const handleReset = () => {
+    newCurrent.reset()
+  }
+
   return {
-    newCurrent: newCurrent.current
+    newCurrent: newCurrent.current,
+    handleReset,
+    handleStop,
+
   }
 
 })();
@@ -56,6 +79,7 @@ const {
     <span>剩余秒数：{{ current.seconds }}</span>
     <span>剩余毫秒：{{ current.milliseconds }}</span>
     <button @click="handleCStop">暂停</button>
+    <button @click="handleCReset">重置</button>
   </div>
 
   <div class="box">
@@ -66,6 +90,8 @@ const {
     <span>剩余分钟：{{ newCurrent.minutes }}</span>
     <span>剩余秒数：{{ newCurrent.seconds }}</span>
     <span>剩余毫秒：{{ newCurrent.milliseconds }}</span>
+    <button @click="handleStop">暂停</button>
+    <button @click="handleReset">重置</button>
   </div>
 </template>
 

@@ -4,9 +4,9 @@ import { raf, cancelRaf, inBrowser } from "./utils";
 
 type UseCountDownOptions = {
   time: number; // 总时间 单位毫秒
-  millisecond?: boolean;
-  onChange?: (current: CurrentTime) => void;
-  onFinish?: () => void;
+  millisecond?: boolean; // 是否开启毫秒级渲染
+  onChange?: (current: CurrentTime) => void; // 倒计时改变时触发的回调函数
+  onFinish?: () => void; // 倒计时结束时触发的回调函数
 };
 
 type CurrentTime = {
@@ -31,16 +31,6 @@ const MINUTE = 60 * SECOND; // 1分钟
 const HOUR = 60 * MINUTE; // 1小时
 const DAY = 24 * HOUR; // 1天
 
-
-const current = {
-  days: 0,
-  hours: 0,
-  total: 0,
-  minutes: 0,
-  seconds: 0,
-  milliseconds: 0,
-}
-
 // 时间处理
 const parseTime = (time: number):CurrentTime => {
   const days = Math.floor(time / DAY);
@@ -58,41 +48,10 @@ const parseTime = (time: number):CurrentTime => {
     total: time,
   };
 }
-// 是否是相同的时间
+// 时间是否相差1秒
 const isSameSecond = (time1: number, time2: number):boolean => {
   return Math.floor(time1 / 1000) === Math.floor(time2 / 1000);
 }
-
-// // 是否暂停
-// let isStop = false;
-
-// let timer = 0;
-
-// // 定时器
-// const setD = () => {
-//   if(isStop) return
-//   clearTimeout(timer);
-
-//   timer = setTimeout(() => {
-//     console.log('timer');
-//     current.total = current.total - 1000;
-//     setData(current.total)
-//     setD();
-//   }, 1000);
-// }
-
-// // 数据处理
-// const setData = (time: number) => {
-//   const { days, hours, minutes, seconds, milliseconds, total } = formatTime(time);
-//   current.days = days;
-//   current.hours = hours;
-//   current.minutes = minutes;
-//   current.seconds = seconds;
-//   current.milliseconds = milliseconds;
-//   current.total = total;
-// }
-
-
 
 export default function useCountDown(options: UseCountDownOptions) {
   let rafId: number = 0; // requestAnimationFrame id
@@ -109,11 +68,12 @@ export default function useCountDown(options: UseCountDownOptions) {
     cancelRaf(rafId)
   }
 
-  // 重置计时
+  // 重置计时 - 获取剩余时间
   const getCurrentRemain = () => {
     return Math.max(endTime - Date.now(), 0);
   }
 
+  // 设置新的时间
   const setRemain = (value: number) => {
     remain.value = value;
     options.onChange?.(current.value);
@@ -124,6 +84,7 @@ export default function useCountDown(options: UseCountDownOptions) {
     }
   }
 
+  // 毫秒级渲染
   const microTick = () => {
     rafId = raf(() => {
       // in case of call reset immediately after finish
@@ -137,12 +98,14 @@ export default function useCountDown(options: UseCountDownOptions) {
     });
   };
 
+  // 每秒渲染
   const macroTick = () => {
     rafId = raf(() => {
       // in case of call reset immediately after finish
       if (counting) {
         const remainRemain = getCurrentRemain();
 
+        // 避免重复渲染 - 1秒内只渲染一次
         if (!isSameSecond(remainRemain, remain.value) || remainRemain === 0) {
           setRemain(remainRemain);
         }
@@ -155,7 +118,7 @@ export default function useCountDown(options: UseCountDownOptions) {
   };
 
   const tick = () => {
-    // should not start counting in server
+    // 不应该在服务端上开始计时
     // see: https://github.com/vant-ui/vant/issues/7807
     if (!inBrowser) {
       return;
@@ -168,6 +131,7 @@ export default function useCountDown(options: UseCountDownOptions) {
     }
   };
 
+  // 开始计时
   const start = () => {
     if (!counting) {
       endTime = Date.now() + remain.value;
@@ -176,6 +140,7 @@ export default function useCountDown(options: UseCountDownOptions) {
     }
   };
 
+  // 重置计时
   const reset = (totalTime: number = options.time) => {
     pause();
     remain.value = totalTime;
@@ -197,23 +162,6 @@ export default function useCountDown(options: UseCountDownOptions) {
       deactivated = true;
     }
   });
-
-
-
-  // setData(options.time);
-
-  // // 开始计时
-  // const start = () => {
-  //   setD()
-  // }
-
-  // // 暂停计时
-  // const pause = () => {
-  //   isStop = true
-  // }
-
-  // // 重置计时
-  // const reset = (totalTime: number) => {}
 
   return {
     start, // 开始计时
