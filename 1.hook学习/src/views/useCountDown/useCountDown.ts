@@ -76,8 +76,10 @@ export default function useCountDown(options: UseCountDownOptions) {
   // 设置新的时间
   const setRemain = (value: number) => {
     remain.value = value;
+    // 倒计时改变时触发的回调函数
     options.onChange?.(current.value);
 
+    // 倒计时结束时触发的回调函数
     if (value === 0) {
       pause();
       options.onFinish?.();
