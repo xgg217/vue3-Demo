@@ -12,17 +12,22 @@ const router = createRouter({
     {
       path: '/table',
       name: 'table',
-      component: () => import('../views/table/index.vue')
+      component: () => import('@/views/table/index.vue')
     },
     {
       path: '/transfer',
       name: 'transfer',
-      component: () => import('../views/transfer/index.vue')
+      component: () => import('@/views/transfer/index.vue')
     },
+    // {
+    //   path: '/lazyload',
+    //   name: 'lazyload',
+    //   component: () => import('../views/Lazyload/index.vue')
+    // },
     {
-      path: '/lazyload',
-      name: 'lazyload',
-      component: () => import('../views/Lazyload/index.vue')
+      path: '/filePartitionUpload',
+      name: 'filePartitionUpload',
+      component: () => import('@/views/filePartitionUpload/index.vue')
     }
   ]
 })
