@@ -1,5 +1,6 @@
+import axios from 'axios'
 import { UPLOAD_INFO, ALLOW_FILE_TYPE, CHUNK_SIZE } from './config';
-console.log('客户');
+import { API } from './api.js'
 
 (() => {
   const oProgress = document.querySelector('progress');
@@ -9,7 +10,7 @@ console.log('客户');
 
   let uploadSize = 0; // 已经上传的大小
 
-  const uploadVideo = () => {
+  const uploadVideo = async () => {
     console.log('文件');
     console.log(oFile.files[0]);
     const file = oFile.files[0];
@@ -29,8 +30,51 @@ console.log('客户');
     oInfo.innerHTML = UPLOAD_INFO.LOADING;
 
     const { name, type, size } = file
+    let uploaderReault = null;
     const fileName = Date.now() + '_' + name;
     oProgress.max = size;
+
+    const createFormData =  (
+      {
+        name,
+        type,
+        size,
+        fileName,
+        uploadSize,
+        file
+      }
+    ) => {
+      const fd = new FormData();
+      fd.append('name', name);
+      fd.append('type', type);
+      fd.append('size', size);
+      fd.append('fileName', fileName);
+      fd.append('uploadSize', uploadSize);
+      fd.append('file', file);
+
+      return fd;
+    }
+
+    // 切割文件 + 上传
+    while(uploadSize < size) {
+      const fileChunk = file.slice(uploadSize, uploadSize + CHUNK_SIZE);
+      const formData = createFormData({ name, type, size, fileName, uploadSize, file: fileChunk });
+
+      try {
+        uploaderReault = await axios.post(API.UPLOAD_VIDEO, formData)
+      } catch (e) {
+        console.error(e);
+        oInfo.innerHTML = UPLOAD_INFO.ERROR + e.msg;
+        return
+      }
+
+      uploadSize += fileChunk.size;
+      oProgress.value = uploadSize;
+    }
+    console.log('上传成功');
+
+    oInfo.innerHTML = UPLOAD_INFO.SUCCESS;
+    oFile.value = null;
   }
 
   // 事件
