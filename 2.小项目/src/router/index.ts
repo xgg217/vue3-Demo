@@ -24,11 +24,6 @@ const router = createRouter({
     //   name: 'lazyload',
     //   component: () => import('../views/Lazyload/index.vue')
     // },
-    {
-      path: '/filePartitionUpload',
-      name: 'filePartitionUpload',
-      component: () => import('@/views/filePartitionUpload/index.vue')
-    }
   ]
 })
 
