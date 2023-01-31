@@ -95,7 +95,7 @@ const {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .box {
   border: 1px solid #000;
   display: flex;

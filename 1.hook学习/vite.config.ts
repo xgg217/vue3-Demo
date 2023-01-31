@@ -1,14 +1,24 @@
-import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': resolve(__dirname, 'src'), // 把src改为@
+    },
+  },
+
+  plugins: [vue()],
+
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://192.168.110.16:9090/',
+        changeOrigin: true, // 是否跨域
+        // rewrite: (path) => path.replace(/^\/user/, '')
+      },
+    },
+  },
 })

@@ -18,6 +18,3 @@ onMounted(() => {
 <template>
   <div ref="root">useRect</div>
 </template>
-
-<style lang="scss" scoped>
-</style>
