@@ -6,7 +6,28 @@ export const useUsersStore = defineStore('users', {
   state: () => {
     return {
       age: 1,
-      name: 'John'
+      name: 'John',
+      sex: '男'
     }
+  },
+
+  getters: {
+    getAddAge: (state) => {
+      // return state.age + 100
+      return (num: number) => state.age + num;
+    },
+
+    getNameAndAge(): string {
+      return this.name + this.getAddAge; // 调用其它getter
+    },
+  },
+
+  actions: {
+    saveName(name: string) {
+      // this指向的是当前store
+      this.name = name;
+    },
   }
 })
+
+

@@ -25,7 +25,7 @@ module.exports = {
     'no-trailing-spaces': 'error', // 禁用行尾空白
     'comma-style': ['error', 'last'],  // 逗号的风格，在末尾补上逗号
     'comma-dangle': ['error', 'always-multiline'],  // 在[].{}中换行的尾部用上逗号
-    'quotes': ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }], // 默认单引号
+    'quotes': ['1', 'single'],
     'camelcase': ['error', { properties: 'always' }], // 驼峰语法
     'semi': ['error', 'always'], // 使用半分号
     'indent': ['error', 2, { SwitchCase: 1 }],  // 前空隙，2个单位
