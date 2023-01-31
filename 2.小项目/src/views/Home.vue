@@ -11,7 +11,7 @@ import { RouterLink } from "vue-router";
       <RouterLink to="/transfer">模仿element push 穿梭框</RouterLink>
     </li>
     <li>
-      <RouterLink to="/filePartitionUpload">文件分片上传</RouterLink>
+      <RouterLink to="/Lazyload">图片懒加载</RouterLink>
     </li>
   </ul>
 </template>
