@@ -1,5 +1,6 @@
 import { ref, onUnmounted } from 'vue'
-const inBrowser = typeof globalThis !== 'undefined';
+import { inBrowser } from '@/utils/browser'
+
 
 export default function useWindowSize() {
   const width = ref(0)
