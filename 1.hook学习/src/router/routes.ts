@@ -22,6 +22,11 @@ const routes: RouteRecordRaw[] = [
       name: 'useToggle',
       component: () => import('@/views/useToggle/index.vue')
     },
+    {
+      path: '/useWindowSize',
+      name: 'useWindowSize',
+      component: () => import('@/views/useWindowSize/index.vue')
+    },
 ];
 
 export {
