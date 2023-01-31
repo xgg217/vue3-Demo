@@ -17,6 +17,11 @@ const routes: RouteRecordRaw[] = [
       name: 'useCountDown',
       component: () => import('@/views/useCountDown/index.vue')
     },
+    {
+      path: '/useToggle',
+      name: 'useToggle',
+      component: () => import('@/views/useToggle/index.vue')
+    },
 ];
 
 export {
