@@ -1,3 +1,14 @@
+/**
+ * 课程管理 2
+ *   课程操作 3
+ *     课程数据 4
+ *   增加课程 5
+ *
+ *  学生管理 6
+ *    学生操作 7
+ *    增加学生 8
+ */
+
 export default [
   {
     id: 2,
@@ -20,7 +31,7 @@ export default [
     path: 'info_data',
     name: 'CourseInfoData',
     link: '/course/operate/info_data',
-    title: '课程管理',
+    title: '课程数据',
   },
   {
     id: 5,
