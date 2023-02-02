@@ -15,9 +15,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://192.168.110.16:9090/',
+        target: 'http://localhose:8081/',
         changeOrigin: true, // 是否跨域
-        // rewrite: (path) => path.replace(/^\/user/, '')
+        rewrite: (path) => path.replace(/^\/api/, '')
       },
     },
   },
