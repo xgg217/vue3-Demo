@@ -1,3 +1,12 @@
+export interface IRoute {
+  id: number;
+  pid: number;
+  path: string;
+  name: string;
+  link?: string;
+  title: string;
+}
+
 /**
  * 课程管理 2
  *   课程操作 3
@@ -9,7 +18,7 @@
  *    增加学生 8
  */
 
-export default [
+export default <IRoute[]>[
   {
     id: 2,
     pid: 0,
