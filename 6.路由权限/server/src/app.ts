@@ -19,21 +19,36 @@ app.post('/user_router_list', (req, res)=>{
   const { uid } = req.body as IBody;
 
   if(!uid) {
-    return res.send('uid不能为空');
+    res.status(200).send({
+      msg: 'id 不存在',
+      data: null
+    });
+    return
   }
   const userInfo = users.find(item => item.id === uid);
 
-  if(userInfo) {
-    const { auth } = userInfo
-    const authRouteList: IRoute[] = []
-    auth.map(item => {
-      routes.map(route => {
-        route.id === item
-      })
-    })
+  if(!userInfo) {
+    res.status(200).send({
+      data: null,
+      msg: '用户不存在',
+    });
+    return
   }
 
-  res.send('post请求测试');
+  const { auth } = userInfo
+  const authRouteList: IRoute[] = []
+  auth.forEach(item => {
+    routes.forEach(route => {
+      if(route.id === item) {
+        authRouteList.push(route)
+      }
+    })
+  })
+  console.log('authRouteList', authRouteList);
+  res.status(200).send({
+    msg: '获取成功',
+    data: authRouteList
+  });
 });
 
 app.listen(PORT, () => {
