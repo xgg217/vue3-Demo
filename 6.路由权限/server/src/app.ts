@@ -25,7 +25,7 @@ app.post('/user_router_list', (req, res)=>{
     });
     return
   }
-  const userInfo = users.find(item => item.id === uid);
+  const userInfo = users.find(item => item.id === Number(uid));
 
   if(!userInfo) {
     res.status(200).send({
