@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhose:8081/',
+        target: 'http://localhose:8081',
         changeOrigin: true, // 是否跨域
         rewrite: (path) => path.replace(/^\/api/, '')
       },
