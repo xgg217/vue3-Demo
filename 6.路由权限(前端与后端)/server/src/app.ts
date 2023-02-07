@@ -52,5 +52,5 @@ app.post('/user_router_list', (req, res)=>{
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`服务启动，端口号 ${PORT}`);
 })
