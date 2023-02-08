@@ -5,6 +5,5 @@ export function getUserRouteList(uid: number) {
     return res;
   }).catch(err => {
     console.error(err);
-
   });
 }

@@ -20,6 +20,7 @@ app.post('/user_router_list', (req, res)=>{
 
   if(!uid) {
     res.status(200).send({
+      code: 1001,
       msg: 'id 不存在',
       data: null
     });
@@ -29,6 +30,7 @@ app.post('/user_router_list', (req, res)=>{
 
   if(!userInfo) {
     res.status(200).send({
+      code: 1002,
       data: null,
       msg: '用户不存在',
     });
@@ -44,9 +46,10 @@ app.post('/user_router_list', (req, res)=>{
       }
     })
   })
-  console.log('authRouteList', authRouteList);
+  // console.log('authRouteList', authRouteList);
   res.status(200).send({
-    msg: '获取成功',
+    code: 0,
+    msg: 'ok',
     data: authRouteList
   });
 });
