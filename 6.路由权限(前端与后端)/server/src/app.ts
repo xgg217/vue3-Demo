@@ -5,7 +5,7 @@ import type { IRoute } from "./data/index"
 const app = express();
 const PORT = 8081;
 
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 interface IBody {
