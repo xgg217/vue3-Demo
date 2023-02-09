@@ -3,7 +3,7 @@ import { routes, users } from "./data/index"
 import type { IRoute } from "./data/index"
 
 const app = express();
-const PORT = 8081;
+const PORT = 8888;
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
