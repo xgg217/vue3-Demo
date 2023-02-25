@@ -21,11 +21,11 @@ import { API } from './api.js'
       return;
     }
 
-    if(!ALLOW_FILE_TYPE.includes(file.type)) {
-      alert('文件类型不正确');
-      oInfo.innerText = UPLOAD_INFO.INVALID_TYPE;
-      return;
-    }
+    // if(!ALLOW_FILE_TYPE.includes(file.type)) {
+    //   alert('文件类型不正确');
+    //   oInfo.innerText = UPLOAD_INFO.INVALID_TYPE;
+    //   return;
+    // }
 
     oInfo.innerHTML = UPLOAD_INFO.LOADING;
 
