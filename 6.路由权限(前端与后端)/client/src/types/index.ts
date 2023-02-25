@@ -5,10 +5,11 @@ export type IRoute = {
   name: string;
   link?: string;
   title: string;
+  children?: IRoute[];
 }
 
-export type IRouteTree = IRoute & {
-  children?: IRouteTree[];
-}
+// export type IRouteTree = IRoute & {
+//   children?: IRouteTree[];
+// }
 
 

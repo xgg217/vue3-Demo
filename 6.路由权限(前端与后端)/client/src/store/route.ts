@@ -1,22 +1,18 @@
 import { defineStore } from 'pinia'
-import type { IRoute, IRouteTree } from "@/types/index";
+import type { IRoute } from "@/types/index";
 import { getUserRouteList } from '@/api/index'
 
 // 将列表转成树
-const listToTree = (list: IRouteTree[]):IRouteTree[] => {
+const listToTree = (list: IRoute[]):IRoute[] => {
   const parents = list.filter(item => item.pid === 0);
   const children = list.filter(item => item.pid !== 0);
-
-  dataToTree(parents, children)
-
-  return parents
 
   function dataToTree(parents: IRouteTree[], children: IRouteTree[]) {
     parents.forEach(parent => {
       children.forEach((child, index) => {
         if(child.pid === parent.id) {
           let _children:IRouteTree[] = JSON.parse(JSON.stringify(children));
-          _children.slice(index, 1);
+          _children.splice(index, 1);
           dataToTree([child], _children);
           if(parent.children) {
             parent.children.push(child);
@@ -28,27 +24,18 @@ const listToTree = (list: IRouteTree[]):IRouteTree[] => {
     })
   }
 
-  // return list.reduce((acc , cur) => {
-  //   const { pid } = cur;
-  //   if (pid === 0) {
-  //     (acc as IRouteTree[]).push(cur);
-  //   } else {
-  //     const parent = list.find(item => item.id === pid);
-  //     if(!parent) return acc;
-  //     parent.children = parent?.children?? [];
-  //     parent.children.push(cur);
-  //   }
-  //   return acc;
-  // }, []);
+  dataToTree(parents, children)
+
+  return parents
 }
 
 export const useUsersStore = defineStore('rorte', {
   state: () => {
     return {
-      uid: 2, // 用户id
+      uid: 3, // 用户id
       hasAuth: false, // 是否有权限
       routeList: [] as IRoute[], // 路由列表
-      routeTree: [] as IRouteTree[] // 路由树
+      routeTree: [] as IRoute[] // 路由树
     }
   },
 
@@ -60,9 +47,8 @@ export const useUsersStore = defineStore('rorte', {
 
         this.setRouteList(res as unknown as IRoute[]);
 
-        const arr = structuredClone(res) as unknown as IRouteTree[]
-        // this.setRouteTree(arr);
-        console.log(arr);
+        const arr = structuredClone(res) as unknown as IRoute[]
+        this.setRouteTree(arr);
 
       }).catch(err => {
         console.error(err);
@@ -75,9 +61,10 @@ export const useUsersStore = defineStore('rorte', {
     },
 
     // 设置路由树
-    setRouteTree(routeList: IRouteTree[]) {
+    setRouteTree(routeList: IRoute[]) {
+      this.routeTree = listToTree(routeList);
+      console.log(this.routeTree);
 
-      // this.routeTree = listToTree(routeList);
     },
 
     // 设置权限
