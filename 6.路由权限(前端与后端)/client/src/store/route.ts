@@ -7,11 +7,11 @@ const listToTree = (list: IRoute[]):IRoute[] => {
   const parents = list.filter(item => item.pid === 0);
   const children = list.filter(item => item.pid !== 0);
 
-  function dataToTree(parents: IRouteTree[], children: IRouteTree[]) {
+  function dataToTree(parents: IRoute[], children: IRoute[]) {
     parents.forEach(parent => {
       children.forEach((child, index) => {
         if(child.pid === parent.id) {
-          let _children:IRouteTree[] = JSON.parse(JSON.stringify(children));
+          let _children:IRoute[] = JSON.parse(JSON.stringify(children));
           _children.splice(index, 1);
           dataToTree([child], _children);
           if(parent.children) {
