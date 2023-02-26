@@ -1,6 +1,14 @@
-import { defineStore } from 'pinia'
+import { defineStore, StoreDefinition } from 'pinia'
 import type { IRoute } from "@/types/index";
 import { getUserRouteList } from '@/api/index'
+
+interface IState {
+  uid: number;
+  hasAuth: boolean;
+  routeList: IRoute[];
+  routeTree: IRoute[];
+}
+
 
 // 将列表转成树
 const listToTree = (list: IRoute[]):IRoute[] => {
@@ -30,7 +38,7 @@ const listToTree = (list: IRoute[]):IRoute[] => {
 }
 
 export const useUsersStore = defineStore('rorte', {
-  state: () => {
+  state: ():IState => {
     return {
       uid: 3, // 用户id
       hasAuth: false, // 是否有权限

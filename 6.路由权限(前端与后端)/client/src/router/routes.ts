@@ -10,12 +10,10 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: '/:pathMatch(.*)',
+    path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('@/views/NotFound.vue'),
   }
-
-
 ];
 
 export {
