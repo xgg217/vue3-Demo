@@ -1,13 +1,6 @@
-import { defineStore, StoreDefinition } from 'pinia'
+import { defineStore } from 'pinia'
 import type { IRoute } from "@/types/index";
 import { getUserRouteList } from '@/api/index'
-
-interface IState {
-  uid: number;
-  hasAuth: boolean;
-  routeList: IRoute[];
-  routeTree: IRoute[];
-}
 
 
 // 将列表转成树
@@ -38,7 +31,7 @@ const listToTree = (list: IRoute[]):IRoute[] => {
 }
 
 export const useUsersStore = defineStore('rorte', {
-  state: ():IState => {
+  state: () => {
     return {
       uid: 3, // 用户id
       hasAuth: false, // 是否有权限
@@ -51,7 +44,7 @@ export const useUsersStore = defineStore('rorte', {
     // 获取路由列表
     asyncGetRouteListApi() {
       return getUserRouteList(this.uid).then(res => {
-        console.log(res);
+        // console.log(res);
 
         this.setRouteList(res as unknown as IRoute[]);
 
@@ -71,8 +64,6 @@ export const useUsersStore = defineStore('rorte', {
     // 设置路由树
     setRouteTree(routeList: IRoute[]) {
       this.routeTree = listToTree(routeList);
-      console.log(this.routeTree);
-
     },
 
     // 设置权限

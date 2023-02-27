@@ -6,5 +6,8 @@ import './assets/reset.css';
 
 
 
+const store = createPinia()
 
-createApp(App).use(router).use(createPinia()).mount('#app')
+
+createApp(App).use(router).use(store).mount('#app')
+

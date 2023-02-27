@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import router from './router/index';
 import { useUsersStore } from '@/store/route'
-import { generateRouter } from '@/router/utils'
+import { generateRouter, routerBeforeEach } from '@/router/utils'
 
 const usersStore = useUsersStore()
-console.log(usersStore);
+// console.log(usersStore);
+
+routerBeforeEach(router, useUsersStore())
 
 usersStore.asyncGetRouteListApi().then(() => {
-  // useUsersStore.routeTree
-  // console.log(usersStore.routeTree);
   const routers = generateRouter(usersStore.routeTree)
-  console.log(routers);
-
-
-
+  // console.log(routers);
 
 }).catch(err => {
   console.error(err);
