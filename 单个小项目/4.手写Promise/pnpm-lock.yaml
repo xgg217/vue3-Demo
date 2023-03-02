@@ -1,12 +1,14 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/node': ^18.14.2
   typescript: ^4.9.3
   vite: ^4.1.0
 
 devDependencies:
+  '@types/node': registry.npmmirror.com/@types/node/18.14.2
   typescript: registry.npmmirror.com/typescript/4.9.5
-  vite: registry.npmmirror.com/vite/4.1.4
+  vite: registry.npmmirror.com/vite/4.1.4_@types+node@18.14.2
 
 packages:
 
@@ -252,6 +254,12 @@ packages:
     dev: true
     optional: true
 
+  registry.npmmirror.com/@types/node/18.14.2:
+    resolution: {integrity: sha512-1uEQxww3DaghA0RxqHx0O0ppVlo43pJhepY51OxuQIKHpjbnYLA7vcdwioNPzIqmC2u3I/dmylcqjlh0e7AyUA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/node/-/node-18.14.2.tgz}
+    name: '@types/node'
+    version: 18.14.2
+    dev: true
+
   registry.npmmirror.com/esbuild/0.16.17:
     resolution: {integrity: sha512-G8LEkV0XzDMNwXKgM0Jwu3nY3lSTwSGY6XbxM9cr9+s0T/qSV1q1JVPBGzm3dcjhCic9+emZDmMffkwgPeOeLg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild/-/esbuild-0.16.17.tgz}
     name: esbuild
@@ -391,8 +399,9 @@ packages:
     hasBin: true
     dev: true
 
-  registry.npmmirror.com/vite/4.1.4:
+  registry.npmmirror.com/vite/4.1.4_@types+node@18.14.2:
     resolution: {integrity: sha512-3knk/HsbSTKEin43zHu7jTwYWv81f8kgAL99G5NWBcA1LKvtvcVAC4JjBH1arBunO9kQka+1oGbrMKOjk4ZrBg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite/-/vite-4.1.4.tgz}
+    id: registry.npmmirror.com/vite/4.1.4
     name: vite
     version: 4.1.4
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -418,6 +427,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': registry.npmmirror.com/@types/node/18.14.2
       esbuild: registry.npmmirror.com/esbuild/0.16.17
       postcss: registry.npmmirror.com/postcss/8.4.21
       resolve: registry.npmmirror.com/resolve/1.22.1

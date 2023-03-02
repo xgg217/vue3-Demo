@@ -8,14 +8,21 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 
 
-const myPromise = new MyPromise((res) => {
+const myPromise = new MyPromise((res, rej) => {
   res('Hello World')
+  // rej('失败')
+  // throw new Error('失败')
 });
 
 console.log(myPromise);
 
 const promise = new Promise((res) => {
-  res('Hello World')
+  // res('Hello World')
+  // throw new Error('失败')
+}).then((data) => {
+  console.log(data);
+}, (err) => {
+  console.log(err);
 });
 
 console.log(promise);
