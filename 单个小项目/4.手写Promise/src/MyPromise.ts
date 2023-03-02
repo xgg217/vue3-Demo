@@ -103,7 +103,6 @@ export default class MyPromise {
    * @param data 相关数据
    */
   #resolve(this:MyPromise, data?: unknown) {
-
     // 改变状态和数据
     this.#changeState(EState.fulfilled, data);
   }
@@ -216,5 +215,37 @@ export default class MyPromise {
       // 因为可能在 then 方法执行的时候，状态已经改变了
       this.#runHandlers();
     })
+  }
+
+  /**
+   * 仅处理失败的情况
+   * @param onRejected
+   * @returns
+   */
+  catch(onRejected?: TReject| null | undefined) {
+    return this.then(undefined, onRejected);
+  }
+
+  /**
+   * finally 方法无论成功或者失败都会执行
+   * @param { Function } callback
+   * @returns { MyPromise }
+   * @description finally 方法返回一个 MyPromise
+   * @description finally 方法接收一个回调函数作为参数
+   * @description finally 方法的回调函数不接受任何参数
+   * @description finally 方法的回调函数不会改变原来的值
+   * @description finally 方法的回调函数如果返回一个 Promise 对象，必须等待该 Promise 对象状态改变后，再执行后续的操作
+   * @description finally 方法必须返回一个 Promise 对象
+   * @description finally 方法的回调函数如果抛出错误或者返回一个被拒绝的 Promise，那么会等待该 Promise 对象状态改变后，再抛出错误或者返回一个被拒绝的 Promise
+   * @description finally 方法的回调函数如果返回一个已经被解决的 Promise，那么会等待该 Promise 对象状态改变后，再返回一个已经被解决的 Promise
+   */
+  finally(onfinally?: (() => void) | null | undefined) {
+    return this.then((data) => {
+      (typeof(onfinally) === 'function') && onfinally();
+      return data
+    }, (reason) => {
+      (typeof(onfinally) === 'function') && onfinally();
+      throw reason;
+    });
   }
 }
