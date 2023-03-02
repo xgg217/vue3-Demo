@@ -76,6 +76,7 @@ export default class MyPromise {
       executor(this.#resolve.bind(this), this.#reject.bind(this));
     } catch (error) {
       this.#reject(error);
+      console.error(error);
     }
 
   }
@@ -113,8 +114,6 @@ export default class MyPromise {
    * @returns { void }
    */
   #reject(this:MyPromise, reason?: unknown) {
-    console.log('失败', reason);
-
     // 改变状态和数据
     this.#changeState(EState.rejected, reason);
   }
@@ -177,6 +176,7 @@ export default class MyPromise {
         }
       } catch (error) {
         reject(this.#value);
+        console.error(error);
       }
 
 
@@ -247,5 +247,81 @@ export default class MyPromise {
       (typeof(onfinally) === 'function') && onfinally();
       throw reason;
     });
+  }
+
+  /**
+   * 静态方法
+   * @param { any } value
+   * @returns { MyPromise }
+   * @description 特殊情况1：传递的date本身就是一个 Promise 对象
+   * @description 特殊情况2：传递的date是一个PromiseLike（实现了Promise A+ 规范），返回一个新的 Promise 对象，状态和其保持一致
+   * @description resolve 方法返回一个以给定值解析后的 MyPromise 对象
+   */
+  static resolve(value: any) {
+    if(value instanceof MyPromise) {
+      return value;
+    }
+    return new MyPromise((resolve, reject) => {
+      if(isPromise(value)) {
+        value.then(resolve, reject);
+      } else {
+        resolve(value);
+      }
+    })
+  }
+
+  /**
+   * 得到一个被拒绝的Promise对象
+   * @param reason
+   */
+  static reject(reason?: any) {
+    return new MyPromise((resolve, reject) => {
+      reject(reason);
+    })
+  }
+
+  /**
+   * 得到一个新的 Promise 对象
+   * @description 该 Promise 的状态取决于proms的执行
+   * @description values 是一个迭代器，包含多个 Promise 对象
+   * @description 全部成功，返回一个成功的 Promise 对象，数据为所有 Promise 对象的数据组成的数组，并且顺序是传入的顺序排列
+   * @description 只要有一个失败，返回一个失败的 Promise 对象，失败的原因是第一个失败的 Promise 对象的失败原因
+   * @param { Iterable<any> } promises
+   * @returns { Promise }
+   * @description Promise.all 方法返回一个新的 Promise 实例
+   */
+  static all(values: Iterable<any>) {
+    return new MyPromise((resolve, reject) => {
+
+      try {
+        const results: any[] = [];
+        let count = 0; // promises 的长度
+        let fulfilledCount = 0; // 成功的个数
+        for(const p of values) {
+          let index = count;
+          count++;
+          MyPromise.resolve(p).then((data) => {
+            fulfilledCount++;
+
+            results[index] = data;
+
+            // 当前是最后一个 Promise 完成了
+            if(fulfilledCount === count) {
+              // 所有的 Promise 都完成了
+              resolve(results)
+            }
+
+          }, reject)
+        }
+
+        // 如果传入的是一个空的迭代器
+        if(count === 0) {
+          resolve(results);
+        }
+      } catch (error) {
+        reject(error);
+        console.error(error);
+      }
+    })
   }
 }
