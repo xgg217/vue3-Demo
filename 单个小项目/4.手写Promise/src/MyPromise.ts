@@ -12,8 +12,8 @@ type TState = keyof typeof EState; // 'pending' | 'fulfilled' | 'rejected';
 type THandler = {
   executor: TResolve| null | undefined;
   state: TState;
-  resolve?: TResolve;
-  reject?: TReject;
+  resolve: TResolve;
+  reject: TReject;
 }
 
 
@@ -46,6 +46,17 @@ function runMicroTask(fn:Function) {
 
   // 其他环境
   setTimeout(fn, 0);
+}
+
+/**
+ * 判断是否是一个 Promise 对象
+ * @description 条件1 obj 是一个对象
+ * @description 条件2 obj 有 then 方法
+ * @param { any } obj
+ * @returns { boolean }
+ */
+function isPromise(obj:any): obj is Promise<any> {
+  return !!(obj && (typeof(obj) === 'object') && (typeof(obj.then) === 'function'));
 }
 
 export default class MyPromise {
@@ -92,9 +103,6 @@ export default class MyPromise {
    * @param data 相关数据
    */
   #resolve(this:MyPromise, data?: unknown) {
-    console.log('完成2', data);
-    console.log(this.#state);
-    console.log(this.#value);
 
     // 改变状态和数据
     this.#changeState(EState.fulfilled, data);
@@ -119,7 +127,7 @@ export default class MyPromise {
    * @param resolve 让then函数返回的Promise成功
    * @param reject 让then函数返回的Promise失败
    */
-  #pushHandler(executor:TResolve| null | undefined, state: TState, resolve?: TResolve, reject?: TReject) {
+  #pushHandler(executor:TResolve| null | undefined, state: TState, resolve: TResolve, reject: TReject) {
     this.#handlers.push({
       executor,
       state,
@@ -134,16 +142,46 @@ export default class MyPromise {
     if(this.#state === EState.pending) {
       return;
     }
-    console.log('执行', this.#handlers.length);
 
-    for (const handler of this.#handlers) {
-      this.#runOneHandler(handler);
+    while(this.#handlers[0]) {
+      this.#runOneHandler(this.#handlers[0]);
+      this.#handlers.shift();
     }
   }
 
   // 处理每一个处理函数
-  #runOneHandler(handler:THandler) {
+  #runOneHandler({ executor, state, resolve, reject }:THandler) {
+    runMicroTask(() => {
+      // 状态不一致，不执行
+      if(this.#state !== state) {return;}
 
+      /**
+       * 如果没有传入处理函数，直接执行
+       * 状态直接穿透，传给下一个then
+       */
+      if(typeof(executor) !== 'function') {
+        if(state === EState.fulfilled) {
+          resolve(this.#value);
+        } else {
+          reject(this.#value);
+        }
+        return;
+      }
+
+      try {
+        const result = executor(this.#value);
+        if(isPromise(result)) {
+          // 如果返回的是一个 Promise 对象
+          result.then(resolve, reject);
+        } else {
+          resolve(result);
+        }
+      } catch (error) {
+        reject(this.#value);
+      }
+
+
+    })
   }
 
   /**
