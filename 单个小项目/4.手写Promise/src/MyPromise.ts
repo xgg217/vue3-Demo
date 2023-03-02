@@ -12,6 +12,8 @@ type TState = keyof typeof EState; // 'pending' | 'fulfilled' | 'rejected';
 type THandler = {
   executor: TResolve| null | undefined;
   state: TState;
+  resolve?: TResolve;
+  reject?: TReject;
 }
 
 
@@ -80,6 +82,8 @@ export default class MyPromise {
 
     this.#state = newState;
     this.#value = value;
+
+    this.#runHandlers(); // 状态变化执行处理函数
   }
 
   /**
@@ -112,12 +116,34 @@ export default class MyPromise {
    * 向处理队列中添加一个函数
    * @param executor 添加的函数
    * @param state 该函数什么状态下执行
+   * @param resolve 让then函数返回的Promise成功
+   * @param reject 让then函数返回的Promise失败
    */
-  #pushHandler(executor:TResolve| null | undefined, state: TState) {
+  #pushHandler(executor:TResolve| null | undefined, state: TState, resolve?: TResolve, reject?: TReject) {
     this.#handlers.push({
       executor,
-      state
+      state,
+      resolve,
+      reject
     })
+  }
+
+  // 状态变化执行处理函数
+  #runHandlers() {
+    // 目前任务在挂起的状态
+    if(this.#state === EState.pending) {
+      return;
+    }
+    console.log('执行', this.#handlers.length);
+
+    for (const handler of this.#handlers) {
+      this.#runOneHandler(handler);
+    }
+  }
+
+  // 处理每一个处理函数
+  #runOneHandler(handler:THandler) {
+
   }
 
   /**
@@ -136,14 +162,21 @@ export default class MyPromise {
    * @description then 方法的参数如果是函数，需要捕获错误
    */
   then(onFulfilled?: TResolve| null | undefined, onRejected?: TReject| null | undefined) {
-    // 成功后执行的函数
-    this.#pushHandler(onFulfilled, EState.fulfilled);
-
-    // 失败后执行的函数
-    this.#pushHandler(onRejected, EState.rejected)
-
     return new MyPromise((resolve, reject) => {
+      // 因为返回的是一个新的 MyPromise 实例，所以需要知道当前then函数执行的状态
+      // 如果执行的状态是成功的，那么返回的 MyPromise 实例的状态也是成功的
+      // 如果执行的状态是失败的，那么返回的 MyPromise 实例的状态也是失败的
+      // 所以往执行队列中添加的函数需要知道当前的状态
 
+      // 成功后执行的函数
+      this.#pushHandler(onFulfilled, EState.fulfilled, resolve, reject);
+
+      // 失败后执行的函数
+      this.#pushHandler(onRejected, EState.rejected, resolve, reject)
+
+      // 状态变化执行处理函数
+      // 因为可能在 then 方法执行的时候，状态已经改变了
+      this.#runHandlers();
     })
   }
 }
