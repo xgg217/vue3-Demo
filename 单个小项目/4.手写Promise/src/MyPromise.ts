@@ -239,6 +239,7 @@ export default class MyPromise {
    * @description finally 方法的回调函数如果抛出错误或者返回一个被拒绝的 Promise，那么会等待该 Promise 对象状态改变后，再抛出错误或者返回一个被拒绝的 Promise
    * @description finally 方法的回调函数如果返回一个已经被解决的 Promise，那么会等待该 Promise 对象状态改变后，再返回一个已经被解决的 Promise
    */
+
   finally(onfinally?: (() => void) | null | undefined) {
     return this.then((data) => {
       (typeof(onfinally) === 'function') && onfinally();
@@ -248,6 +249,7 @@ export default class MyPromise {
       throw reason;
     });
   }
+
 
   /**
    * 静态方法
@@ -324,4 +326,6 @@ export default class MyPromise {
       }
     })
   }
+
+  static allSettled(values: Iterable<any>) {}
 }
