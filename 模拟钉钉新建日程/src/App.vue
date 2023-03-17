@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import asios from "axios";
 import DialogDate from "@/components/DialogDate.vue";
-
-
-
 
 const {
   dialogIndex,
@@ -11,12 +9,20 @@ const {
   handleOpenDialog
 } = (function() {
   const dialogIndex = ref(0);
-  const dialogVisible = ref(true);
+  const dialogVisible = ref(false);
 
   const handleOpenDialog = () => {
     dialogIndex.value++;
     dialogVisible.value = true;
   }
+
+  // 发送日程数据
+  const asyncSendSchedule = () => {
+    return asios.get('/api/schedule').then(res => {
+      console.log(res);
+    });
+  }
+
 
   return {
     dialogVisible,
