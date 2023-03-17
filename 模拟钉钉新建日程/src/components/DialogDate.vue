@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue'
+import dayjs from 'dayjs';
+import axios from 'axios';
+import { ref, reactive, computed, watch, onMounted } from 'vue'
 import { Plus, CloseBold, ArrowDown, ArrowUp } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus';
-import dayjs from 'dayjs'
+
+const USER_LIST = "USER_LIST"
+
 
 const props = defineProps<{
   index: number;
@@ -70,25 +74,66 @@ const {
 
 // 参与人员
 const {
+  userList,
   // partakeShow,
   mandatoryParticipants,
   // optionalParticipants,
   // hanldeToggle,
+  asyncGetUserAll
 } = (function() {
+  interface IUser {
+    label: string;
+    value: string;
+  }
+
   // const partakeShow = ref(false);
   const mandatoryParticipants = ref<string[]>([]); // 必须参与人
   // const optionalParticipants = ref<string[]>([]); // 可选参与人
+
+  const userList = ref<IUser[]>([]);
 
   // 切换
   // const hanldeToggle = () => {
   //   partakeShow.value = !partakeShow.value;
   // };
 
+  const asyncGetUserAll = () => {
+    const userListStr = sessionStorage.getItem(USER_LIST);
+    if(userListStr) {
+      userList.value = JSON.parse(userListStr)
+      return
+    }
+
+    axios({
+      url: '/upms/openapi/user/getList',
+      baseURL: 'http://192.168.28.51:30188',
+      headers: {
+        'accessToken': '03a8b3914f6f45bc907452ce2c88678b'
+      },
+      data: {},
+      method: 'post'
+    }).then(res => {
+      if(res.data.code !== 200) { return }
+      userList.value = res.data.data.map((item: any) => {
+        return ({
+          label: item.nickName,
+          value: item.unionId || ''
+        })
+      })
+
+      sessionStorage.setItem(USER_LIST, JSON.stringify(userList.value));
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   return {
+    userList,
     // partakeShow,
     mandatoryParticipants,
     // optionalParticipants,
     // hanldeToggle
+    asyncGetUserAll
   }
 })();
 
@@ -213,10 +258,43 @@ const {
     return true;
   }
 
+  // 发送日程数据
+  const asyncSendSchedule = () => {
+    console.log(mandatoryParticipants.value);
+
+    const unionIds = mandatoryParticipants.value.map(item => {
+      return {
+        id: item,
+        isOptional: false // 是否非必须参与人
+      }
+    })
+    const obj = {
+      summary: titleVal.value, // 标题
+      startTime: dateVal.value[0], // 会议开始时间
+      endTime: dateVal.value[1], // 会议结束时间
+      unionIds,
+      createdId: 'O7jriPEiSpvf5VZEQPZ1rNsgiEiE',
+      location: conferenceRoom.value, // 会议地点
+    }
+    return axios({
+      url: '/meeting/create',
+      baseURL: 'http://192.168.11.110:8200',
+      // baseURL: 'http://192.168.28.51:30188',
+      data: obj,
+      method: 'post'
+    }).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
   // 提交
   const handleSubmit = () => {
     const isBool = validate();
     if(!isBool) return;
+
+    asyncSendSchedule()
 
   }
 
@@ -229,7 +307,7 @@ const {
 watch(() => props.index, () => {
   console.log(props.index);
   const init = () => {
-    titleVal.value = '';
+    titleVal.value = '测试日程-付祖敏';
     titleTypeVal.value = '1';
 
     // 时间
@@ -244,6 +322,11 @@ watch(() => props.index, () => {
 
   init()
 }, { immediate: true })
+
+onMounted(() => {
+  console.log('mounted');
+  asyncGetUserAll()
+})
 
 
 </script>
@@ -311,10 +394,20 @@ watch(() => props.index, () => {
         </p>
         <div class="right">
           <div>
-            <el-select v-model="mandatoryParticipants" multiple placeholder="添加必须参与人" style="width: 480px;" size="large">
-              <el-option label="人员1" value="1"/>
+            <el-select
+              v-model="mandatoryParticipants"
+              multiple
+              placeholder="添加必须参与人"
+              style="width: 480px;"
+              size="large"
+              filterable
+            >
+              <template v-for="item of userList" :key="item.label + item.value">
+                <el-option :label="item.label" :value="item.value" />
+              </template>
+              <!-- <el-option label="人员1" value="1"/>
               <el-option label="人员2" value="2"/>
-              <el-option label="人员3" value="3"/>
+              <el-option label="人员3" value="3"/> -->
             </el-select>
             <!-- <el-button type="" text :icon="ArrowDown" v-if="!partakeShow" @click="hanldeToggle"></el-button>
             <el-button type="" text :icon="ArrowUp" v-else @click="hanldeToggle"></el-button> -->
@@ -337,12 +430,12 @@ watch(() => props.index, () => {
         </p>
         <div class="right">
           <el-select v-model="conferenceRoom" class="m-2" placeholder="选择会议室" size="large">
-            <el-option label="南山孙总会议室" value="1" />
-            <el-option label="南山第一会议室" value="2" />
-            <el-option label="南山第二会议室" value="3" />
-            <el-option label="盐田1楼大会议室" value="4" />
-            <el-option label="龙华中会议室" value="5" />
-            <el-option label="龙华大会议室" value="6" />
+            <el-option label="南山孙总会议室" value="南山孙总会议室" />
+            <el-option label="南山第一会议室" value="南山第一会议室" />
+            <el-option label="南山第二会议室" value="南山第二会议室" />
+            <el-option label="盐田1楼大会议室" value="盐田1楼大会议室" />
+            <el-option label="龙华中会议室" value="龙华中会议室" />
+            <el-option label="龙华大会议室" value="龙华大会议室" />
           </el-select>
         </div>
       </li>

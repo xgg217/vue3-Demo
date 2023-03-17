@@ -14,10 +14,15 @@ export default defineConfig({
 
   server: {
     proxy: {
-      '/api': {
-        target: 'http://192.168.0.106:8888',
+      '/upms': {
+        target: 'http://192.168.28.51:30188',
         changeOrigin: true, // 是否跨域
-        rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/upms/, '')
+      },
+      '/meeting': {
+        target: 'http://192.168.11.110:8200',
+        changeOrigin: true, // 是否跨域
+        rewrite: (path) => path.replace(/^\/meeting/, '')
       },
     },
   }
