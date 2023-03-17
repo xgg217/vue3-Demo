@@ -58,10 +58,7 @@ const {
     const newEnd = dayjs(end).format('YYYY-MM-DDTHH:mm:ssZ')
 
     dateVal.value = [newStart, newEnd]
-
   }
-
-
 
   return {
     dateVal,
@@ -73,25 +70,25 @@ const {
 
 // 参与人员
 const {
-  partakeShow,
+  // partakeShow,
   mandatoryParticipants,
-  optionalParticipants,
-  hanldeToggle,
+  // optionalParticipants,
+  // hanldeToggle,
 } = (function() {
-  const partakeShow = ref(false);
+  // const partakeShow = ref(false);
   const mandatoryParticipants = ref<string[]>([]); // 必须参与人
-  const optionalParticipants = ref<string[]>([]); // 可选参与人
+  // const optionalParticipants = ref<string[]>([]); // 可选参与人
 
   // 切换
-  const hanldeToggle = () => {
-    partakeShow.value = !partakeShow.value;
-  };
+  // const hanldeToggle = () => {
+  //   partakeShow.value = !partakeShow.value;
+  // };
 
   return {
-    partakeShow,
+    // partakeShow,
     mandatoryParticipants,
-    optionalParticipants,
-    hanldeToggle
+    // optionalParticipants,
+    // hanldeToggle
   }
 })();
 
@@ -117,82 +114,82 @@ const {
 
 
 // 会议提醒
-const {
-  tipList,
-  tipShow,
-  handleOneAddTips,
-  handleAddTips,
-  handleDelTips,
-} = (function () {
-  interface ITip {
-    key: number;
-    dates: string;
-    type: string;
-  }
+// const {
+//   tipList,
+//   tipShow,
+//   handleOneAddTips,
+//   handleAddTips,
+//   handleDelTips,
+// } = (function () {
+//   interface ITip {
+//     key: number;
+//     dates: string;
+//     type: string;
+//   }
 
-  let index = 1;
+//   let index = 1;
 
-  const tipList = reactive<ITip[]>([]);
-  const tipShow = ref(false);
+//   const tipList = reactive<ITip[]>([]);
+//   const tipShow = ref(false);
 
-  // 第一次添加
-  const handleOneAddTips = () => {
-    tipShow.value = true;
-    handleAddTips();
-  }
+//   // 第一次添加
+//   const handleOneAddTips = () => {
+//     tipShow.value = true;
+//     handleAddTips();
+//   }
 
-  // 持续添加
-  const handleAddTips = () => {
-    const len = tipList.length;
+//   // 持续添加
+//   const handleAddTips = () => {
+//     const len = tipList.length;
 
-    // 第一次添加
-    if(len === 0) {
-      tipList.push({
-        key: index++,
-        dates: '3',
-        type: '1'
-      })
-      return;
-    }
+//     // 第一次添加
+//     if(len === 0) {
+//       tipList.push({
+//         key: index++,
+//         dates: '3',
+//         type: '1'
+//       })
+//       return;
+//     }
 
-    const {dates} = tipList[len - 1]
+//     const {dates} = tipList[len - 1]
 
-    // 最后一个
-    if(Number(dates) === 9) {
-      tipList.push({
-        key: index++,
-        dates: '9',
-        type: '2'
-      })
-      return
-    }
+//     // 最后一个
+//     if(Number(dates) === 9) {
+//       tipList.push({
+//         key: index++,
+//         dates: '9',
+//         type: '2'
+//       })
+//       return
+//     }
 
-    // 中间
-    tipList.push({
-      key: index++,
-      dates: Number(dates) + 1 + '',
-      type: '1'
-    })
-  }
+//     // 中间
+//     tipList.push({
+//       key: index++,
+//       dates: Number(dates) + 1 + '',
+//       type: '1'
+//     })
+//   }
 
-  // 删除
-  const handleDelTips = (key: ITip["key"] ) => {
-    tipList.splice(tipList.findIndex((item) => item.key === key), 1);
-    // 最后一项删除后隐藏
-    if(tipList.length === 0) {
-      tipShow.value = false;
-    }
+//   // 删除
+//   const handleDelTips = (key: ITip["key"] ) => {
+//     tipList.splice(tipList.findIndex((item) => item.key === key), 1);
+//     // 最后一项删除后隐藏
+//     if(tipList.length === 0) {
+//       tipShow.value = false;
+//     }
 
-  }
+//   }
 
-  return {
-    tipList,
-    tipShow,
-    handleOneAddTips,
-    handleAddTips,
-    handleDelTips,
-  }
-})();
+//   return {
+//     tipList,
+//     tipShow,
+//     handleOneAddTips,
+//     handleAddTips,
+//     handleDelTips,
+//   }
+// })();
 
 // 提交
 const {
@@ -241,12 +238,12 @@ watch(() => props.index, () => {
 
     conferenceRoom.value = '';
     descriptionVal.value = '';
-    tipShow.value = false;
-    tipList.splice(0, tipList.length);
+    // tipShow.value = false;
+    // tipList.splice(0, tipList.length);
   }
 
   init()
-})
+}, { immediate: true })
 
 
 </script>
@@ -299,13 +296,11 @@ watch(() => props.index, () => {
             range-separator="至"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
-
             size="large"
             value-format="YYYY-MM-DDTHH:mm:ssZ"
           />
         </div>
       </li>
-      <!-- :default-time="defaultTime" -->
 
       <!-- 人员 -->
       <li>
@@ -316,20 +311,20 @@ watch(() => props.index, () => {
         </p>
         <div class="right">
           <div>
-            <el-select v-model="mandatoryParticipants" multiple placeholder="添加必须参与人" style="width: 425px;" size="large">
+            <el-select v-model="mandatoryParticipants" multiple placeholder="添加必须参与人" style="width: 480px;" size="large">
               <el-option label="人员1" value="1"/>
               <el-option label="人员2" value="2"/>
               <el-option label="人员3" value="3"/>
             </el-select>
-            <el-button type="" text :icon="ArrowDown" v-if="!partakeShow" @click="hanldeToggle"></el-button>
-            <el-button type="" text :icon="ArrowUp" v-else @click="hanldeToggle"></el-button>
+            <!-- <el-button type="" text :icon="ArrowDown" v-if="!partakeShow" @click="hanldeToggle"></el-button>
+            <el-button type="" text :icon="ArrowUp" v-else @click="hanldeToggle"></el-button> -->
           </div>
 
-          <el-select v-model="optionalParticipants" multiple placeholder="添加可选参与人" style="width: 425px;" v-show="partakeShow" class="partakeOptional" size="large">
+          <!-- <el-select v-model="optionalParticipants" multiple placeholder="添加可选参与人" style="width: 425px;" v-show="partakeShow" class="partakeOptional" size="large">
             <el-option label="人员1" value="1"/>
             <el-option label="人员2" value="2"/>
             <el-option label="人员3" value="3"/>
-          </el-select>
+          </el-select> -->
         </div>
       </li>
 
@@ -381,7 +376,7 @@ watch(() => props.index, () => {
       </li>
 
       <!-- 会议提醒 -->
-      <li>
+      <!-- <li>
         <p class="left">
           <el-icon :size="iconSize">
             <Bell />
@@ -408,23 +403,19 @@ watch(() => props.index, () => {
                 <el-option label="电话提醒" value="3" />
               </el-select>
 
-              <!-- <el-tooltip content="删除提醒" placement="top" effect="dark" class="box-item"> -->
-                <el-button type="" text :icon="CloseBold" @click="handleDelTips(item.key)"></el-button>
-              <!-- </el-tooltip> -->
+              <el-button type="" text :icon="CloseBold" @click="handleDelTips(item.key)"></el-button>
 
-              <!-- <el-tooltip content="添加提醒" placement="top"> -->
-                <el-button type="" text :icon="Plus" @click="handleAddTips"></el-button>
-              <!-- </el-tooltip> -->
+              <el-button type="" text :icon="Plus" @click="handleAddTips"></el-button>
             </li>
           </ul>
         </div>
-      </li>
+      </li> -->
     </ul>
   <!-- </el-card> -->
 
     <div class="footer">
-      <el-button type="primary" size="large" @click="handleSubmit">完成</el-button>
-      <!-- <el-button type="primary" size="large">完成并编辑议程</el-button> -->
+      <el-button type="primary" size="large" @click="handleSubmit">确认</el-button>
+      <el-button  size="large">取消</el-button>
     </div>
   </div>
 </template>
@@ -454,9 +445,9 @@ ul {
 ul.forms {
   // border: 1px solid #000;
   width: 550px;
-  height: 430px;
+  // height: 430px;
   padding: 5px 0;
-  overflow-y: scroll;
+  // overflow-y: scroll;
 }
 
 ul li {
@@ -497,7 +488,8 @@ ul li {
 
 
 .footer {
-  padding: 20px 0;
+  padding: 20px 0 0 50px;
+  // border: 1px solid #000;
 }
 
 

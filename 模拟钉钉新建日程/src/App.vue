@@ -23,7 +23,6 @@ const {
     });
   }
 
-
   return {
     dialogVisible,
     dialogIndex,
