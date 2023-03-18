@@ -641,9 +641,9 @@
         <el-input v-if="demandForm.remarksCheck && isEdit" :rows="3" type="textarea" maxlength="200" v-model="demandForm.remarks" placeholder="文字"></el-input>
         <div v-if="!isEdit" class="textAreaTextWrap">{{ demandForm.remarks }}</div>
         <div class="vantUploadWrap">
-          <div style="width: 100%; margin: 0.5rem 0" v-if="isEdit && demandForm.fileList.length < 5">
+          <!-- <div style="width: 100%; margin: 0.5rem 0" v-if="isEdit && demandForm.fileList.length < 5">
             <vantUpload @getFileInfo="getOtherFileInfo" :filesList="demandForm.fileList"></vantUpload>
-          </div>
+          </div> -->
           <!-- <businessFileList :fileList="demandForm.fileList" @removeFile="removeOtherFile" :showDelete="isEdit"></businessFileList> -->
         </div>
       </el-form-item>
