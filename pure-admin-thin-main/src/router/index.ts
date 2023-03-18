@@ -96,80 +96,81 @@ export function resetRouter() {
 const whiteList = ["/login"];
 
 router.beforeEach((to: toRouteType, _from, next) => {
-  if (to.meta?.keepAlive) {
-    const newMatched = to.matched;
-    handleAliveRoute(newMatched, "add");
-    // 页面整体刷新和点击标签页刷新
-    if (_from.name === undefined || _from.name === "Redirect") {
-      handleAliveRoute(newMatched);
-    }
-  }
-  const userInfo = storageSession().getItem<DataInfo<number>>(sessionKey);
-  NProgress.start();
-  const externalLink = isUrl(to?.name as string);
-  if (!externalLink) {
-    to.matched.some(item => {
-      if (!item.meta.title) return "";
-      const Title = getConfig().Title;
-      if (Title) document.title = `${item.meta.title} | ${Title}`;
-      else document.title = item.meta.title as string;
-    });
-  }
-  /** 如果已经登录并存在登录信息后不能跳转到路由白名单，而是继续保持在当前页面 */
-  function toCorrectRoute() {
-    whiteList.includes(to.fullPath) ? next(_from.fullPath) : next();
-  }
-  if (userInfo) {
-    // 无权限跳转403页面
-    if (to.meta?.roles && !isOneOfArray(to.meta?.roles, userInfo?.roles)) {
-      next({ path: "/error/403" });
-    }
-    if (_from?.name) {
-      // name为超链接
-      if (externalLink) {
-        openLink(to?.name as string);
-        NProgress.done();
-      } else {
-        toCorrectRoute();
-      }
-    } else {
-      // 刷新
-      if (
-        usePermissionStoreHook().wholeMenus.length === 0 &&
-        to.path !== "/login"
-      ) {
-        initRouter().then((router: Router) => {
-          if (!useMultiTagsStoreHook().getMultiTagsCache) {
-            const { path } = to;
-            const route = findRouteByPath(
-              path,
-              router.options.routes[0].children
-            );
-            // query、params模式路由传参数的标签页不在此处处理
-            if (route && route.meta?.title) {
-              useMultiTagsStoreHook().handleTags("push", {
-                path: route.path,
-                name: route.name,
-                meta: route.meta
-              });
-            }
-          }
-          router.push(to.fullPath);
-        });
-      }
-      toCorrectRoute();
-    }
-  } else {
-    if (to.path !== "/login") {
-      if (whiteList.indexOf(to.path) !== -1) {
-        next();
-      } else {
-        next({ path: "/login" });
-      }
-    } else {
-      next();
-    }
-  }
+  // if (to.meta?.keepAlive) {
+  //   const newMatched = to.matched;
+  //   handleAliveRoute(newMatched, "add");
+  //   // 页面整体刷新和点击标签页刷新
+  //   if (_from.name === undefined || _from.name === "Redirect") {
+  //     handleAliveRoute(newMatched);
+  //   }
+  // }
+  // const userInfo = storageSession().getItem<DataInfo<number>>(sessionKey);
+  // NProgress.start();
+  // const externalLink = isUrl(to?.name as string);
+  // if (!externalLink) {
+  //   to.matched.some(item => {
+  //     if (!item.meta.title) return "";
+  //     const Title = getConfig().Title;
+  //     if (Title) document.title = `${item.meta.title} | ${Title}`;
+  //     else document.title = item.meta.title as string;
+  //   });
+  // }
+  // /** 如果已经登录并存在登录信息后不能跳转到路由白名单，而是继续保持在当前页面 */
+  // function toCorrectRoute() {
+  //   whiteList.includes(to.fullPath) ? next(_from.fullPath) : next();
+  // }
+  // if (userInfo) {
+  //   // 无权限跳转403页面
+  //   if (to.meta?.roles && !isOneOfArray(to.meta?.roles, userInfo?.roles)) {
+  //     next({ path: "/error/403" });
+  //   }
+  //   if (_from?.name) {
+  //     // name为超链接
+  //     if (externalLink) {
+  //       openLink(to?.name as string);
+  //       NProgress.done();
+  //     } else {
+  //       toCorrectRoute();
+  //     }
+  //   } else {
+  //     // 刷新
+  //     if (
+  //       usePermissionStoreHook().wholeMenus.length === 0 &&
+  //       to.path !== "/login"
+  //     ) {
+  //       initRouter().then((router: Router) => {
+  //         if (!useMultiTagsStoreHook().getMultiTagsCache) {
+  //           const { path } = to;
+  //           const route = findRouteByPath(
+  //             path,
+  //             router.options.routes[0].children
+  //           );
+  //           // query、params模式路由传参数的标签页不在此处处理
+  //           if (route && route.meta?.title) {
+  //             useMultiTagsStoreHook().handleTags("push", {
+  //               path: route.path,
+  //               name: route.name,
+  //               meta: route.meta
+  //             });
+  //           }
+  //         }
+  //         router.push(to.fullPath);
+  //       });
+  //     }
+  //     toCorrectRoute();
+  //   }
+  // } else {
+  //   if (to.path !== "/login") {
+  //     if (whiteList.indexOf(to.path) !== -1) {
+  //       next();
+  //     } else {
+  //       next({ path: "/login" });
+  //     }
+  //   } else {
+  //     next();
+  //   }
+  // }
+  next();
 });
 
 router.afterEach(() => {

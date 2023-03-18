@@ -9,7 +9,6 @@
       <el-form-item label="客户名称" prop="customerName" :rules="[{ validator: checkCustomName, trigger: 'change' }]" id="customerName" v-if="!isQuota">
         <remoteSelectInput ref="remoteSelectInputRef" v-if="isEdit && demandForm.status == null && route.name == 'addCustomers'" @getCustomerInfo="getCustomerInfo" :initInfo="{id: demandForm.customerId, name: demandForm.customerName}"></remoteSelectInput>
         <el-input v-else :disabled="demandForm.status > -1 " v-model="demandForm.customerName"></el-input>
-        {{  demandForm.status > -1  }}
       </el-form-item>
 
       <el-form-item label="办公/厂房" prop="officeBuild" id="officeBuild" v-if="!isQuota">

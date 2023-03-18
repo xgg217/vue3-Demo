@@ -186,39 +186,81 @@ function handleAsyncRoutes(routeList) {
         }
       }
     );
+    console.log(routeList);
+
     usePermissionStoreHook().handleWholeMenus(routeList);
   }
   addPathMatch();
 }
 
+const permissionRouter = {
+  path: "/permission",
+  meta: {
+    title: "权限管理",
+    icon: "lollipop",
+    rank: 10
+  },
+  children: [
+    {
+      path: "/permission/page/index",
+      name: "PermissionPage",
+      meta: {
+        title: "页面权限",
+        roles: ["admin", "common"]
+      }
+    },
+    {
+      path: "/permission/button/index",
+      name: "PermissionButton",
+      meta: {
+        title: "按钮权限",
+        roles: ["admin", "common"],
+        auths: ["btn_add", "btn_edit", "btn_delete"]
+      }
+    }
+  ]
+};
+
+
+
 /** 初始化路由（`new Promise` 写法防止在异步请求中造成无限循环）*/
 function initRouter() {
-  if (getConfig()?.CachingAsyncRoutes) {
-    // 开启动态路由缓存本地sessionStorage
-    const key = "async-routes";
-    const asyncRouteList = storageSession().getItem(key) as any;
-    if (asyncRouteList && asyncRouteList?.length > 0) {
-      return new Promise(resolve => {
-        handleAsyncRoutes(asyncRouteList);
-        resolve(router);
-      });
-    } else {
-      return new Promise(resolve => {
-        getAsyncRoutes().then(({ data }) => {
-          handleAsyncRoutes(cloneDeep(data));
-          storageSession().setItem(key, data);
-          resolve(router);
-        });
-      });
-    }
-  } else {
-    return new Promise(resolve => {
-      getAsyncRoutes().then(({ data }) => {
-        handleAsyncRoutes(cloneDeep(data));
-        resolve(router);
-      });
-    });
-  }
+
+  // console.log(1);
+  // const flattenRouters: any = router
+  //   .getRoutes()
+  //   .find(n => n.path === "/");
+  // router.addRoute(flattenRouters);
+
+  // return Promise.resolve(true)
+
+  // if (getConfig()?.CachingAsyncRoutes) {
+  //   console.log(2);
+
+  //   // 开启动态路由缓存本地sessionStorage
+  //   const key = "async-routes";
+  //   const asyncRouteList = storageSession().getItem(key) as any;
+  //   if (asyncRouteList && asyncRouteList?.length > 0) {
+  //     return new Promise(resolve => {
+  //       handleAsyncRoutes(asyncRouteList);
+  //       resolve(router);
+  //     });
+  //   } else {
+  //     console.log("未获取到缓存路由，重新获取");
+  //     return new Promise(resolve => {
+  //       getAsyncRoutes().then(({ data }) => {
+  //         handleAsyncRoutes(cloneDeep(data));
+  //         storageSession().setItem(key, data);
+  //         resolve(router);
+  //       });
+  //     });
+  //   }
+  // } else {
+  return new Promise(resolve => {
+    handleAsyncRoutes(cloneDeep([permissionRouter]));
+    resolve(true)
+  });
+  // }
 }
 
 /**
@@ -227,6 +269,8 @@ function initRouter() {
  * @returns 返回处理后的一维路由
  */
 function formatFlatteningRoutes(routesList: RouteRecordRaw[]) {
+  console.log(routesList);
+
   if (routesList.length === 0) return routesList;
   let hierarchyList = buildHierarchyTree(routesList);
   for (let i = 0; i < hierarchyList.length; i++) {
@@ -294,6 +338,7 @@ function handleAliveRoute(matched: RouteRecordNormalized[], mode?: string) {
 
 /** 过滤后端传来的动态路由 重新生成规范路由 */
 function addAsyncRoutes(arrRoutes: Array<RouteRecordRaw>) {
+
   if (!arrRoutes || !arrRoutes.length) return;
   const modulesRoutesKeys = Object.keys(modulesRoutes);
   arrRoutes.forEach((v: RouteRecordRaw) => {
@@ -318,6 +363,8 @@ function addAsyncRoutes(arrRoutes: Array<RouteRecordRaw>) {
       addAsyncRoutes(v.children);
     }
   });
+  console.log(arrRoutes);
+
   return arrRoutes;
 }
 

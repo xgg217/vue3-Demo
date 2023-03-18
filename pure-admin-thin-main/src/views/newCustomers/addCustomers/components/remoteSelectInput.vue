@@ -1,6 +1,6 @@
 <template>
   <div class="remoteSelectInput flex">
-    <div style="width: 60%">
+    <div >
       <el-select
         v-if="!manual"
         v-model="value"
@@ -13,6 +13,7 @@
         :remote-method="remoteMethod"
         :loading="loading"
         ref="selectCustomer"
+        style="width: 400px"
       >
         <el-option
           v-for="(item, index) in options"
@@ -24,12 +25,10 @@
       <div class="nameBox" v-else @click="changeToSelect">
         {{ value }}
       </div>
-      <!-- <el-input v-else disabled v-model="value" placeholder="" @input="selectItem"/> -->
     </div>
 
     <div class="addNewItem flex-center b-blue-color">
-      <!-- <span @click="changeMethods">{{ !manual ? '手动输入' : '查询选项' }}</span> -->
-      <span @click="openAddCustomer"><van-icon name="plus" /> 新增客户</span>
+      <el-button type="primary" @click="openAddCustomer">新增客户</el-button>
     </div>
 
     <!-- <van-overlay :show="show">

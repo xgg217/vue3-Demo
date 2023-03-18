@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import sesstionStorage from "@/utils/sessionStorage"
+import { initRouter } from "@/router/utils";
+
 import Motion from "./utils/motion";
 import { useRouter } from "vue-router";
 import { message } from "@/utils/message";
@@ -11,7 +14,6 @@ import { bg, avatar, illustration } from "./utils/static";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from "vue";
 import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
-import { initRouter } from "@/router/utils";
 
 import dayIcon from "@/assets/svg/day.svg?component";
 import darkIcon from "@/assets/svg/dark.svg?component";
@@ -33,8 +35,8 @@ dataThemeChange();
 const { title } = useNav();
 
 const ruleForm = reactive({
-  username: "admin",
-  password: "admin123"
+  phone: "18279196956",
+  code: "8888"
 });
 
 const onLogin = async (formEl: FormInstance | undefined) => {
@@ -42,17 +44,45 @@ const onLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      useUserStoreHook()
-        .loginByUsername({ username: ruleForm.username, password: "admin123" })
-        .then(res => {
-          if (res.success) {
-            // 获取后端路由
-            initRouter().then(() => {
-              router.push("/");
-              message("登录成功", { type: "success" });
-            });
-          }
+      // useUserStoreHook()
+      //   .loginByUsername({ username: ruleForm.username, password: "admin123" })
+      //   .then(res => {
+      //     if (res.success) {
+      //       // 获取后端路由
+      //       initRouter().then(() => {
+      //         router.push("/");
+      //         message("登录成功", { type: "success" });
+      //       });
+      //     }
+      //   });
+
+      useUserStoreHook().codeLogin(ruleForm.phone, ruleForm.code).then(res => {
+        console.log(res);
+
+        // 获取 页面结构获取组织架构--稍后开发
+        // getPermission()
+
+        const fullpath = sesstionStorage.get("beforePath");
+        console.log(fullpath);
+
+        initRouter().then(() => {
+          console.log(111);
+
+          router.push("/");
+          message("登录成功", { type: "success" });
         });
+
+        // if (fullpath) {
+        //   router.push(fullpath);
+        // } else {
+        //   console.log(router);
+
+        //   router.push({ path: '/newCustomers/index' });
+        // }
+
+      }).catch(err => {
+        console.log(err);
+      });
     } else {
       loading.value = false;
       return fields;
@@ -111,15 +141,15 @@ onBeforeUnmount(() => {
                 :rules="[
                   {
                     required: true,
-                    message: '请输入账号',
+                    message: '请输入手机号',
                     trigger: 'blur'
                   }
                 ]"
-                prop="username"
+                prop="phone"
               >
                 <el-input
                   clearable
-                  v-model="ruleForm.username"
+                  v-model="ruleForm.phone"
                   placeholder="账号"
                   :prefix-icon="useRenderIcon(User)"
                 />
@@ -127,12 +157,12 @@ onBeforeUnmount(() => {
             </Motion>
 
             <Motion :delay="150">
-              <el-form-item prop="password">
+              <el-form-item prop="code">
                 <el-input
                   clearable
                   show-password
-                  v-model="ruleForm.password"
-                  placeholder="密码"
+                  v-model="ruleForm.code"
+                  placeholder="验证码"
                   :prefix-icon="useRenderIcon(Lock)"
                 />
               </el-form-item>
