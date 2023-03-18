@@ -15,7 +15,7 @@ export default {
     {
       path: "/newCustomers/addCustomers",
       name: "addCustomers",
-      component: () => import("@/views/newCustomers/addCustomers.vue"),
+      component: () => import("@/views/newCustomers/addCustomers/index.vue"),
       meta: {
         title: "新增客户",
         showLink: false

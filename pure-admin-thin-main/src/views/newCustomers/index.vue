@@ -4,10 +4,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-interface ITableData {
-  id: number;
-  name: string;
-}
+
 
 // 搜索
 const {
@@ -29,6 +26,11 @@ const {
   tableData,
   addCustomersPage
 } = (function () {
+  interface ITableData {
+    id: number;
+    name: string;
+  }
+
   const tableData = reactive<ITableData[]>([])
 
   for (let i = 0; i < 10; i++) {
@@ -41,7 +43,7 @@ const {
   // 新增客户跳转
   const addCustomersPage = () => {
     console.log('新增客户')
-    router.push('/newCustomers/addCustomers')
+    router.push({name: 'addCustomers'})
   }
 
   return {
@@ -93,9 +95,6 @@ const {
 
 <style scoped lang="scss">
 .head {
-  // display: flex;
-  // justify-content: space-between;
-  // align-items: center;
   padding: 20px 20px 0 20px;
   margin-bottom: 20px;
   background-color: #fff;
