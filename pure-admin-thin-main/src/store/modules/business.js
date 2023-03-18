@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { store } from "@/store";
 
 export const useBusinessStore = defineStore('business', {
   state: () => {
@@ -34,3 +35,7 @@ export const useBusinessStore = defineStore('business', {
     enabled: true
   }
 })
+
+export function useBusinessStoreHook() {
+  return useBusinessStore(store);
+}

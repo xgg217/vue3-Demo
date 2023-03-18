@@ -1,6 +1,9 @@
 import { defineStore } from "pinia";
 import { store } from "@/store";
 import { verificationCodeLogin } from '@/api/login'
+
+const TOKEN = 'token'
+
 // import { userType } from "./types";
 // import { routerArrays } from "@/layout/types";
 // import { router, resetRouter } from "@/router";
@@ -127,6 +130,10 @@ export const useUserStore = defineStore({
         this.token = data.token
         this.roles = data.roles
         this.loginTime = Date.now()
+
+        localStorage.setItem(TOKEN, data.token)
+
+
 
         return Promise.resolve(true)
       }).catch(err => {

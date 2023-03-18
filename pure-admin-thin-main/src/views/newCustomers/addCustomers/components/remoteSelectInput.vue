@@ -27,9 +27,9 @@
       </div>
     </div>
 
-    <div class="addNewItem flex-center b-blue-color">
+    <!-- <div class="addNewItem flex-center b-blue-color">
       <el-button type="primary" @click="openAddCustomer">新增客户</el-button>
-    </div>
+    </div> -->
 
     <!-- <van-overlay :show="show">
       <div class="wrapper" @click.stop>
@@ -72,19 +72,20 @@ const getList = throttle((query) => {
       if (res.code === 200) {
         options.value = res.data
       } else {
-        failTip(res.code + ' - ' + res.msg)
+        // failTip(res.code + ' - ' + res.msg)
       }
       loading.value = false
     })
     .catch((e) => {
       console.log(e)
-      failTip(JSON.stringify(e))
+      // failTip(JSON.stringify(e))
       loading.value = false
     })
-}, 200)
+}, 500)
 
 const remoteMethod = (query) => {
   if (query) {
+    console.log(2);
     loading.value = true
     getList(query)
   } else {
@@ -161,6 +162,7 @@ const submit = async (name) => {
 
 onMounted(() => {
   loading.value = true
+  console.log(1);
   getList('')
 })
   /* 暴露表单信息 */

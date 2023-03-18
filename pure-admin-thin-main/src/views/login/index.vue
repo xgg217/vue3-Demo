@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useDictStoreHook } from '@/store/modules/dict.js'
+
 import sesstionStorage from "@/utils/sessionStorage"
 import { initRouter } from "@/router/utils";
 
@@ -42,7 +44,7 @@ const ruleForm = reactive({
 const onLogin = async (formEl: FormInstance | undefined) => {
   loading.value = true;
   if (!formEl) return;
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid) {
       // useUserStoreHook()
       //   .loginByUsername({ username: ruleForm.username, password: "admin123" })
@@ -56,29 +58,44 @@ const onLogin = async (formEl: FormInstance | undefined) => {
       //     }
       //   });
 
+      try {
+        await useUserStoreHook().codeLogin(ruleForm.phone, ruleForm.code);
+        // 获取数据字典
+        await useDictStoreHook().asyncGetDict();
+
+        // 路由挂载
+        await initRouter()
+
+        // 跳转首页
+        router.push("/");
+        message("登录成功", { type: "success" });
+      } catch (error) {
+        console.error(error);
+
+      }
+
       useUserStoreHook().codeLogin(ruleForm.phone, ruleForm.code).then(res => {
         console.log(res);
 
         // 获取 页面结构获取组织架构--稍后开发
         // getPermission()
 
-        const fullpath = sesstionStorage.get("beforePath");
-        console.log(fullpath);
+        // 获取字典
 
-        initRouter().then(() => {
-          console.log(111);
+        console.log(useDictStoreHook().asyncGetDict);
+        return useDictStoreHook().asyncGetDict()
 
-          router.push("/");
-          message("登录成功", { type: "success" });
-        });
 
-        // if (fullpath) {
-        //   router.push(fullpath);
-        // } else {
-        //   console.log(router);
+        // initRouter().then(() => {
+        //   console.log(111);
 
-        //   router.push({ path: '/newCustomers/index' });
-        // }
+        //   router.push("/");
+        //   message("登录成功", { type: "success" });
+        // });
+
+
+      }).then(() => {
+        return initRouter()
 
       }).catch(err => {
         console.log(err);

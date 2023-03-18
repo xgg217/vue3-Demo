@@ -1,6 +1,6 @@
 <template>
   <div class="demandFormWrap">
-    <el-form ref="ruleFormRef" :model="demandForm" label-width="80px" label-position="left" :disabled="!isEdit" class="demandForm" :class="{'busCancelEdit': !isEdit}" :rules="formRule">
+    <el-form ref="ruleFormRef" :model="demandForm" label-width="90px" label-position="left" :disabled="!isEdit" class="demandForm" :class="{'busCancelEdit': !isEdit}" :rules="formRule">
       <slot name="quotaState" :data="demandForm"></slot>
       <el-form-item label="客户状态" v-if="(demandForm.status || demandForm.status === 0) && route.name != 'addDemand' && !isQuota " >
         <span :class="statusList[demandForm.status].className">{{ statusList[demandForm.status].lable }} {{ demandForm.status == 0 ? '剩余' + (demandForm.days || '-') + '天到期' : '' }}</span>
@@ -96,7 +96,7 @@
 
       <template v-if="isQuota && !isEdit">
         <slot name="quotaInfo" :data="demandForm"></slot>
-        <el-form-item label="合作方式" label-width="80px">
+        <el-form-item label="合作方式" label-width="90px">
           <el-radio-group v-model="demandForm.cooperateType" class="quotaRadio">
             <el-radio :label="1">保税加工</el-radio>
             <el-radio :label="2">国内加工</el-radio>
@@ -129,7 +129,7 @@
         <span v-else class="relative">{{ getFactory(demandForm.contractFactoryId) }}</span>
       </el-form-item>
 
-      <el-form-item :label="(isQuota && !isEdit) ? '' : '合作方式'" label-width="80px">
+      <el-form-item :label="(isQuota && !isEdit) ? '' : '合作方式'" label-width="90px">
         <el-radio-group v-model="demandForm.cooperateType" v-if="!(isQuota && !isEdit)">
           <el-radio :label="1">保税加工</el-radio>
           <el-radio :label="2">国内加工</el-radio>
@@ -277,7 +277,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="入料途径" label-width="80px" v-if="demandForm.cooperateType === 1" id="material" :class="{'changeMarginTo5': !isEdit}">
+          <el-form-item label="入料途径" label-width="90px" v-if="demandForm.cooperateType === 1" id="material" :class="{'changeMarginTo5': !isEdit}">
             <div>
               <!-- <span class="e-gray-color">物料</span> -->
               <el-form-item label="物料" label-width="11vw" prop="material" id="material" :class="{'changeMarginTo5': !isEdit}">
@@ -290,7 +290,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="" label-width="80px" v-if="demandForm.cooperateType === 1" id="packageMaterial" :class="{'changeMarginTo5': !isEdit}">
+          <el-form-item label="" label-width="90px" v-if="demandForm.cooperateType === 1" id="packageMaterial" :class="{'changeMarginTo5': !isEdit}">
             <div>
               <!-- <span class="e-gray-color">包材</span> -->
               <el-form-item label="包材" label-width="11vw" prop="packageMaterial" id="packageMaterial" :class="{'changeMarginTo5': !isEdit}">
@@ -360,7 +360,7 @@
           </template>
 
           <template v-if="demandForm.cooperateType != 3">
-            <el-form-item label="物料损耗率" label-width="80px" :rules="[
+            <el-form-item label="物料损耗率" label-width="90px" :rules="[
               { validator: demandForm.lossA ? checkAdvanceRate : '', trigger: 'change' },
             ]" prop="lossARate" id="lossARate" style="margin-bottom: 4vw" v-if="isEdit || demandForm.lossA">
               <div class="flex">
@@ -374,7 +374,7 @@
               </div>
             </el-form-item>
 
-            <el-form-item label="" label-width="80px" :rules="[
+            <el-form-item label="" label-width="90px" :rules="[
                 { validator: demandForm.lossB ? checkAdvanceRate : '', trigger: 'change' },
               ]" prop="lossBRate" id="lossBRate" style="margin-bottom: 4vw" v-if="isEdit || demandForm.lossB">
               <div class="flex">
@@ -388,7 +388,7 @@
               </div>
             </el-form-item>
 
-            <el-form-item label="" label-width="80px" :rules="[
+            <el-form-item label="" label-width="90px" :rules="[
                 { validator: demandForm.lossC ? checkAdvanceRate : '', trigger: 'change' },
               ]" prop="lossCRate" id="lossCRate" v-if="isEdit || demandForm.lossC">
               <div class="flex">
@@ -403,7 +403,7 @@
             </el-form-item>
           </template>
 
-          <el-form-item label="成品报废率" label-width="80px" :rules="[
+          <el-form-item label="成品报废率" label-width="90px" :rules="[
               { validator: checkAdvanceRate, trigger: 'change' },
             ]" prop="scrapRate" id="scrapRate" v-if="demandForm.cooperateType != 3 && !isQuota">
             <el-input v-if="isEdit" v-model="demandForm.scrapRate" placeholder="数字">
@@ -412,14 +412,14 @@
             <span v-else>{{ demandForm.scrapRate + ' %' }}</span>
           </el-form-item>
 
-          <el-form-item label="结工单要求" label-width="80px" v-if="demandForm.cooperateType != 3 && !isQuota" prop="workOrderAsk" id="workOrderAsk">
+          <el-form-item label="结工单要求" label-width="90px" v-if="demandForm.cooperateType != 3 && !isQuota" prop="workOrderAsk" id="workOrderAsk">
             <el-input v-if="isEdit" :rows="3" maxlength="200" type="textarea" v-model="demandForm.workOrderAsk" placeholder="文字"></el-input>
             <div v-else class="textAreaTextWrap">
               {{ demandForm.workOrderAsk }}
             </div>
           </el-form-item>
 
-          <el-form-item label="出货要求" label-width="80px" v-if="demandForm.cooperateType != 3" prop="shipmentAskList" id="shipmentAskList">
+          <el-form-item label="出货要求" label-width="90px" v-if="demandForm.cooperateType != 3" prop="shipmentAskList" id="shipmentAskList">
             <el-checkbox-group v-model="demandForm.shipmentAskList">
               <el-checkbox :label="'散货出'">散货出</el-checkbox>
               <el-checkbox :label="'栈板出'">栈板出</el-checkbox>
@@ -428,7 +428,7 @@
             </el-checkbox-group>
           </el-form-item>
 
-          <el-form-item label="回购条款" label-width="80px" v-if="demandForm.cooperateType != 3 && !isQuota" prop="buybackProvision" id="buybackProvision">
+          <el-form-item label="回购条款" label-width="90px" v-if="demandForm.cooperateType != 3 && !isQuota" prop="buybackProvision" id="buybackProvision">
             <div style="width: 100%">
               <el-radio-group v-model="demandForm.buybackProvision">
                 <el-radio :label="1">是</el-radio>
@@ -457,7 +457,7 @@
             <div v-else class="textAreaTextWrap">{{ demandForm.afterSalesProvision }}</div>
           </el-form-item>
 
-          <el-form-item label="付款条件" label-width="80px" :class="{'changeMaterialCheckMargin': isEdit, 'changeMarginTo5': !isEdit}" v-if="!isQuota">
+          <el-form-item label="付款条件" label-width="90px" :class="{'changeMaterialCheckMargin': isEdit, 'changeMarginTo5': !isEdit}" v-if="!isQuota">
             <el-checkbox style="width: 100%" v-model="demandForm.materialCheck" label="材料款" />
             <div v-if="demandForm.materialCheck" style="width: 60vw">
               <span class="e-gray-color" style="padding-left: 4vw;">对账周期</span>
@@ -591,7 +591,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="开票要求" label-width="80px" :prop="demandForm.cooperateType == 3 ? 'invoiceAskListRadio' : 'invoiceAskList'" :id="demandForm.cooperateType == 3 ? 'invoiceAskListRadio' : 'invoiceAskList'" v-if="!isQuota">
+          <el-form-item label="开票要求" label-width="90px" :prop="demandForm.cooperateType == 3 ? 'invoiceAskListRadio' : 'invoiceAskList'" :id="demandForm.cooperateType == 3 ? 'invoiceAskListRadio' : 'invoiceAskList'" v-if="!isQuota">
             <template v-if="demandForm.cooperateType != 3">
               <el-checkbox-group v-model="demandForm.invoiceAskList" class="changeCheckMargin">
                 <el-checkbox :label="'成品发票'">成品发票</el-checkbox>
@@ -610,12 +610,12 @@
 
           </el-form-item>
 
-          <el-form-item label="售后条件" label-width="80px" v-if="demandForm.cooperateType == 3">
+          <el-form-item label="售后条件" label-width="90px" v-if="demandForm.cooperateType == 3">
             <el-input v-if="isEdit" :rows="3" type="textarea" maxlength="200" v-model="demandForm.afterSalesAsk" placeholder="文字"></el-input>
             <div class="textAreaTextWrap" v-else>{{ demandForm.afterSalesAsk }}</div>
           </el-form-item>
 
-          <el-form-item label="对等性" label-width="80px" v-if="demandForm.cooperateType == 3">
+          <el-form-item label="对等性" label-width="90px" v-if="demandForm.cooperateType == 3">
             <el-radio-group v-model="demandForm.parity">
               <div style="width: 100%">
                 <el-radio :label="1">对等</el-radio>
@@ -666,7 +666,10 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { ref, reactive, watch, onMounted } from 'vue';
+import employeeNumberOptionsList from '@/enum/employeeNumberOptions'; // 员工人数
+import currencyArr from '@/enum/currencyList'; // 员工人数
   import remoteSelectInput from "./remoteSelectInput.vue"
+
   // import remoteSelectPro from "./remoteSelectPro.vue"
   // import businessFileList from "./businessFileList.vue"
   import checkName from "./../utils/checkName"
@@ -916,11 +919,12 @@ import { ref, reactive, watch, onMounted } from 'vue';
   }
 
   /* 员工人数 */
-  const employeeNumberOptions = window.employeeNumberOptions
+  const employeeNumberOptions = employeeNumberOptionsList
 
   /* 签约工厂 */
   // const {factory} = storeToRefs(useDictStore())
   const {factory} = useDictStore()
+  console.log(factory);
   /* 获取签约工厂 */
   const getFactory = (id) => {
     let name = '--'
@@ -981,7 +985,7 @@ import { ref, reactive, watch, onMounted } from 'vue';
   }
 
   /* 注册资本 */
-  const currencyList = window.currencyList
+  const currencyList = currencyArr
   // 转换，号
   const transComma = (value, sttr) => {
     demandForm.value[sttr] = addComma(value)

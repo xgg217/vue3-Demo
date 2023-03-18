@@ -170,6 +170,7 @@ router.beforeEach((to: toRouteType, _from, next) => {
   //     next();
   //   }
   // }
+
   next();
 });
 

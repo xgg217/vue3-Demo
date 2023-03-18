@@ -1,7 +1,7 @@
 import { http } from "@/utils/http";
-import { useBusinessStore } from "@/store/modules/business.js"
+import { useBusinessStoreHook } from "@/store/modules/business.js"
 
-const { id, protocolId } = useBusinessStore();
+const { id, protocolId } = useBusinessStoreHook();
 
 type Result = {
   success: boolean;
@@ -29,6 +29,6 @@ export const addCustomer = (params) => {
 }
 
 /* 查询客户 */
-export const checkCustomer = (params) => {
-  return http.request<Result>("post", '/customer/list' + params);
+export const checkCustomer = (data) => {
+  return http.request<Result>("post", '/customer/customer/list', { data });
 }
