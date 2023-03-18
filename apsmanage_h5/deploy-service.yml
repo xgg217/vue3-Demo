@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apsmanage-h5
+  namespace: rs-dev
+  labels:
+    app: apsmanage-h5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apsmanage-h5
+  template:
+    metadata:
+      labels:
+        app: apsmanage-h5
+    spec:
+      imagePullSecrets:
+        - name: rs-registry
+      containers:
+        - name: apsmanage-h5
+          image: harbor-rongshu-saas.com/front/apsmanage_h5:0.001
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: '4'
+              memory: 512Mi
+            requests:
+              cpu: '1'
+              memory: 256Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apsmanage-h5
+  namespace: rs-dev
+  labels:
+    app: apsmanage-h5
+spec:
+  type: NodePort
+  selector:
+    app: apsmanage-h5
+  ports:
+    - name: apsmanage-h5
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30300
+

@@ -1,0 +1,29 @@
+@keyframes rock {
+  0% {
+    transform: rotate(-30deg)
+  }
+  10% {
+    transform: rotate(-15deg)
+  }
+  20% {
+    transform: rotate(-30deg)
+  }
+  30% {
+    transform: rotate(-45deg)
+  }
+  35% {
+    transform: rotate(-15deg)
+  }
+  40% {
+    transform: rotate(-45deg)
+  }
+  45% {
+    transform: rotate(-15deg)
+  }
+  50% {
+    transform: rotate(-30deg)
+  }
+  100% {
+    transform: rotate(-30deg)
+  }
+}

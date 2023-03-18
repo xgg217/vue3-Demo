@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>品鑫泰供应链 - 流通整合服务平台</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="icon" href="/favicon.png"/>
+    <link href="/static/pxtsc/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/pxtsc/header-default.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/pxtsc/footer-v8.css" rel="stylesheet" type="text/css"/>
+    <script src="/static/pxtsc/vue@2.js"></script>
+    <script src="/static/pxtsc/axios.min.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="/static/pxtsc/index.css">
+    <!-- 引入组件库 -->
+    <script src="/static/pxtsc/index.js"></script>
+    <meta content="Orchard" name="generator"/>
+    <style>
+        .quota {
+            min-height: 600px;
+            width: 800px;
+            margin: 30px auto;
+
+        }
+
+        .quota img {
+            width: 100%;
+        }
+
+        .msg .el-form-item__content {
+            display: flex;
+        }
+
+        .el-form-item {
+            margin-bottom: 0;
+        }
+
+        tr {
+            height: 30px;
+        }
+
+        td {
+            padding: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper" id="app">
+    <div class="header">
+        <div class="container">
+            <a class="logo" href="/public"><img src="http://www.pxtsc.com/Media/Default/Images/logo.png" alt="logo" style="margin-top: 20px;"></a>
+        </div>
+        <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+            <div class="container" style="margin-top: -30px;margin-bottom: 25px;">
+                <ul class="nav navbar-nav">
+                    <li><a href="/public">首页</a>
+                    </li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">关于我们</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.pxtsc.com/about/关于我们">关于我们</a>
+                            </li>
+                            <li><a href="http://www.pxtsc.com/about/经营理念">经营理念</a>
+                            </li>
+                            <li><a href="http://www.pxtsc.com/about/集团架构">集团架构</a>
+                            </li>
+                            <li><a href="http://www.pxtsc.com/about/企业文化">企业文化</a>
+                            </li>
+                            <li><a href="http://www.pxtsc.com/about/大事记">发展历程</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown current"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">供应链生态圈</a>
+                        <ul class="dropdown-menu">
+                            <li class="current">
+                                <a href="http://www.pxtsc.com/scs/solution">流通整合服务平台</a>
+                            </li>
+                            <li>
+                                <a href="http://www.pxtsc.com/scs/core">跨境综合服务平台</a>
+                            </li>
+                            <li>
+                                <a href="http://www.pxtsc.com/scs/ii">智能制造服务平台</a>
+                            </li>
+                            <li>
+                                <a href="http://www.pxtsc.com/scs/ifs">全球维修服务平台</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">解决方案</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="http://www.pxtsc.com/factory/品鑫泰供应链">品鑫泰供应链</a>
+                            </li>
+                            <li>
+                                <a href="http://www.pxtsc.com/factory/智造服务">智造服务</a>
+                            </li>
+                            <li>
+                                <a href="http://www.pxtsc.com/factory/融资租赁平台">融资租赁平台</a>
+                            </li>
+                            <li>
+                                <a href="http://www.pxtsc.com/factory/合作伙伴">合作伙伴</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">加入我们</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="http://www.pxtsc.com/yytg/人才理念">人才理念</a>
+                            </li>
+                            <li>
+                                <a href="http://www.pxtsc.com/yytg/薪酬福利">薪酬福利</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="http://www.pxtsc.com/news">新闻</a>
+                    </li>
+                    <li><a href="http://www.pxtsc.com/contract">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="quota">
+        <div class="table">
+            <table border="1" width="100%">
+                <tr>
+                    <td colspan="6">
+                        <div style="text-align: center;font-size: 18px;font-weight: bold">{{ detail.offerHeader.offerName }}</div>
+                        <img style="width: 50px;" :src="detail.offerHeader.imageUrl" alt="">
+                        <div style="text-align: right">编号：{{ detail.offerHeader.offerNo }}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">需方(甲方)：{{ detail.offerHeader.companyName }}</td>
+                    <td colspan="3">供方(乙方)：{{ detail.offerHeader.customerName }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">联系人：{{ detail.offerHeader.companyContactsName }}</td>
+                    <td colspan="3">联系人：{{ detail.offerHeader.customerContactsName }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">电话：{{ detail.offerHeader.companyContactsPhone }}</td>
+                    <td colspan="3">电话：{{ detail.offerHeader.customerContactsPhone }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">报价机型：{{ detail.offerHeader.offerMaterial }}</td>
+                    <td colspan="3">报价日期：{{ detail.offerHeader.offerDate }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">报价币别：{{ detail.offerHeader.offerCurrency }}</td>
+                    <td colspan="3">订单量：{{ detail.offerHeader.orderNum }}</td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="center">量产单片费用</td>
+                </tr>
+                <tr align="center">
+                    <td>序号</td>
+                    <td>工序</td>
+                    <td>单位</td>
+                    <td>数量</td>
+                    <td>价格</td>
+                    <td>小计</td>
+                </tr>
+                <tr v-for="(item,index) in detail.offerBody" :key="index" align="center">
+                    <td>{{ item.sequence }}</td>
+                    <td>{{ item.workStage }}</td>
+                    <td>{{ item.unit }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.subtotal }}</td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="right">小计：{{ detail.offerHeader.offerCurrency }} {{ detail.offerHeader.singleFeeSubtotal }}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="6" align="center">其他费用</td>
+                </tr>
+                <tr align="center">
+                    <td>序号</td>
+                    <td>内容</td>
+                    <td>单位</td>
+                    <td>数量</td>
+                    <td>价格</td>
+                    <td>小计</td>
+                </tr>
+                <tr align="center" v-for="(item,index) in detail.offerBodyOther" :key="index">
+                    <td>{{ item.sequence }}</td>
+                    <td>{{ item.content }}</td>
+                    <td>{{ item.unit }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.subtotal }}</td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <div style="text-align: right;padding-top: 10px">小计： {{ detail.offerHeader.offerCurrency }} {{ detail.offerHeader.otherFeeSubtotal }}</div>
+                        <div style="text-align: right">合计： {{ detail.offerHeader.offerCurrency }} {{ detail.offerHeader.total }}</div>
+                        <div style="margin:20px 0">
+                            <div>备注：</div>
+                            <ol v-html="detail.offerHeader.remark">
+                            </ol>
+                        </div>
+                        <div style="margin:20px 0">报价人： {{ detail.offerHeader.offerPerson }}（外发报价人姓名）</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <el-form ref="form" :model="form" :disabled="detail.status!=6">
+            <el-form-item>
+                <el-radio-group v-model="form.offerResult">
+                    <el-radio :label="0">确认报价项</el-radio>
+                    <el-radio :label="1">对报价存在疑虑</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="备注" style="margin-bottom: 20px;">
+                <el-input type="textarea" :rows="4" v-model.trim="form.remarks" placeholder="不确认报价时，请在此处录入具体原因，我司收到后，会有专员联系您"></el-input>
+            </el-form-item>
+            <el-row style="padding:10px 0 22px 0">
+                <el-col :span="14">
+                    <el-form-item>
+                        <el-select v-model="form.contactsId" placeholder="请选择手机号码">
+                            <el-option :label="item.mobile" :value="item.id" v-for="(item) in phone"></el-option>
+                        </el-select>
+                        <el-button v-if="showSetMsg" type="primary" @click="onCountdown">发送验证码</el-button>
+                        <el-button v-else type="primary">{{ time + 's' }}</el-button>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="10" class="msg">
+                    <el-form-item label="验证码：">
+                        <el-input v-model="form.verifyCode" placeholder="请输入验证码"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-form-item>
+                <el-row type="flex" justify="center" style="margin-top: 50px;">
+                    <el-button type="primary" @click="onSubmit" style="width: 300px">回复 {{ detail.offerHeader.customerName }}</el-button>
+                </el-row>
+            </el-form-item>
+
+        </el-form>
+    </div>
+    <div id="pxtsc_content" class="bg-color-light">
+        <div class="footer-v8">
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 md-margin-bottom-40">
+                            <div class="headline11">
+                                <h3 style="font-size:18px;color:#fff;">关于我们</h3>
+                            </div>
+                            <ul class="footerMenuul" style="list-style:none; padding-left:0px;color:#fff;font-size:16px">
+                                <li><a style="font-size:16px;color:#fff;" href="http://www.pxtsc.com/about/关于我们">关于我们</a>
+                                </li>
+                                <li><a style="font-size:16px;color:#fff;" href="http://www.pxtsc.com/about/经营理念">经营理念</a>
+                                </li>
+                                <li><a style="font-size:16px;color:#fff;" href="http://www.pxtsc.com/about/集团架构">集团架构</a>
+                                </li>
+                                <li><a style="font-size:16px;color:#fff;" href="http://www.pxtsc.com/about/企业文化">企业文化</a>
+                                </li>
+                                <li><a style="font-size:16px;color:#fff; " href="http://www.pxtsc.com/about/大事记">发展历程</a>
+                                </li>
+                                <li><a style="font-size:16px;color:#fff;" href="/contract">联系我们</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 md-margin-bottom-40">
+                            <div class="headline11">
+                                <h3 style="font-size:18px;color:#fff;">供应链生态圈</h3>
+                            </div>
+
+                            <ul class="footerMenuul" style="list-style:none; padding-left:0px;color:#fff;font-size:16px">
+
+                                <li class="current"><a style="font-size:16px;color:#fff;" href="http://www.pxtsc.com/scs/solution">流通整合服务平台</a>
+                                </li>
+                                <li><a style="font-size:16px;color:#fff;" href="http://www.pxtsc.com/scs/core">跨境综合服务平台</a>
+                                </li>
+                                <li><a style="font-size:16px;color:#fff;" href="http://www.pxtsc.com/scs/ii">智能制造服务平台</a>
+                                </li>
+                                <li><a style="font-size:16px;color:#fff;" href="http://www.pxtsc.com/scs/ifs">全球维修服务平台</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 md-margin-bottom-40">
+                            <div class="headline11">
+                                <h3 style="font-size:18px;color:#fff;">友情链接</h3>
+                            </div>
+
+                            <ul style=" list-style:none; padding-left:0px;">
+                                <li><a href="#" target=”_blank" style=" color:#fff; font-size:16px;">深圳市工商联（总商会）</a></li>
+                                <li><a href="#" target=”_blank" style=" color:#fff; font-size:16px;">深圳市物流与供应链协会</a></li>
+                                <li><a href="#" target=”_blank" style=" color:#fff; font-size:16px;">深圳市跨境电子商务协会</a></li>
+                                <li><a href="#" target=”_blank" style=" color:#fff; font-size:16px;">深圳市物流行业协会</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 map-img md-margin-bottom-40">
+                            <address class="md-margin-bottom-40" style=" color:#fff; font-size:16px; padding-top:6px;">地 址：深圳市南山区创业路1777号海信南方大厦26楼<br/>
+                                电话：0755-88690000 <br/>
+                                传真：0755-88690111 <br/>
+                                邮 箱：<a href="mailto:info@pxtsc.com">info@pxtsc.com</a></address>
+
+                            <div>
+                                <img src="http://www.pxtsc.com/Media/Default/Images/2017NewImg/gfqr.jpg" style="margin-right:30px;"/>
+                                <img src="http://www.pxtsc.com/Media/Default/Images/2017NewImg/gzhqr.jpg"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/footer-->
+            <div class="copyright">
+                <div class="container">
+                    <ul class="list-inline terms-menu">
+                        <li>2015 &copy; 品鑫泰供应链（深圳）有限公司 All Rights Reserved.</li>
+                        <li>网站备案： <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备15017422号-1</a></li>
+                        <li class="home"><a href="#">关于我们</a></li>
+                        <li><a href="#">用户协议</a></li>
+                    </ul>
+                </div>
+            </div><!--/copyright-->
+        </div>
+    </div>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        showSetMsg: true,
+        id: '',
+        time: 60,
+        serverPath: window.location.href.includes('rspaas') ? '/PriceForCustomer.html/api/' : 'http://192.168.28.51:30300/api/',
+        phone: [],
+        detail: {
+          customerName: '',
+          materialCode: '',
+          offerHeader: {},
+          offerBody: [],
+          offerBodyOther: [],
+          status: 0
+        },
+        form: {
+          offerResult: 0,
+          remarks: '',
+          contactsId: '',
+          verifyCode: '',
+        },
+
+      }
+    },
+    mounted() {
+      this.id = this.getUrlParam('id')
+      this.getDetail()
+    },
+    methods: {
+      urlEncode(str = '') {
+        return encodeURIComponent(str)
+      },
+      //获取详情
+      getDetail() {
+        let id=this.urlEncode(this.id)
+        this.fetch(`${this.serverPath}customer/out_offer/listContacts?offerId=${id}`, {}, 'post')
+          .then((res) => {
+            this.phone = res.data
+            if (res.data.length) {
+              this.form.contactsId = res.data[0].id
+            }
+          })
+        this.fetch(`${this.serverPath}customer/out_offer/getOfferInfo?offerId=${id}`, {}, 'get')
+          .then((res) => {
+            this.detail = res.data
+            res.data.offerHeader.remark = res.data.offerHeader.remark.replace(/\n/g, '<br>')
+          })
+      },
+      //发送验证码
+      onCountdown() {
+        this.showSetMsg = false
+        if (this.time !== 60) {
+          this.showSetMsg = true
+        }
+        this.fetch(`${this.serverPath}customer/out_offer/phoneVerificationCode?contactsId=${this.form.contactsId}`, {}, 'post')
+          .then((res) => {
+            this.$message({message: '发送成功', type: 'success'})
+          })
+        let interval = setInterval(() => {
+          this.time--;
+          if (this.time === 0) {
+            this.time = 60;
+            this.showSetMsg = true
+            clearInterval(interval)
+            interval = null
+          }
+        }, 1000);
+      },
+      //提交回复
+      onSubmit() {
+        if (!this.form.verifyCode || !this.form.contactsId) {
+          return this.$message({message: '请填写完整', type: 'info'})
+        }
+        if (this.form.offerResult == 1 && !this.form.remarks) {
+          return this.$message({message: '请填写完整', type: 'info'})
+        }
+        let params = {...this.form, offerId: this.id}
+        this.fetch(this.serverPath + 'customer/out_offer/customerConfirm', params)
+          .then((res) => {
+            this.$message({message: res.msg, type: 'success'})
+            this.getDetail()
+          })
+      },
+      getUrlParam(name) {
+        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        let url = decodeURI(window.location.search.substr(1));
+        let r = url.match(reg);
+        if (r != null && unescape(r[2]) != 'null') {
+          return unescape(r[2]);
+        }
+        return null;
+      },
+      fetch(url, params = {}, method = 'post', config = {}) {
+        return new Promise((resolve, reject) => {
+          let data = {
+            url,
+            method,
+            ...config
+          }
+          data[method === 'get' ? 'params' : 'data'] = params
+          axios(data).then((res) => {
+            if (res.data.code === 200) {
+              resolve(res.data)
+            } else {
+              this.$message({message: res.data.msg, type: 'error'})
+              reject(res.data.msg)
+            }
+          }).catch((error) => {
+            this.$message({message: '系统异常', type: 'error'})
+            reject(error)
+          })
+        })
+      },
+    }
+  })
+
+</script>
+</body>
+</html>
