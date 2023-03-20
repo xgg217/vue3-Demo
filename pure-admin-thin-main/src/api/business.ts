@@ -6,6 +6,7 @@ const { id, protocolId } = useBusinessStoreHook();
 type Result = {
   success: boolean;
   data: Array<any>;
+  msg: string;
 };
 
 /* 查询客户详情 */
@@ -31,4 +32,12 @@ export const addCustomer = (params) => {
 /* 查询客户 */
 export const checkCustomer = (data) => {
   return http.request<Result>("post", '/customer/customer/list', { data });
+}
+
+// 上传文件
+/* 上传文件 */
+// export const upload = (params) => fetchPost('/file/upload', params, { headers: { 'Content-Type': 'multipart/form-data' } })
+
+export const upload = (data) => {
+  return http.request<Result>('post', '/customer/file/upload', { data }, { headers: { 'Content-Type': 'multipart/form-data' } })
 }
