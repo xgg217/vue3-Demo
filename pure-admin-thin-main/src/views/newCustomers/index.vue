@@ -72,8 +72,7 @@ const {
           days: item.days,
         };
 
-        console.log(item.days);
-
+        // 暂存状态
         if (item.status === 0) {
           obj.statusName = obj.statusName +  ' 剩余' + item.days + '天到期'
         }
