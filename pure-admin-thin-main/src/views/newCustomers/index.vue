@@ -79,14 +79,14 @@ const {
 
   // 每页数量改变触发
   const handleSizeChange = (val: number) => {
-    // formInline.pageSize = val;
-    // asyncCustomerPageList();
+    formInline.pageSize = val;
+    asyncCustomerPageList();
   };
 
   // 当前页改变触发
   const handleCurrentChange = (val: number) => {
-    // formInline.currentPage = val;
-    // asyncCustomerPageList();
+    formInline.currentPage = val;
+    asyncCustomerPageList();
   };
 
   // 新增客户跳转
@@ -153,16 +153,18 @@ onMounted(() => {
         </el-table-column>
       </el-table>
 
-      <el-pagination
-        v-model:current-page="formInline.currentPage"
-        v-model:page-size="formInline.pageSize"
-        :page-sizes="[10, 20, 50, 100]"
-        background
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
+      <div class="pagination">
+        <el-pagination
+          v-model:current-page="formInline.currentPage"
+          v-model:page-size="formInline.pageSize"
+          :page-sizes="[10, 20, 50, 100]"
+          background
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -188,6 +190,11 @@ onMounted(() => {
     font-weight: bold;
     // font-size: 16px;
   }
+}
 
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row-reverse;
 }
 </style>
