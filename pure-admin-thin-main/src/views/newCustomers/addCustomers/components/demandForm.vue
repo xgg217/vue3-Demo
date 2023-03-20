@@ -177,7 +177,7 @@
             </el-form-item>
           <!--0.72 版本 在isQuota，并且是发布报价页面isQuotaInitiateQuotation，才在内层显示产品和产品工序-->
           <template v-if="isQuota && isQuotaInitiateQuotation" >
-            <el-form-item label="产品" label-width="100px" v-if="demandForm.cooperateType != 3" prop="productName" id="productName">
+            <el-form-item label="产品12" label-width="100px" v-if="demandForm.cooperateType != 3" prop="productName" id="productName">
               <!-- <remoteSelectPro v-if="isEdit" @getProductInfo="getProductInfo" :initInfo="{id: demandForm.productId, name: demandForm.productName}"></remoteSelectPro>
               <el-input v-else v-model="demandForm.productName"></el-input> -->
             </el-form-item>
@@ -189,9 +189,9 @@
           </template>
           <!--之前的还是走正常的流程-->
           <template v-if="!isQuota">
-            <el-form-item label="产品" label-width="100px" v-if="demandForm.cooperateType != 3" prop="productName" id="productName">
-              <!-- <remoteSelectPro v-if="isEdit" @getProductInfo="getProductInfo" :initInfo="{id: demandForm.productId, name: demandForm.productName}"></remoteSelectPro>
-              <el-input v-else v-model="demandForm.productName"></el-input> -->
+            <el-form-item label="产品3" label-width="100px" v-if="demandForm.cooperateType != 3" prop="productName" id="productName">
+              <remoteSelectPro v-if="isEdit" @getProductInfo="getProductInfo" :initInfo="{id: demandForm.productId, name: demandForm.productName}"></remoteSelectPro>
+              <el-input v-else v-model="demandForm.productName"></el-input>
             </el-form-item>
             <el-form-item label="加工工序" label-width="100px" v-if="demandForm.cooperateType != 3" prop="ideaProcessList" id="ideaProcessList">
               <el-checkbox-group class="changeCheckMargin" v-model="demandForm.ideaProcessList">
@@ -688,9 +688,9 @@ import { ref, reactive, watch, onMounted } from 'vue';
 import employeeNumberOptionsList from '@/enum/employeeNumberOptions'; // 员工人数
 import currencyArr from '@/enum/currencyList'; // 员工人数
 import elUploadCmp from '@/components/elUploadCmp.vue';
-  import remoteSelectInput from "./remoteSelectInput.vue"
+import remoteSelectInput from "./remoteSelectInput.vue"
+import remoteSelectPro from "./remoteSelectPro.vue"
 
-  // import remoteSelectPro from "./remoteSelectPro.vue"
   // import businessFileList from "./businessFileList.vue"
   import checkName from "./../utils/checkName"
   import addComma from "./../utils/addComma"

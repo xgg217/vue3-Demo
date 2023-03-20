@@ -35,9 +35,16 @@ export const checkCustomer = (data) => {
 }
 
 // 上传文件
-/* 上传文件 */
-// export const upload = (params) => fetchPost('/file/upload', params, { headers: { 'Content-Type': 'multipart/form-data' } })
-
 export const upload = (data) => {
   return http.request<Result>('post', '/customer/file/upload', { data }, { headers: { 'Content-Type': 'multipart/form-data' } })
+}
+
+/* 查询产品 */
+export const checkProduct = (data) => {
+  return http.request<Result>('post', '/customer/product/list', { data })
+}
+
+// 新增产品
+export const addProduct = (data) => {
+  return http.request<Result>('post', '/customer/product/save', { data })
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="remoteSelectPro flex">
-    <div style="width: 60%">
+    <div>
       <el-select
         v-if="!manual"
         v-model="value"
@@ -32,7 +32,7 @@
       <span @click="openAddProduct"><van-icon name="plus" /> 新增产品</span>
     </div>
 
-    <van-overlay :show="show">
+    <!-- <van-overlay :show="show">
       <div class="wrapper" @click.stop>
         <div class="block flex-align-center flex-cul">
           <header class="fz-18">新增产品</header>
@@ -45,15 +45,16 @@
           </footer>
         </div>
       </div>
-    </van-overlay>
+    </van-overlay> -->
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 // import { Notify } from 'vant';
 import { checkProduct, addProduct  } from "@/api/business"
-import throttle from "@/utils/throttle"
-import { openLoading, closeLoading, failTip, successTip } from "@/utils/toastTips"
+import throttle from "./../utils/throttle"
+// import { openLoading, closeLoading, failTip, successTip } from "@/utils/toastTips"
 
 const manual = ref(false) // 是否手打
 
@@ -77,6 +78,7 @@ const loading = ref(false)
 const getList = throttle((query) => {
   checkProduct({searchValue: query})
     .then((res) => {
+
       if (res.code === 200) {
         options.value = res.data
         if (props.initInfo.id) {
@@ -90,12 +92,12 @@ const getList = throttle((query) => {
           emit('getProductInfo', data)
         }
       } else {
-        failTip(res.code + ' - ' + res.msg)
+        // failTip(res.code + ' - ' + res.msg)
       }
       loading.value = false
     })
     .catch((e) => {
-      failTip(JSON.stringify(e))
+      // failTip(JSON.stringify(e))
       loading.value = false
     })
 }, 200)
@@ -142,7 +144,7 @@ const submit = async () => {
   if (res) {
     const data = {id: res, productName: newName.value}
     options.value.push(data)
-    successTip("添加成功！")
+    // successTip("添加成功！")
     show.value = false
     value.value = data
     emit('getProductInfo', data)
@@ -153,7 +155,7 @@ const submit = async () => {
 
 /* 新增产品 */
 const addProductReq = (name) => {
-  openLoading()
+  // openLoading()
   return new Promise(resolve => {
     addProduct({productName: name})
       .then((res) => {
@@ -161,15 +163,15 @@ const addProductReq = (name) => {
           resolve(res.data)
         } else {
           resolve(false)
-          failTip(res.code + ' - ' + res.msg)
+          // failTip(res.code + ' - ' + res.msg)
         }
       })
       .catch((e) => {
-        failTip(JSON.stringify(e))
+        // failTip(JSON.stringify(e))
         resolve(false)
       })
       .finally(() => {
-        closeLoading()
+        // closeLoading()
       })
   })
 }
@@ -184,7 +186,7 @@ onMounted(() => {
 .remoteSelectPro{
   width: 100%;
   .addNewItem{
-    width: 40%;
+    // width: 40%;
   }
   .van-overlay{
     z-index: 9999;
