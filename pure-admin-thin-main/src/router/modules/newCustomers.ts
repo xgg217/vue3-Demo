@@ -1,7 +1,7 @@
 export default {
   path: "/newCustomers",
   meta: {
-    title: "新客户"
+    title: "客户列表"
   },
   children: [
     {
@@ -9,7 +9,7 @@ export default {
       name: "newCustomers",
       component: () => import("@/views/newCustomers/index.vue"),
       meta: {
-        title: "客户列表"
+        title: "我的客户"
       }
     },
     {

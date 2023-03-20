@@ -9,6 +9,11 @@ type Result = {
   msg: string;
 };
 
+/* 分页查询客户信息列表 */
+export const customerPageList = (data) => {
+  return http.request<Result>("post", '/customer/customer/pageInfo', { data });
+}
+
 /* 查询客户详情 */
 export const customerDetailInfo = (id: number) => {
   return http.request<Result>("get", '/customer_needs/' + id);
