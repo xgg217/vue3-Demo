@@ -259,6 +259,8 @@ function initRouter() {
   return new Promise(resolve => {
     handleAsyncRoutes(cloneDeep([permissionRouter]));
     resolve(true)
+
+    addPathMatch();
   });
   // }
 }
