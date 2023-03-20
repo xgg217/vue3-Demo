@@ -138,7 +138,7 @@
         <div class="innerFormItem" :class="{'mrgin5': !isEdit}" v-if="(demandForm.cooperateType || demandForm.cooperateType === 0) && quoteShowMore">
           <el-form-item label="" v-if="demandForm.cooperateType != 3" prop="purchaseModel" id="purchaseModel"> <!-- 纯垫资代采不显示 -->
             <el-radio-group v-model="demandForm.purchaseModel" v-if="!(isQuota && !isEdit)">
-              <el-radio :label="1">客供1</el-radio>
+              <el-radio :label="1">客供</el-radio>
               <el-radio :label="2">代采</el-radio>
             </el-radio-group>
           </el-form-item>
@@ -204,7 +204,7 @@
               <div style="width: 100%">
                 <el-checkbox v-model="demandForm.smeltTool" label="钢网冶具费" />
                 <div v-if="demandForm.smeltTool" class="innerForm">
-                  <el-form-item label="" prop="smeltToolFee" id="smeltToolFee" :style="{'marginBottom': isEdit ? '4.8vw' : '0'}">
+                  <el-form-item label="" prop="smeltToolFee" id="smeltToolFee">
                     <el-radio-group v-model="demandForm.smeltToolFee">
                       <div style="margin: 0; width: 100%" class="flex">
                         <el-radio :label="1">我司</el-radio>
@@ -219,7 +219,6 @@
                   </el-form-item>
                 </div>
               </div>
-
 
               <template v-if="demandForm.cooperateType == 2">
                 <div style="width: 100%">
@@ -240,21 +239,21 @@
                 <div style="width: 100%">
                   <el-checkbox v-model="demandForm.materialCost" label="物流费 物料进 成品出" />
                   <div v-if="demandForm.materialCost" class="innerForm">
-                    <el-form-item label="进口物料 承担方" label-width="32vw" :class="{'flex-cul': isEdit}" prop="importMaterialBear" id="importMaterialBear">
+                    <el-form-item label="进口物料 承担方" label-width="120px" :class="{'flex-cul': isEdit}" prop="importMaterialBear" id="importMaterialBear">
                       <el-radio-group v-model="demandForm.importMaterialBear">
                         <el-radio :label="1">我司</el-radio>
                         <el-radio :label="2">客户</el-radio>
                       </el-radio-group><br />
                     </el-form-item>
 
-                    <el-form-item label="出口成品 承担方" label-width="32vw" :class="{'flex-cul': isEdit}" prop="exportProductBear" id="exportProductBear">
+                    <el-form-item label="出口成品 承担方" label-width="120px" :class="{'flex-cul': isEdit}" prop="exportProductBear" id="exportProductBear">
                       <el-radio-group v-model="demandForm.exportProductBear">
                         <el-radio :label="1">我司</el-radio>
                         <el-radio :label="2">客户</el-radio>
                       </el-radio-group><br />
                     </el-form-item>
 
-                    <el-form-item label="报关费用 承担方" label-width="32vw" :class="{'flex-cul': isEdit}" prop="customsCostBear" id="customsCostBear">
+                    <el-form-item label="报关费用 承担方" label-width="120px" :class="{'flex-cul': isEdit}" prop="customsCostBear" id="customsCostBear">
                       <el-radio-group v-model="demandForm.customsCostBear">
                         <el-radio :label="1">我司</el-radio>
                         <el-radio :label="2">客户</el-radio>
@@ -266,7 +265,7 @@
 
 
               <div class="flex">
-                <el-checkbox v-model="demandForm.otherCheck" label="其他" style="margin-right: 4vw" />
+                <el-checkbox v-model="demandForm.otherCheck" label="其他" style="margin-right: 20px" />
                 <el-form-item v-if="demandForm.otherCheck" label="" class="flex-cul" prop="other" id="other">
                   <!-- <el-input :rows="3" maxlength="200" type="textarea" style="width: 36vw" v-model="demandForm.other"  placeholder="文字" /> -->
                   <el-input v-if="isEdit" :rows="3" type="textarea" style="width: 36vw" maxlength="200" v-model="demandForm.other" placeholder="文字"></el-input>
@@ -1154,9 +1153,10 @@ const formRule = reactive({
     demandForm.value.fileList.splice(info.index, 1)
   }
 
-  /* 业务姓名 */
-  // demandForm.value.businessName = nickName.value
-  // demandForm.value.userId = userId.value
+/* 业务姓名 */
+  console.log(nickName.value);
+  demandForm.value.businessName = nickName.value
+  demandForm.value.userId = userId.value
 
   /* 请求 */
 
