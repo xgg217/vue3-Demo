@@ -674,10 +674,25 @@
         </div>
       </el-form-item>
     </el-form>
+
     <!-- 地图窗口 -->
-    <div class="mapWindow" v-show="mapWindow">
+    <!-- <div class="mapWindow" v-show="mapWindow">
       <Gaodemap @getAddressInfo='getAddressInfo' :lnglat="reAdress" v-model="mapWindow" :isEdit="isEdit"></Gaodemap>
-    </div>
+    </div> -->
+
+    <el-dialog
+      v-model="mapWindow"
+      title="地图"
+      width="50vw"
+    >
+      <GaodeMap
+        @getAddressInfo='getAddressInfo'
+        :lnglat="reAdress"
+        :isEdit="isEdit"
+        @close="mapWindow = false"
+      ></GaodeMap>
+    </el-dialog>
+
   </div>
 
 </template>
@@ -690,6 +705,7 @@ import currencyArr from '@/enum/currencyList'; // 员工人数
 import elUploadCmp from '@/components/elUploadCmp.vue';
 import remoteSelectInput from "./remoteSelectInput.vue"
 import remoteSelectPro from "./remoteSelectPro.vue"
+import GaodeMap from "@/components/GaodeMap.vue";
 
   // import businessFileList from "./businessFileList.vue"
   import checkName from "./../utils/checkName"
@@ -969,39 +985,62 @@ const formRule = reactive({
   }
 
   /* 地图选取 */
-  const mapWindow = ref(false)
-  const addressType = ref(0)
-  const reAdress = reactive({lng: 113.94027, lat: 22.512353})
+  const {
+    mapWindow,
+    reAdress,
+    getAddressInfo,
+    openMapWindow
+  } = (function () {
+    const mapWindow = ref(false)
+    let addressType = 0
+    const reAdress = reactive({lng: 113.94027, lat: 22.512353})
 
-  const openMapWindow = (type) => {
-    window.openMap = () => {
+    // 打开新窗口
+    const openMapWindow = (type) => {
+      console.log(type);
+      console.log(window.openMap);
+      window.openMap = () => {
+        mapWindow.value = false
+      }
+
+      mapWindow.value = true
+      addressType = type
+      if (addressType && demandForm.value.registeredAddress) {
+        reAdress.lng = demandForm.value.registeredLongitude
+        reAdress.lat = demandForm.value.registeredLatitude
+      }
+      if (!addressType && demandForm.value.officeAddress) {
+        reAdress.lng = demandForm.value.officeLongitude
+        reAdress.lat = demandForm.value.officeLatitude
+      }
+
+      console.log(reAdress);
+    }
+
+    // 选取地址后的回调
+    const getAddressInfo = (info) => {
+      const { name, lnglat } = info
+      if (addressType) {
+        demandForm.value.registeredAddress = name
+        demandForm.value.registeredLongitude = lnglat.lng
+        demandForm.value.registeredLatitude = lnglat.lat
+        return
+      }
+      demandForm.value.officeAddress = name
+      demandForm.value.officeLongitude = lnglat.lng
+      demandForm.value.officeLatitude = lnglat.lat
+
       mapWindow.value = false
     }
 
-    mapWindow.value = true
-    addressType.value = type
-    if (addressType.value && demandForm.value.registeredAddress) {
-      reAdress.lng = demandForm.value.registeredLongitude
-      reAdress.lat = demandForm.value.registeredLatitude
+    return {
+      reAdress,
+      mapWindow,
+      getAddressInfo,
+      openMapWindow
     }
-    if (!addressType.value && demandForm.value.officeAddress) {
-      reAdress.lng = demandForm.value.officeLongitude
-      reAdress.lat = demandForm.value.officeLatitude
-    }
-  }
+  })();
 
-  const getAddressInfo = (info) => {
-    const { name, lnglat } = info
-    if (addressType.value) {
-      demandForm.value.registeredAddress = name
-      demandForm.value.registeredLongitude = lnglat.lng
-      demandForm.value.registeredLatitude = lnglat.lat
-      return
-    }
-    demandForm.value.officeAddress = name
-    demandForm.value.officeLongitude = lnglat.lng
-    demandForm.value.officeLatitude = lnglat.lat
-  }
 
   /* 法定代表人 */
   const checkLegalPerson = (rule, value, callback) => {
@@ -1513,9 +1552,11 @@ const formRule = reactive({
     .grayWrap{
       background-color: #F6F6FB;
       border-radius: 2px;
-      width: 100%;
+      // width: 100%;
+      width: 80px;
       padding-left: 10px;
       box-sizing: border-box;
+      cursor: pointer;
     }
     .innerFormItem{
       position: relative;
