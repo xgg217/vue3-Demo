@@ -1,5 +1,9 @@
+const Layout = () => import("@/layout/index.vue");
+
 export default {
   path: "/newCustomers",
+  name: "newCustomers",
+  component: Layout,
   meta: {
     title: "客户列表"
   },
