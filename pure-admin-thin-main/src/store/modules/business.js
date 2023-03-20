@@ -32,7 +32,13 @@ export const useBusinessStore = defineStore('business', {
     }
   },
   persist: {
-    enabled: true
+    enabled: true,
+    strategies: [
+      {
+        key: 'user',  //自定义 Key值
+        storage: localStorage,  // 选择存储方式
+      },
+    ],
   }
 })
 

@@ -36,7 +36,8 @@
       "element-plus/global",
       "@pureadmin/table/volar",
       "@pureadmin/descriptions/volar",
-      "unplugin-vue-define-options/macros-global"
+      "unplugin-vue-define-options/macros-global",
+      "pinia-plugin-persist"
     ],
     "typeRoots": [
       "./node_modules/@types/",

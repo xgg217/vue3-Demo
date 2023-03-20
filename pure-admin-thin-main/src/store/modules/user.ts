@@ -55,7 +55,7 @@ interface IState extends IUser {
 }
 
 export const useUserStore = defineStore({
-  id: "pure-user",
+  id: "user",
   state: (): IState => {
     return {
       //页面权限-树状结构-工作台用到了
@@ -165,6 +165,17 @@ export const useUserStore = defineStore({
     },
 
   },
+
+  // 持久化
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'user',  //自定义 Key值
+        storage: sessionStorage,
+      }
+    ]
+  }
 
 
 });
