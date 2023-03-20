@@ -3,8 +3,8 @@
 @import "./element-plus.scss";
 @import "./sidebar.scss";
 @import "./dark.scss";
+@import "./variable.scss";
 
-// @import "./variable.scss";
 
 /* 自定义全局 CssVar */
 :root {
@@ -20,4 +20,61 @@
 /* 色弱模式 */
 .html-weakness {
   filter: invert(80%);
+}
+
+.white-bg {
+  background-color: #FFFFFF;
+}
+
+.a-blue-bg {
+  background-color: $a-blue;
+}
+
+.b-blue-bg {
+  background-color: $b-blue;
+}
+
+.a-green-bg {
+  background-color: $a-green;
+}
+
+.a-yellow-bg {
+  background-color: $a-yellow;
+}
+
+.a-red-bg {
+  background-color: $a-red;
+}
+
+/* 字体 */
+.a-blue-color {
+  color: $a-blue;
+}
+
+.b-blue-color {
+  color: $b-blue;
+}
+
+.a-green-color {
+  color: $a-green;
+}
+
+.a-yellow-color {
+  color: $a-yellow;
+}
+
+.a-red-color {
+  color: $a-red;
+}
+
+.b-gray-color {
+  color: $b-gray
+}
+
+.e-gray-color {
+  color: $e-gray
+}
+
+.d-gray-color {
+  color: $d-gray
 }
