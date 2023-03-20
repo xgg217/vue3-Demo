@@ -25,6 +25,7 @@ const {
     status: number; // 状态
     statusName: string; // 状态名称
     statusClass: string; // 状态样式
+    days: number; // 天数
   }
 
   // 加载
@@ -59,7 +60,8 @@ const {
       total.value = Number(sum);
 
       tableData.value = (list as ITableData[]).map(item => {
-        return Object.freeze<ITableData>({
+
+        const obj:ITableData = {
           id: item.id,
           name: item.name,
           createdTime: item.createdTime,
@@ -67,7 +69,16 @@ const {
           status: item.status,
           statusName: businessStatus[item.status].lable,
           statusClass: businessStatus[item.status].className,
-        })
+          days: item.days,
+        };
+
+        console.log(item.days);
+
+        if (item.status === 0) {
+          obj.statusName = obj.statusName +  ' 剩余' + item.days + '天到期'
+        }
+
+        return Object.freeze<ITableData>(obj);
       })
 
     }).catch(err => {
