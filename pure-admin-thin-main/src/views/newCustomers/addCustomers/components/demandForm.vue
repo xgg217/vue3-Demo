@@ -138,17 +138,17 @@
         <div class="innerFormItem" :class="{'mrgin5': !isEdit}" v-if="(demandForm.cooperateType || demandForm.cooperateType === 0) && quoteShowMore">
           <el-form-item label="" v-if="demandForm.cooperateType != 3" prop="purchaseModel" id="purchaseModel"> <!-- 纯垫资代采不显示 -->
             <el-radio-group v-model="demandForm.purchaseModel" v-if="!(isQuota && !isEdit)">
-              <el-radio :label="1">客供</el-radio>
+              <el-radio :label="1">客供1</el-radio>
               <el-radio :label="2">代采</el-radio>
             </el-radio-group>
           </el-form-item>
 
-          <el-form-item label="公司信用情况" label-width="28vw" class="flex-cul" v-if="(demandForm.cooperateType == 2 && demandForm.purchaseModel == 2) || demandForm.cooperateType != 2 && !isQuota" prop="companyCredit" id="companyCredit"> <!-- 国内加工时，需要代采显示 -->
+          <el-form-item label="公司信用情况" label-width="100px" class="flex-cul" v-if="(demandForm.cooperateType == 2 && demandForm.purchaseModel == 2) || demandForm.cooperateType != 2 && !isQuota" prop="companyCredit" id="companyCredit"> <!-- 国内加工时，需要代采显示 -->
             <el-input v-model="demandForm.companyCredit" placeholder="文本" />
             <!-- <div class="flex-center" style="width: 4rem"><van-icon name="share" color="#0096FF" /></div> -->
           </el-form-item>
 
-          <el-form-item label="垫资额度" label-width="20vw" :rules="[
+          <el-form-item label="垫资额度" label-width="100px" :rules="[
             { validator: checkRegisteredCapital, trigger: 'change' },
           ]" prop="advanceQuota" id="advanceQuota" v-if="(demandForm.cooperateType == 2 && demandForm.purchaseModel == 2) || demandForm.cooperateType == 3"><!-- 需国内加工并代采显示 || 纯垫资代采显示 -->
             <div class="flex">
@@ -167,7 +167,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="垫资服务费率" label-width="28vw" :rules="[
+          <el-form-item label="垫资服务费率" label-width="100px" :rules="[
               { validator: checkAdvanceRate, trigger: 'change' },
             ]" prop="advanceRate" id="advanceRate" v-if="demandForm.cooperateType == 3"> <!-- 纯垫资代采显示 -->
               <el-input v-if="isEdit" v-model="demandForm.advanceRate" placeholder="数字">
@@ -177,11 +177,11 @@
             </el-form-item>
           <!--0.72 版本 在isQuota，并且是发布报价页面isQuotaInitiateQuotation，才在内层显示产品和产品工序-->
           <template v-if="isQuota && isQuotaInitiateQuotation" >
-            <el-form-item label="产品" label-width="12vw" v-if="demandForm.cooperateType != 3" prop="productName" id="productName">
+            <el-form-item label="产品" label-width="100px" v-if="demandForm.cooperateType != 3" prop="productName" id="productName">
               <!-- <remoteSelectPro v-if="isEdit" @getProductInfo="getProductInfo" :initInfo="{id: demandForm.productId, name: demandForm.productName}"></remoteSelectPro>
               <el-input v-else v-model="demandForm.productName"></el-input> -->
             </el-form-item>
-            <el-form-item label="加工工序" label-width="22vw" v-if="demandForm.cooperateType != 3" prop="ideaProcessList" id="ideaProcessList">
+            <el-form-item label="加工工序" label-width="100px" v-if="demandForm.cooperateType != 3" prop="ideaProcessList" id="ideaProcessList">
               <el-checkbox-group class="changeCheckMargin" v-model="demandForm.ideaProcessList">
                 <el-checkbox :label="item.value" v-for="item in processDict" :key="item.name">{{item.name}}</el-checkbox>
               </el-checkbox-group>
@@ -189,17 +189,17 @@
           </template>
           <!--之前的还是走正常的流程-->
           <template v-if="!isQuota">
-            <el-form-item label="产品" label-width="12vw" v-if="demandForm.cooperateType != 3" prop="productName" id="productName">
+            <el-form-item label="产品" label-width="100px" v-if="demandForm.cooperateType != 3" prop="productName" id="productName">
               <!-- <remoteSelectPro v-if="isEdit" @getProductInfo="getProductInfo" :initInfo="{id: demandForm.productId, name: demandForm.productName}"></remoteSelectPro>
               <el-input v-else v-model="demandForm.productName"></el-input> -->
             </el-form-item>
-            <el-form-item label="加工工序" label-width="22vw" v-if="demandForm.cooperateType != 3" prop="ideaProcessList" id="ideaProcessList">
+            <el-form-item label="加工工序" label-width="100px" v-if="demandForm.cooperateType != 3" prop="ideaProcessList" id="ideaProcessList">
               <el-checkbox-group class="changeCheckMargin" v-model="demandForm.ideaProcessList">
                 <el-checkbox :label="item.value" v-for="item in processDict" :key="item.name">{{item.name}}</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
           </template>
-          <el-form-item label="费用承担" label-width="22vw" v-if="demandForm.cooperateType != 3">
+          <el-form-item label="费用承担" label-width="100px" v-if="demandForm.cooperateType != 3">
             <div>
               <div style="width: 100%">
                 <el-checkbox v-model="demandForm.smeltTool" label="钢网冶具费" />
@@ -280,7 +280,7 @@
           <el-form-item label="入料途径" label-width="90px" v-if="demandForm.cooperateType === 1" id="material" :class="{'changeMarginTo5': !isEdit}">
             <div>
               <!-- <span class="e-gray-color">物料</span> -->
-              <el-form-item label="物料" label-width="11vw" prop="material" id="material" :class="{'changeMarginTo5': !isEdit}">
+              <el-form-item label="物料" label-width="50px" prop="material" id="material" :class="{'changeMarginTo5': !isEdit}">
                 <el-checkbox-group v-model="demandForm.material">
                   <el-checkbox :label="1">HK入料</el-checkbox>
                   <el-checkbox :label="2">国内转厂</el-checkbox>
@@ -293,7 +293,7 @@
           <el-form-item label="" label-width="90px" v-if="demandForm.cooperateType === 1" id="packageMaterial" :class="{'changeMarginTo5': !isEdit}">
             <div>
               <!-- <span class="e-gray-color">包材</span> -->
-              <el-form-item label="包材" label-width="11vw" prop="packageMaterial" id="packageMaterial" :class="{'changeMarginTo5': !isEdit}">
+              <el-form-item label="包材" label-width="50px" prop="packageMaterial" id="packageMaterial" :class="{'changeMarginTo5': !isEdit}">
                 <el-checkbox-group v-model="demandForm.packageMaterial">
                   <el-checkbox :label="1">HK入料</el-checkbox>
                   <el-checkbox :label="2">国内转厂</el-checkbox>
@@ -362,9 +362,9 @@
           <template v-if="demandForm.cooperateType != 3">
             <el-form-item label="物料损耗率" label-width="90px" :rules="[
               { validator: demandForm.lossA ? checkAdvanceRate : '', trigger: 'change' },
-            ]" prop="lossARate" id="lossARate" style="margin-bottom: 4vw" v-if="isEdit || demandForm.lossA">
+            ]" prop="lossARate" id="lossARate"  v-if="isEdit || demandForm.lossA">
               <div class="flex">
-                <el-checkbox v-model="demandForm.lossA" label="A料" style="margin-right: 4vw" />
+                <el-checkbox v-model="demandForm.lossA" label="A料" />
                 <template v-if="demandForm.lossA">
                   <el-input v-if="isEdit" v-model="demandForm.lossARate" placeholder="数字">
                     <template #append>%</template>
@@ -376,9 +376,9 @@
 
             <el-form-item label="" label-width="90px" :rules="[
                 { validator: demandForm.lossB ? checkAdvanceRate : '', trigger: 'change' },
-              ]" prop="lossBRate" id="lossBRate" style="margin-bottom: 4vw" v-if="isEdit || demandForm.lossB">
+              ]" prop="lossBRate" id="lossBRate" v-if="isEdit || demandForm.lossB">
               <div class="flex">
-                <el-checkbox v-model="demandForm.lossB" label="B料" style="margin-right: 4vw" />
+                <el-checkbox v-model="demandForm.lossB" label="B料" />
                 <template v-if="demandForm.lossB">
                   <el-input v-if="isEdit" v-model="demandForm.lossBRate" placeholder="数字">
                     <template #append>%</template>
@@ -392,7 +392,7 @@
                 { validator: demandForm.lossC ? checkAdvanceRate : '', trigger: 'change' },
               ]" prop="lossCRate" id="lossCRate" v-if="isEdit || demandForm.lossC">
               <div class="flex">
-                <el-checkbox v-model="demandForm.lossC" label="C料" style="margin-right: 4vw" />
+                <el-checkbox v-model="demandForm.lossC" label="C料" />
                 <template v-if="demandForm.lossC">
                   <el-input v-if="isEdit" v-model="demandForm.lossCRate" placeholder="数字">
                     <template #append>%</template>
@@ -437,146 +437,165 @@
             </div>
 
             <template v-if="demandForm.buybackProvision == 1">
-              <el-form-item label="库存回购天数" label-width="28vw" style="margin-top: 0" prop="buybackDays" id="buybackDays" :rules="[
-                { validator: checkRegisteredCapital, trigger: 'change' },
-              ]">
-                <el-input v-if="isEdit" v-model="demandForm.buybackDays" :min="0" placeholder="数字"></el-input>
-                <div v-else style="width: 100%">{{ demandForm.buybackDays }}</div>
-              </el-form-item>
+              <div class="buyback">
+                <el-form-item label="库存回购天数" label-width="100px" style="margin-top: 0" prop="buybackDays" id="buybackDays" :rules="[
+                  { validator: checkRegisteredCapital, trigger: 'change' },
+                ]">
+                  <el-input v-if="isEdit" v-model="demandForm.buybackDays" :min="0" placeholder="数字" ></el-input>
+                  <div v-else style="width: 100%;" >{{ demandForm.buybackDays }}</div>
+                </el-form-item>
 
-              <el-form-item label="回购对账要求" label-width="28vw" class="flex-cul" prop="buybackAsk" id="buybackAsk">
-                <el-input v-if="isEdit" :rows="3" type="textarea" maxlength="200" v-model="demandForm.buybackAsk" placeholder="文字"></el-input>
-                <div v-else style="width: 100%; white-space: pre-line">{{ demandForm.buybackAsk }}</div>
-              </el-form-item>
+                <el-form-item label="回购对账要求" label-width="100px" class="flex-cul" prop="buybackAsk" id="buybackAsk" style="margin-top: 23px;">
+                  <el-input v-if="isEdit" :rows="3" type="textarea" maxlength="200" v-model="demandForm.buybackAsk" placeholder="文字"></el-input>
+                  <div v-else style="width: 100%; white-space: pre-line">{{ demandForm.buybackAsk }}</div>
+                </el-form-item>
+              </div>
             </template>
 
           </el-form-item>
 
-          <el-form-item label="成品售后条款" label-width="28vw" v-if="demandForm.cooperateType != 3 && !isQuota" prop="afterSalesProvision" id="afterSalesProvision">
+          <el-form-item label="成品售后条款" label-width="100px" v-if="demandForm.cooperateType != 3 && !isQuota" prop="afterSalesProvision" id="afterSalesProvision">
             <el-input v-if="isEdit" :rows="3" type="textarea" maxlength="200" v-model="demandForm.afterSalesProvision" placeholder="文字"></el-input>
             <div v-else class="textAreaTextWrap">{{ demandForm.afterSalesProvision }}</div>
           </el-form-item>
 
           <el-form-item label="付款条件" label-width="90px" :class="{'changeMaterialCheckMargin': isEdit, 'changeMarginTo5': !isEdit}" v-if="!isQuota">
             <el-checkbox style="width: 100%" v-model="demandForm.materialCheck" label="材料款" />
-            <div v-if="demandForm.materialCheck" style="width: 60vw">
-              <span class="e-gray-color" style="padding-left: 4vw;">对账周期</span>
-              <el-form-item label="" label-width="0vw" class="flex-cul" prop="materialAccountCycleType" id="materialAccountCycleType" :class="{'changeMarginTo5': !isEdit}">
-                <el-select v-model="demandForm.materialAccountCycleType" placeholder="请选择">
-                  <el-option
-                    v-for="item in accountCycleTypeList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </el-form-item>
+            <div v-if="demandForm.materialCheck" >
+              <div style="display: flex;">
+                <span class="e-gray-color" style="padding-left: 4vw;">对账周期</span>
+                <el-form-item label="" label-width="20px" class="flex-cul" prop="materialAccountCycleType" id="materialAccountCycleType" :class="{'changeMarginTo5': !isEdit}">
+                  <el-select v-model="demandForm.materialAccountCycleType" placeholder="请选择">
+                    <el-option
+                      v-for="item in accountCycleTypeList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </div>
 
-              <span class="e-gray-color" style="padding-left: 4vw;">账期</span>
-              <el-form-item label="" label-width="0vw" class="flex-cul" prop="materialAccountCycle" id="materialAccountCycle" :class="{'changeMarginTo5': !isEdit}">
-                <el-select v-model="demandForm.materialAccountCycle" placeholder="请选择">
-                  <el-option
-                    v-for="item in accountCycleList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </el-form-item>
-
-              <span class="e-gray-color" style="padding-left: 4vw;">结算起始点</span>
-              <el-form-item label="" label-width="0vw" class="flex-cul" prop="materialInitiationPoint" id="materialInitiationPoint" :class="{'changeMarginTo5': !isEdit}">
-                <el-select v-model="demandForm.materialInitiationPoint" placeholder="请选择">
-                  <el-option
-                    v-for="item in innitiationPointList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </el-form-item>
+              <div style="display: flex;">
+                <span class="e-gray-color" style="padding-left: 4vw;">账期</span>
+                <el-form-item label="" label-width="45px" class="flex-cul" prop="materialAccountCycle" id="materialAccountCycle" :class="{'changeMarginTo5': !isEdit}">
+                  <el-select v-model="demandForm.materialAccountCycle" placeholder="请选择">
+                    <el-option
+                      v-for="item in accountCycleList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </div>
+              <div style="display: flex;">
+                <span class="e-gray-color" style="padding-left: 4vw;">结算起始点</span>
+                <el-form-item label="" label-width="5px" class="flex-cul" prop="materialInitiationPoint" id="materialInitiationPoint" :class="{'changeMarginTo5': !isEdit}">
+                  <el-select v-model="demandForm.materialInitiationPoint" placeholder="请选择">
+                    <el-option
+                      v-for="item in innitiationPointList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </div>
             </div>
 
             <el-checkbox style="width: 100%" v-model="demandForm.otherAccountCheck" label="其他款项" />
-            <div v-if="demandForm.otherAccountCheck" style="width: 60vw">
-              <span class="e-gray-color" style="padding-left: 4vw;">对账周期</span>
-              <el-form-item label="" label-width="0vw" class="flex-cul" prop="otherAccountCycleType" id="otherAccountCycleType" :class="{'changeMarginTo5': !isEdit}">
-                <el-select v-model="demandForm.otherAccountCycleType" placeholder="请选择">
-                  <el-option
-                    v-for="item in accountCycleTypeList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </el-form-item>
+            <div v-if="demandForm.otherAccountCheck">
+              <div style="display: flex;">
+                <span class="e-gray-color" style="padding-left: 4vw;">对账周期</span>
+                <el-form-item label="" label-width="20px" class="flex-cul" prop="otherAccountCycleType" id="otherAccountCycleType" :class="{'changeMarginTo5': !isEdit}">
+                  <el-select v-model="demandForm.otherAccountCycleType" placeholder="请选择">
+                    <el-option
+                      v-for="item in accountCycleTypeList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </div>
 
-              <span class="e-gray-color" style="padding-left: 4vw;">账期</span>
-              <el-form-item label="" label-width="0vw" class="flex-cul" prop="otherAccountCycle" id="otherAccountCycle" :class="{'changeMarginTo5': !isEdit}">
-                <el-select v-model="demandForm.otherAccountCycle" placeholder="请选择">
-                  <el-option
-                    v-for="item in accountCycleList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </el-form-item>
+              <div style="display: flex;">
+                <span class="e-gray-color" style="padding-left: 4vw;">账期</span>
+                <el-form-item label="" label-width="45px" class="flex-cul" prop="otherAccountCycle" id="otherAccountCycle" :class="{'changeMarginTo5': !isEdit}">
+                  <el-select v-model="demandForm.otherAccountCycle" placeholder="请选择">
+                    <el-option
+                      v-for="item in accountCycleList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </div>
 
-              <span class="e-gray-color" style="padding-left: 4vw;">结算起始点</span>
-              <el-form-item label="" label-width="0vw" class="flex-cul" prop="otherInitiationPoint" id="otherInitiationPoint" :class="{'changeMarginTo5': !isEdit}">
-                <el-select v-model="demandForm.otherInitiationPoint" placeholder="请选择">
-                  <el-option
-                    v-for="item in innitiationPointList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </el-form-item>
+              <div style="display: flex;">
+                <span class="e-gray-color" style="padding-left: 4vw;">结算起始点</span>
+                <el-form-item label="" label-width="5px" class="flex-cul" prop="otherInitiationPoint" id="otherInitiationPoint" :class="{'changeMarginTo5': !isEdit}">
+                  <el-select v-model="demandForm.otherInitiationPoint" placeholder="请选择">
+                    <el-option
+                      v-for="item in innitiationPointList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </div>
             </div>
 
             <el-checkbox style="width: 100%" v-model="demandForm.processCycleTypeCheck" label="加工费款项" />
-            <div v-if="demandForm.processCycleTypeCheck" style="width: 60vw">
-              <span class="e-gray-color" style="padding-left: 4vw;">对账周期</span>
-              <el-form-item label="" label-width="0vw" class="flex-cul" prop="processCycleType" id="processCycleType" :class="{'changeMarginTo5': !isEdit}">
-                <el-select v-model="demandForm.processCycleType" placeholder="请选择">
-                  <el-option
-                    v-for="item in accountCycleTypeList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </el-form-item>
+            <div v-if="demandForm.processCycleTypeCheck" >
+              <div style="display: flex;">
+                <span class="e-gray-color" style="padding-left: 4vw;">对账周期</span>
+                <el-form-item label="" label-width="20px" class="flex-cul" prop="processCycleType" id="processCycleType" :class="{'changeMarginTo5': !isEdit}">
+                  <el-select v-model="demandForm.processCycleType" placeholder="请选择">
+                    <el-option
+                      v-for="item in accountCycleTypeList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </div>
 
-              <span class="e-gray-color" style="padding-left: 4vw;">账期</span>
-              <el-form-item label="" label-width="0vw" class="flex-cul" prop="processCycle" id="processCycle" :class="{'changeMarginTo5': !isEdit}">
-                <el-select v-model="demandForm.processCycle" placeholder="请选择">
-                  <el-option
-                    v-for="item in accountCycleList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </el-form-item>
+              <div style="display: flex;">
+                <span class="e-gray-color" style="padding-left: 4vw;">账期</span>
+                <el-form-item label="" label-width="45px" class="flex-cul" prop="processCycle" id="processCycle" :class="{'changeMarginTo5': !isEdit}">
+                  <el-select v-model="demandForm.processCycle" placeholder="请选择">
+                    <el-option
+                      v-for="item in accountCycleList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </div>
 
+              <div style="display: flex;">
               <span class="e-gray-color" style="padding-left: 4vw;">结算起始点</span>
-              <el-form-item label="" label-width="0vw" class="flex-cul" prop="processInitiationPoint" id="processInitiationPoint" :class="{'changeMarginTo5': !isEdit}">
-                <el-select v-model="demandForm.processInitiationPoint" placeholder="请选择">
-                  <el-option
-                    v-for="item in innitiationPointList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </el-form-item>
+                <el-form-item label="" label-width="5px" class="flex-cul" prop="processInitiationPoint" id="processInitiationPoint" :class="{'changeMarginTo5': !isEdit}">
+                  <el-select v-model="demandForm.processInitiationPoint" placeholder="请选择">
+                    <el-option
+                      v-for="item in innitiationPointList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </div>
             </div>
 
             <el-checkbox style="width: 100%" v-model="demandForm.defaultClause" label="违约条款" />
-            <el-form-item v-if="demandForm.defaultClause"  label="" label-width="0vw" class="flex-cul" prop="defaultClauseText" id="defaultClauseText" :class="{'changeMarginTo5': !isEdit}">
+            <el-form-item v-if="demandForm.defaultClause"  label="" label-width="60px" class="flex-cul" prop="defaultClauseText" id="defaultClauseText" :class="{'changeMarginTo5': !isEdit}">
               <el-input v-if="isEdit"  :rows="3" type="textarea" maxlength="200" v-model="demandForm.defaultClauseText" placeholder="文字"></el-input>
               <div class="textAreaTextWrap" v-else>{{ demandForm.defaultClauseText }}</div>
             </el-form-item>
@@ -641,9 +660,10 @@
         <el-input v-if="demandForm.remarksCheck && isEdit" :rows="3" type="textarea" maxlength="200" v-model="demandForm.remarks" placeholder="文字"></el-input>
         <div v-if="!isEdit" class="textAreaTextWrap">{{ demandForm.remarks }}</div>
         <div class="vantUploadWrap">
-          <!-- <div style="width: 100%; margin: 0.5rem 0" v-if="isEdit && demandForm.fileList.length < 5">
-            <vantUpload @getFileInfo="getOtherFileInfo" :filesList="demandForm.fileList"></vantUpload>
-          </div> -->
+          <div style="width: 100%; margin: 0.5rem 0" v-if="isEdit && demandForm.fileList.length < 5">
+            <!-- <vantUpload @getFileInfo="getOtherFileInfo" :filesList="demandForm.fileList"></vantUpload> -->
+            <elUploadCmp @input="handleUpload"></elUploadCmp>
+          </div>
           <!-- <businessFileList :fileList="demandForm.fileList" @removeFile="removeOtherFile" :showDelete="isEdit"></businessFileList> -->
         </div>
       </el-form-item>
@@ -668,6 +688,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { ref, reactive, watch, onMounted } from 'vue';
 import employeeNumberOptionsList from '@/enum/employeeNumberOptions'; // 员工人数
 import currencyArr from '@/enum/currencyList'; // 员工人数
+import elUploadCmp from '@/components/elUploadCmp.vue';
   import remoteSelectInput from "./remoteSelectInput.vue"
 
   // import remoteSelectPro from "./remoteSelectPro.vue"
@@ -831,58 +852,69 @@ import currencyArr from '@/enum/currencyList'; // 员工人数
     userId: '',
   })
 
-  const formRule = reactive({
-    employeeNumber: [{ required: true, message: '请选择员工人数', trigger: 'blur' }],
-    officeAddress: [{ required: true, message: '请选择办公地址', trigger: 'blur' }],
-    registeredAddress: [{ required: true, message: '请选择注册地址', trigger: 'blur' }],
-    companyCredit: [{ required: true, message: '请填写公司信用情况', trigger: 'blur' }],
-    productName: [{ required: true, message: '请填写产品名称', trigger: 'change' }],
-    ideaProcessList: [ {type: 'array', required: true, message: '请至少选择一项', trigger: 'change'} ],
-    shipmentAskList: [ {type: 'array', required: true, message: '请至少选择一项', trigger: 'change'} ],
-    invoiceAskListRadio: [ {required: true, message: '请选择', trigger: 'change'} ],
-    buybackDays: [{ required: true, message: '请填写回购天数', trigger: 'change' }],
-    materialAccountCycleType: [{ required: true, message: '请选择对账周期', trigger: 'blur' }], // 对账周期
-    materialAccountCycle: [{ required: true, message: '请选择账期', trigger: 'blur' }], // 账期
-    materialInitiationPoint: [{ required: true, message: '请选择结算起始点', trigger: 'blur' }], // 结算起始点
-    otherAccountCycleType: [{ required: true, message: '请选择对账周期', trigger: 'blur' }], // 对账周期(其它)
-    otherAccountCycle: [{ required: true, message: '请选择账期', trigger: 'blur' }],
-    otherInitiationPoint: [{ required: true, message: '请选择结算起始点', trigger: 'blur' }],
+const formRule = reactive({
+  employeeNumber: [{ required: true, message: '请选择员工人数', trigger: 'blur' }],
+  officeAddress: [{ required: true, message: '请选择办公地址', trigger: 'blur' }],
+  registeredAddress: [{ required: true, message: '请选择注册地址', trigger: 'blur' }],
+  companyCredit: [{ required: true, message: '请填写公司信用情况', trigger: 'blur' }],
+  productName: [{ required: true, message: '请填写产品名称', trigger: 'change' }],
+  ideaProcessList: [{ type: 'array', required: true, message: '请至少选择一项', trigger: 'change' }],
+  shipmentAskList: [{ type: 'array', required: true, message: '请至少选择一项', trigger: 'change' }],
+  invoiceAskListRadio: [{ required: true, message: '请选择', trigger: 'change' }],
+  buybackDays: [{ required: true, message: '请填写回购天数', trigger: 'change' }],
+  materialAccountCycleType: [{ required: true, message: '请选择对账周期', trigger: 'blur' }], // 对账周期
+  materialAccountCycle: [{ required: true, message: '请选择账期', trigger: 'blur' }], // 账期
+  materialInitiationPoint: [{ required: true, message: '请选择结算起始点', trigger: 'blur' }], // 结算起始点
+  otherAccountCycleType: [{ required: true, message: '请选择对账周期', trigger: 'blur' }], // 对账周期(其它)
+  otherAccountCycle: [{ required: true, message: '请选择账期', trigger: 'blur' }],
+  otherInitiationPoint: [{ required: true, message: '请选择结算起始点', trigger: 'blur' }],
 
-    processCycleType: [{ required: true, message: '请选择对账周期', trigger: 'blur' }], // 对账周期(其它)
-    processCycle: [{ required: true, message: '请选择账期', trigger: 'blur' }],
-    processInitiationPoint: [{ required: true, message: '请选择结算起始点', trigger: 'blur' }],
+  processCycleType: [{ required: true, message: '请选择对账周期', trigger: 'blur' }], // 对账周期(其它)
+  processCycle: [{ required: true, message: '请选择账期', trigger: 'blur' }],
+  processInitiationPoint: [{ required: true, message: '请选择结算起始点', trigger: 'blur' }],
 
-    defaultClauseText: [{ required: true, message: '请填写违约条款', trigger: 'blur' }],
-    invoiceAskList: [ {type: 'array', required: true, message: '请至少选择一项', trigger: 'change'} ],
-    supplierFileList: [ {type: 'array', required: true, message: '请上传协议', trigger: 'change'} ],
-    workOrderAsk: [{ required: true, message: '请填写要求', trigger: 'blur' }],
-    buybackAsk: [{ required: true, message: '请填写要求', trigger: 'blur' }],
-    afterSalesProvision: [{ required: true, message: '请填写条款', trigger: 'blur' }],
-    parityReason: [{ required: true, message: '请填写对等性', trigger: 'blur' }],
-    remarks: [{ required: true, message: '请填写内容', trigger: 'blur' }],
-    remarks2: [{ required: false }],
-    // businessName: [{ required: true, message: '获取业务员姓名失败', trigger: 'blur' }],
+  defaultClauseText: [{ required: true, message: '请填写违约条款', trigger: 'blur' }],
+  invoiceAskList: [{ type: 'array', required: true, message: '请至少选择一项', trigger: 'change' }],
+  supplierFileList: [{ type: 'array', required: true, message: '请上传协议', trigger: 'change' }],
+  workOrderAsk: [{ required: true, message: '请填写要求', trigger: 'blur' }],
+  buybackAsk: [{ required: true, message: '请填写要求', trigger: 'blur' }],
+  afterSalesProvision: [{ required: true, message: '请填写条款', trigger: 'blur' }],
+  parityReason: [{ required: true, message: '请填写对等性', trigger: 'blur' }],
+  remarks: [{ required: true, message: '请填写内容', trigger: 'blur' }],
+  remarks2: [{ required: false }],
+  // businessName: [{ required: true, message: '获取业务员姓名失败', trigger: 'blur' }],
 
-    officeBuild: [{ required: true, message: '请选择', trigger: 'blur' }],
-    currency: [{ required: true, message: '请选择', trigger: 'blur' }], // 注册资本币别
-    settlementCurrency: [{ required: true, message: '请选择', trigger: 'blur' }],
-    offerCurrency: [{ required: true, message: '请选择', trigger: 'blur' }],
-    contractFactoryId: [{ required: true, message: '请选择', trigger: 'blur' }],
-    cooperateType: [{ required: true, message: '请选择', trigger: 'blur' }], // 合作方式
-    purchaseModel: [{ required: true, message: '请选择', trigger: 'blur' }], // 采购方式
-    smeltToolFee: [{ required: true, message: '请选择', trigger: 'blur' }], // 承担方
-    materialCostType: [{ required: true, message: '请选择', trigger: 'blur' }], // 物流费, 需转换费数字1，2
-    importMaterialBear: [{ required: true, message: '请选择', trigger: 'blur' }], // 进出口料承担方 2 客户
-    exportProductBear: [{ required: true, message: '请选择', trigger: 'blur' }], // 出口成品承担方 2 客户
-    customsCostBear: [{ required: true, message: '请选择', trigger: 'blur' }], // 报关费用承担方 2 客户
-    material: [ {type: 'array', required: true, message: '请至少选择一项', trigger: 'change'} ], // 物料 1 HK入料 2 国内转厂
-    packageMaterial: [ {type: 'array', required: true, message: '请至少选择一项', trigger: 'change'} ], // 包材
-    advanceQuotaCurrency: [{ required: true, message: '请选择', trigger: 'blur' }], // 币别
-    advanceCapitalCurrency: [{ required: true, message: '请选择', trigger: 'blur' }], // 垫资本金币别
-    buybackProvision: [{ required: true, message: '请选择', trigger: 'blur' }], // 回购条款
-    parity: [{ required: true, message: '请选择', trigger: 'blur' }], // 对等性;1 对等 2 不对等
-    other: [{ required: true, message: '请填写', trigger: 'blur' }],
-  })
+  officeBuild: [{ required: true, message: '请选择', trigger: 'blur' }],
+  currency: [{ required: true, message: '请选择', trigger: 'blur' }], // 注册资本币别
+  settlementCurrency: [{ required: true, message: '请选择', trigger: 'blur' }],
+  offerCurrency: [{ required: true, message: '请选择', trigger: 'blur' }],
+  contractFactoryId: [{ required: true, message: '请选择', trigger: 'blur' }],
+  cooperateType: [{ required: true, message: '请选择', trigger: 'blur' }], // 合作方式
+  purchaseModel: [{ required: true, message: '请选择', trigger: 'blur' }], // 采购方式
+  smeltToolFee: [{ required: true, message: '请选择', trigger: 'blur' }], // 承担方
+  materialCostType: [{ required: true, message: '请选择', trigger: 'blur' }], // 物流费, 需转换费数字1，2
+  importMaterialBear: [{ required: true, message: '请选择', trigger: 'blur' }], // 进出口料承担方 2 客户
+  exportProductBear: [{ required: true, message: '请选择', trigger: 'blur' }], // 出口成品承担方 2 客户
+  customsCostBear: [{ required: true, message: '请选择', trigger: 'blur' }], // 报关费用承担方 2 客户
+  material: [{ type: 'array', required: true, message: '请至少选择一项', trigger: 'change' }], // 物料 1 HK入料 2 国内转厂
+  packageMaterial: [{ type: 'array', required: true, message: '请至少选择一项', trigger: 'change' }], // 包材
+  advanceQuotaCurrency: [{ required: true, message: '请选择', trigger: 'blur' }], // 币别
+  advanceCapitalCurrency: [{ required: true, message: '请选择', trigger: 'blur' }], // 垫资本金币别
+  buybackProvision: [{ required: true, message: '请选择', trigger: 'blur' }], // 回购条款
+  parity: [{ required: true, message: '请选择', trigger: 'blur' }], // 对等性;1 对等 2 不对等
+  other: [{ required: true, message: '请填写', trigger: 'blur' }],
+})
+
+  const { handleUpload } = (function (params) {
+    // 文件上传
+    const handleUpload = (file, fileList) => {
+      demandForm.value.fileList = fileList
+    }
+
+    return {
+      handleUpload
+    }
+  })();
 
   const checkObj = { // 币别"
     "registeredCapital": "currency",
@@ -1487,7 +1519,7 @@ import currencyArr from '@/enum/currencyList'; // 员工人数
     }
     .innerFormItem{
       position: relative;
-      left: -24.5vw;
+      // left: -24.5vw;
       margin-top: 10px;
       // width: 100vw;
       box-sizing: border-box;
@@ -1558,4 +1590,9 @@ import currencyArr from '@/enum/currencyList'; // 员工人数
       margin-right: 20px
     }
   }
+.buyback {
+  display: flex;
+  flex-direction: column;
+
+}
 </style>
