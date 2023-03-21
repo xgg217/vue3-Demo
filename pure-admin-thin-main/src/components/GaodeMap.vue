@@ -51,12 +51,13 @@ const props = defineProps({
   isEdit: {
     type: Boolean,
     default: true
-  }
-})
+  },
 
-watch(props.lnglat, (newVal, oldVal) => {
-  markMap(new AMap.LngLat(newVal.lng, newVal.lat))
-  map.setCenter([newVal.lng, newVal.lat])
+  // 类型，防止同一个页面有多个地方需要地图
+  type: {
+    type: Number,
+    default: 1
+  }
 })
 
 const emit = defineEmits(["getAddressInfo", 'close'])
@@ -141,23 +142,17 @@ const markMap = (lnglat) => {
   if (!geocoder) {
     geocoder = new AMap.Geocoder()
   }
-  console.log(2);
 
   if (!marker) {
     marker = new AMap.Marker()
     map.add(marker)
   }
-  console.log(3);
   marker.setPosition(lnglat)
   addressLnglat = reactive(JSON.parse(JSON.stringify(lnglat)))
   console.log(geocoder.getAddress);
   geocoder.getAddress(lnglat, function (status, result) {
-    console.log(status);
-    console.log(result);
     if (status === 'complete') {
-      console.log(status);
       const { regeocode } = result
-      console.log(regeocode.formattedAddress);
       addressName.value = regeocode.formattedAddress
       addressLnglat = JSON.parse(JSON.stringify(lnglat))
     }
@@ -172,11 +167,27 @@ const closeMapWindow = () => {
 /* 确认选择 */
 const comfiremMapSelect = () => {
   if(addressLnglat){
-    emit('getAddressInfo', { name: addressName.value, lnglat: addressLnglat })
+    emit('getAddressInfo', { type: props.type ,name: addressName.value, lnglat: addressLnglat })
     // emit("update:modelValue", false)
     closeMapWindow()
   }
 }
+
+watch(() => props.type, (newVal, oldVal) => {
+  console.log(newVal, oldVal);
+  const { lng, lat } = props.lnglat;
+  console.log( props.lnglat);
+
+
+  if (!lng || !lat) {
+    addressName.value = '';
+    return;
+  }
+  if(!markMap) { return }
+
+  markMap(new AMap.LngLat(lng, lat))
+  map.setCenter([lng, lat])
+}, {immediate: true})
 </script>
 
 <style lang="scss" scoped>

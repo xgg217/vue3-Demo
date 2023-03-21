@@ -30,12 +30,12 @@
       </el-form-item>
       <!--发起报价界面需要显示-->
       <el-form-item label="办公地址" prop="officeAddress" id="officeAddress" v-if="!isQuota || isQuotaInitiateQuotation">
-        <div class="a-blue-color more grayWrap" @click="openMapWindow(0)"><van-icon name="location" color="#1572F9;" style="margin-right: 0.1rem" /> {{ demandForm.officeAddress || '选择地址'}}</div>
+        <div class="a-blue-color more grayWrap" @click="openMapWindow(0)"><van-icon name="location" color="#1572F9;" style="margin-right: 0.1rem" /> {{ demandForm.officeAddress || '选择办公地址'}}</div>
       </el-form-item>
 
 
       <el-form-item label="注册地址" prop="registeredAddress" id="registeredAddress" v-if="!isQuota">
-        <div class="a-blue-color more grayWrap" @click="openMapWindow(1)"><van-icon name="location" color="#1572F9;" style="margin-right: 0.1rem" /> {{ demandForm.registeredAddress || '选择地址'}}</div>
+        <div class="a-blue-color more grayWrap" @click="openMapWindow(1)"><van-icon name="location" color="#1572F9;" style="margin-right: 0.1rem" /> {{ demandForm.registeredAddress || '选择注册地址'}}</div>
       </el-form-item>
 
       <el-form-item label="法定代表人" :rules="[
@@ -687,6 +687,7 @@
     >
       <GaodeMap
         @getAddressInfo='getAddressInfo'
+        :type="mapType"
         :lnglat="reAdress"
         :isEdit="isEdit"
         @close="mapWindow = false"
@@ -985,7 +986,8 @@ const formRule = reactive({
   }
 
   /* 地图选取 */
-  const {
+const {
+    mapType,
     mapWindow,
     reAdress,
     getAddressInfo,
@@ -994,6 +996,7 @@ const formRule = reactive({
     const mapWindow = ref(false)
     let addressType = 0
     const reAdress = reactive({lng: 113.94027, lat: 22.512353})
+    const mapType = ref(0)
 
     // 打开新窗口
     const openMapWindow = (type) => {
@@ -1004,36 +1007,69 @@ const formRule = reactive({
       }
 
       mapWindow.value = true
-      addressType = type
-      if (addressType && demandForm.value.registeredAddress) {
-        reAdress.lng = demandForm.value.registeredLongitude
-        reAdress.lat = demandForm.value.registeredLatitude
+      // addressType = type
+      mapType.value = type
+
+      // 办公地址
+      if (type === 0) {
+        reAdress.lng = demandForm.value.officeLongitude;
+        reAdress.lat = demandForm.value.officeLatitude;
+        return
       }
-      if (!addressType && demandForm.value.officeAddress) {
-        reAdress.lng = demandForm.value.officeLongitude
-        reAdress.lat = demandForm.value.officeLatitude
+
+      // 注册地址
+      if (type === 1) {
+        reAdress.lng = demandForm.value.registeredLongitude;
+        reAdress.lat = demandForm.value.registeredLatitude;
+        return
       }
+
+
+      // if (addressType && demandForm.value.registeredAddress) {
+      //   reAdress.lng = demandForm.value.registeredLongitude
+      //   reAdress.lat = demandForm.value.registeredLatitude
+      // }
+      // if (!addressType && demandForm.value.officeAddress) {
+      //   reAdress.lng = demandForm.value.officeLongitude
+      //   reAdress.lat = demandForm.value.officeLatitude
+      // }
 
       console.log(reAdress);
     }
 
     // 选取地址后的回调
     const getAddressInfo = (info) => {
-      const { name, lnglat } = info
-      if (addressType) {
-        demandForm.value.registeredAddress = name
-        demandForm.value.registeredLongitude = lnglat.lng
-        demandForm.value.registeredLatitude = lnglat.lat
-        return
+      const { type, name, lnglat } = info
+      // 办公地址经度
+      if (type === 0) {
+        demandForm.value.officeAddress = name;
+        demandForm.value.officeLongitude = lnglat.lng;
+        demandForm.value.officeLatitude = lnglat.lat;
       }
-      demandForm.value.officeAddress = name
-      demandForm.value.officeLongitude = lnglat.lng
-      demandForm.value.officeLatitude = lnglat.lat
+      console.log(info)
 
+      // 注册地址经度
+      if (type === 1) {
+        demandForm.value.registeredAddress = name;
+        demandForm.value.registeredLongitude = lnglat.lng;
+        demandForm.value.registeredLatitude = lnglat.lat
+      }
       mapWindow.value = false
+      // if (addressType) {
+      //   demandForm.value.registeredAddress = name
+      //   demandForm.value.registeredLongitude = lnglat.lng
+      //   demandForm.value.registeredLatitude = lnglat.lat
+      //   return
+      // }
+      // demandForm.value.officeAddress = name
+      // demandForm.value.officeLongitude = lnglat.lng
+      // demandForm.value.officeLatitude = lnglat.lat
+
+      // mapWindow.value = false
     }
 
-    return {
+      return {
+      mapType,
       reAdress,
       mapWindow,
       getAddressInfo,
@@ -1552,8 +1588,8 @@ const formRule = reactive({
     .grayWrap{
       background-color: #F6F6FB;
       border-radius: 2px;
-      // width: 100%;
-      width: 80px;
+      width: 100%;
+      // width: 80px;
       padding-left: 10px;
       box-sizing: border-box;
       cursor: pointer;
