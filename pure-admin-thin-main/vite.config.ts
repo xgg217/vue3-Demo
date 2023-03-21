@@ -48,6 +48,11 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           target: 'http://192.168.28.51:30300',
           changeOrigin: true, // 是否跨域
           rewrite: (path) => path.replace(/^\/api/, '')
+        },
+        "/upms/.*": {
+          target: 'http://192.168.28.51:30300',
+          changeOrigin: true, // 是否跨域
+          rewrite: (path) => path.replace(/^\/aa/, '')
         }
       },
 
