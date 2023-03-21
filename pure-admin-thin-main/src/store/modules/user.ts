@@ -172,7 +172,7 @@ export const useUserStore = defineStore({
     strategies: [
       {
         key: 'user',  //自定义 Key值
-        storage: sessionStorage,
+        storage: localStorage,
       }
     ]
   }

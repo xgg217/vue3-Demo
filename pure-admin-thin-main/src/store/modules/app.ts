@@ -64,7 +64,7 @@ export const useAppStore = defineStore({
     strategies: [
       {
         key: 'app',  //自定义 Key值
-        storage: sessionStorage,
+        storage: localStorage,
       }
     ]
   }

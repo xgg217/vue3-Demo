@@ -46,7 +46,7 @@ export const usePermissionStore = defineStore({
     strategies: [
       {
         key: 'permission',  //自定义 Key值
-        storage: sessionStorage,
+        storage: localStorage,
       }
     ]
   }
