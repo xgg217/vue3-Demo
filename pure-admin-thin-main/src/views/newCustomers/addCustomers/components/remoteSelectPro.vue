@@ -6,7 +6,6 @@
         v-model="value"
         filterable
         remote
-        v-r-readonly="[0, 0, 0, 0]"
         reserve-keyword
         placeholder="关键字搜索"
         @change="selectItem"

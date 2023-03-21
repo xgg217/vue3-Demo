@@ -1,13 +1,27 @@
 <template>
   <div class="demandFormWrap">
-    <el-form ref="ruleFormRef" :model="demandForm" label-width="90px" label-position="left" :disabled="!isEdit" class="demandForm" :class="{'busCancelEdit': !isEdit}" :rules="formRule">
+    <el-form
+      ref="ruleFormRef"
+      :model="demandForm"
+      label-width="90px"
+      label-position="left"
+      :disabled="!isEdit"
+      class="demandForm"
+      :class="{'busCancelEdit': !isEdit}"
+      :rules="formRule"
+    >
       <slot name="quotaState" :data="demandForm"></slot>
-      <el-form-item label="客户状态" v-if="(demandForm.status || demandForm.status === 0) && route.name != 'addDemand' && !isQuota " >
+      <el-form-item label="客户状态" v-if="(demandForm.status || demandForm.status === 0) && route.name != 'addCustomers' && !isQuota " >
         <span :class="statusList[demandForm.status].className">{{ statusList[demandForm.status].lable }} {{ demandForm.status == 0 ? '剩余' + (demandForm.days || '-') + '天到期' : '' }}</span>
       </el-form-item>
 
       <el-form-item label="客户名称" prop="customerName" :rules="[{ validator: checkCustomName, trigger: 'change' }]" id="customerName" v-if="!isQuota">
-        <remoteSelectInput ref="remoteSelectInputRef" v-if="isEdit && demandForm.status == null && route.name == 'addCustomers'" @getCustomerInfo="getCustomerInfo" :initInfo="{id: demandForm.customerId, name: demandForm.customerName}"></remoteSelectInput>
+        <remoteSelectInput
+          ref="remoteSelectInputRef"
+          v-if="isEdit && demandForm.status == null && route.name == 'addCustomers'"
+          @getCustomerInfo="getCustomerInfo"
+          :initInfo="{id: demandForm.customerId, name: demandForm.customerName}"
+        ></remoteSelectInput>
         <el-input v-else :disabled="demandForm.status > -1 " v-model="demandForm.customerName"></el-input>
       </el-form-item>
 
@@ -30,12 +44,12 @@
       </el-form-item>
       <!--发起报价界面需要显示-->
       <el-form-item label="办公地址" prop="officeAddress" id="officeAddress" v-if="!isQuota || isQuotaInitiateQuotation">
-        <div class="a-blue-color more grayWrap" @click="openMapWindow(0)"><van-icon name="location" color="#1572F9;" style="margin-right: 0.1rem" /> {{ demandForm.officeAddress || '选择办公地址'}}</div>
+        <div class="a-blue-color more grayWrap" @click="openMapWindow(0)"> {{ demandForm.officeAddress || '选择办公地址'}}</div>
       </el-form-item>
 
 
       <el-form-item label="注册地址" prop="registeredAddress" id="registeredAddress" v-if="!isQuota">
-        <div class="a-blue-color more grayWrap" @click="openMapWindow(1)"><van-icon name="location" color="#1572F9;" style="margin-right: 0.1rem" /> {{ demandForm.registeredAddress || '选择注册地址'}}</div>
+        <div class="a-blue-color more grayWrap" @click="openMapWindow(1)"> {{ demandForm.registeredAddress || '选择注册地址'}}</div>
       </el-form-item>
 
       <el-form-item label="法定代表人" :rules="[
@@ -88,7 +102,6 @@
         <span v-else class="relative ui-cell">
           {{ currencyList[demandForm.offerCurrency - 1].label }}
           <div v-if="demandForm.offerCurrency!=1">
-            <van-icon class="ml-20 mr-5" name="warning" color="#FA8603"/>
             <span class="fz-12" style="color: #FA8603;">所有报价请按此币别的金额维护</span>
           </div>
         </span>
@@ -111,8 +124,10 @@
         <el-form-item label="加工工序" v-if="!isQuotaInitiateQuotation">
           <div>
             {{ demandForm.ideaProcessList.join(' + ') }}
-            <van-icon class="showMoreIcon" :name="!quoteShowMore ? 'arrow-down' : 'arrow-up'" @click="changeQuoteShowMore"/>
-            <!-- <van-icon name="arrow-up" /> -->
+             <el-icon :size="size" :color="color">
+              <ArrowDown v-if="!quoteShowMore" @click="changeQuoteShowMore" />
+              <ArrowUp v-else @click="changeQuoteShowMore" />
+            </el-icon>
           </div>
         </el-form-item>
       </template>
@@ -145,7 +160,6 @@
 
           <el-form-item label="公司信用情况" label-width="100px" class="flex-cul" v-if="(demandForm.cooperateType == 2 && demandForm.purchaseModel == 2) || demandForm.cooperateType != 2 && !isQuota" prop="companyCredit" id="companyCredit"> <!-- 国内加工时，需要代采显示 -->
             <el-input v-model="demandForm.companyCredit" placeholder="文本" />
-            <!-- <div class="flex-center" style="width: 4rem"><van-icon name="share" color="#0096FF" /></div> -->
           </el-form-item>
 
           <el-form-item label="垫资额度" label-width="100px" :rules="[
@@ -603,7 +617,8 @@
           <el-form-item label="我方与供应商协议" label-width="90%" class="flex-cul" v-if="demandForm.cooperateType != 1 && !isQuota" prop="supplierFileList" id="supplierFileList">
             <div class="vantUploadWrap">
               <div style="width: 100%; margin: 0.5rem 0" v-if="isEdit">
-                <vantUpload @getFileInfo="getFileInfo" :filesList="demandForm.supplierFileList"></vantUpload>
+                <!-- <vantUpload @getFileInfo="getFileInfo" :filesList="demandForm.supplierFileList"></vantUpload> -->
+                <elUploadCmp @input="handleUploadAgreeOn" />
               </div>
               <!-- <businessFileList :fileList="demandForm.supplierFileList" @removeFile="removeFile" :showDelete="isEdit"></businessFileList> -->
             </div>
@@ -707,6 +722,8 @@ import elUploadCmp from '@/components/elUploadCmp.vue';
 import remoteSelectInput from "./remoteSelectInput.vue"
 import remoteSelectPro from "./remoteSelectPro.vue"
 import GaodeMap from "@/components/GaodeMap.vue";
+import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 
   // import businessFileList from "./businessFileList.vue"
   import checkName from "./../utils/checkName"
@@ -869,9 +886,9 @@ import GaodeMap from "@/components/GaodeMap.vue";
   })
 
 const formRule = reactive({
-  employeeNumber: [{ required: true, message: '请选择员工人数', trigger: 'blur' }],
-  officeAddress: [{ required: true, message: '请选择办公地址', trigger: 'blur' }],
-  registeredAddress: [{ required: true, message: '请选择注册地址', trigger: 'blur' }],
+  employeeNumber: [{ required: true, message: '请选择员工人数', trigger: 'change' }],
+  officeAddress: [{ required: true, message: '请选择办公地址', trigger: 'change' }],
+  registeredAddress: [{ required: true, message: '请选择注册地址', trigger: 'change' }],
   companyCredit: [{ required: true, message: '请填写公司信用情况', trigger: 'blur' }],
   productName: [{ required: true, message: '请填写产品名称', trigger: 'change' }],
   ideaProcessList: [{ type: 'array', required: true, message: '请至少选择一项', trigger: 'change' }],
@@ -900,11 +917,11 @@ const formRule = reactive({
   remarks2: [{ required: false }],
   // businessName: [{ required: true, message: '获取业务员姓名失败', trigger: 'blur' }],
 
-  officeBuild: [{ required: true, message: '请选择', trigger: 'blur' }],
+  officeBuild: [{ required: true, message: '请选择', trigger: 'change' }],
   currency: [{ required: true, message: '请选择', trigger: 'blur' }], // 注册资本币别
   settlementCurrency: [{ required: true, message: '请选择', trigger: 'blur' }],
   offerCurrency: [{ required: true, message: '请选择', trigger: 'blur' }],
-  contractFactoryId: [{ required: true, message: '请选择', trigger: 'blur' }],
+  contractFactoryId: [{ required: true, message: '请选择工厂', trigger: 'change' }],
   cooperateType: [{ required: true, message: '请选择', trigger: 'blur' }], // 合作方式
   purchaseModel: [{ required: true, message: '请选择', trigger: 'blur' }], // 采购方式
   smeltToolFee: [{ required: true, message: '请选择', trigger: 'blur' }], // 承担方
@@ -921,14 +938,26 @@ const formRule = reactive({
   other: [{ required: true, message: '请填写', trigger: 'blur' }],
 })
 
-  const { handleUpload } = (function (params) {
+  const { handleUpload, handleUploadAgreeOn } = (function (params) {
     // 文件上传
     const handleUpload = (file, fileList) => {
-      demandForm.value.fileList = fileList
+      demandForm.value.fileList = fileList;
+    }
+
+    // 我方与供应商协议文件上传
+    const handleUploadAgreeOn = (file, fileList) => {
+      // demandForm.value.supplierFileList = fileList
+       demandForm.value.supplierFileList = fileList.map(item => {
+        return {
+          name: '国内加工-' + item.name,
+          url: item.url
+        }
+      })
     }
 
     return {
-      handleUpload
+      handleUpload,
+      handleUploadAgreeOn
     }
   })();
 
@@ -1236,51 +1265,51 @@ const {
   /* 请求 */
 
   watch(() => route.name, ()=> {
-    // if (route.name === "customerDemand" || route.name === "processDetail") {
-    //   getFormData()
-    // }
+    if (route.name === "customerDemand" || route.name === "processDetail") {
+      getFormData()
+    }
   }, { immediate: false })
 
 
 
-  // const getFormData = () => {
-  //   // openLoading()
-  //   customerDetailInfo(route.params.id * 1)
-  //     .then((res) => {
-  //       if (res.code == 200) {
-  //         if (res.msg == '暂无承载数据') {
-  //           // closeLoading()
-  //           // failTip(res.code + ' - 请求异常，暂无承载数据')
-  //           return
-  //         }
-  //         // res.data.status = route.query.status
-  //         if (res.data.status > 8) {
-  //           // getOtherCustomerInfo(res.data.protocolId)
-  //         }
+  const getFormData = () => {
+    // openLoading()
+    customerDetailInfo(route.params.id * 1)
+      .then((res) => {
+        if (res.code == 200) {
+          if (res.msg == '暂无承载数据') {
+            // closeLoading()
+            // failTip(res.code + ' - 请求异常，暂无承载数据')
+            return
+          }
+          // res.data.status = route.query.status
+          if (res.data.status > 8) {
+            getOtherCustomerInfo(res.data.protocolId)
+          }
 
-  //         if (route.meta.status && res.data.status < route.meta.status) {
-  //           router.push("/statusError")
-  //           // closeLoading()
-  //           return
-  //         }
+          if (route.meta.status && res.data.status < route.meta.status) {
+            router.push("/statusError")
+            // closeLoading()
+            return
+          }
 
-  //         const { customerBaseId, status, id, customerName } = res.data
-  //         businessStore.updatePageInfo({id: customerBaseId, state: status, cusId: id, cusName: customerName})
-  //         businessStore.updateData(res.data)
+          const { customerBaseId, status, id, customerName } = res.data
+          businessStore.updatePageInfo({id: customerBaseId, state: status, cusId: id, cusName: customerName})
+          businessStore.updateData(res.data)
 
-  //         setViewData(res.data)
-  //       } else {
-  //         // failTip(res.code + ' - ' + res.msg)
-  //       }
-  //       // closeLoading()
-  //     })
-  //     .catch((e) => {
-  //       console.log("customerBaseInfo", e)
-  //       // failTip('网络请求异常，请联系管理员')
-  //     }).finally(() => {
-  //       // closeLoading()
-  //     })
-  // }
+          setViewData(res.data)
+        } else {
+          // failTip(res.code + ' - ' + res.msg)
+        }
+        // closeLoading()
+      })
+      .catch((e) => {
+        console.log("customerBaseInfo", e)
+        // failTip('网络请求异常，请联系管理员')
+      }).finally(() => {
+        // closeLoading()
+      })
+  }
 
   /* 提交 */
   const submit = async (flag) => {
@@ -1288,6 +1317,7 @@ const {
     // submitForm新增第三个参数，如果是报价预览跳过来的，需要在提交后，再调一个关联报价id的操作，
     if (!demandForm.value.customerId) {
       // failTip("请先选择客户！")
+      ElMessage.error("请先选择客户！")
       return
     }
     if (!flag) {
@@ -1298,10 +1328,12 @@ const {
     await ruleFormRef.value.validate((valid, fields) => {
       if (valid) {
         props.submitForm(demandForm, flag,{isOutData:isOutData.value})
+        // console.log(12121212);
       } else {
         let key = Object.keys(fields)[0]
         document.querySelector('#' + key).scrollIntoView()
         // failTip("表单未填写完整，请完成后提交！")
+        ElMessage.error("表单未填写完整，请完成后提交！")
       }
     })
   }
@@ -1309,13 +1341,13 @@ const {
   onMounted(() => {
     /* 新增客户和填写客户报价规则不请求 */
     /* route.name !== "addDemand" && route.name !== "initiateQuotation" */
-    // if (route.params.id) {
-    //   getFormData()
-    // }
+    if (route.params.id) {
+      getFormData()
+    }
   })
 
   bus.on("refreshData", () => {
-    // getFormData()
+    getFormData()
   })
 
   /* 属性关联 */
@@ -1393,43 +1425,43 @@ const {
   }
 
   /* 修改用户状态 */
-  // const changeState = (status, id) => {
-  //   // openLoading()
-  //   return new Promise(resolve => {
-  //     changeCustomerState({status: status})
-  //       .then((res) => {
-  //         if (res.code == 200) {
-  //           // successTip("修改成功")
-  //           if (status == 1) {
-  //             router.push({path: "/myClient"})
-  //           }
-  //         } else {
-  //           // failTip(res.code + ' - ' + res.msg)
-  //         }
-  //         resolve()
-  //         // closeLoading()
-  //       })
-  //       .catch((e) => {
-  //         // failTip('网络请求异常，请联系管理员')
-  //         resolve()
-  //       })
-  //   })
-  // }
+  const changeState = (status, id) => {
+    // openLoading()
+    return new Promise(resolve => {
+      changeCustomerState({status: status})
+        .then((res) => {
+          if (res.code == 200) {
+            // successTip("修改成功")
+            if (status == 1) {
+              router.push({path: "/myClient"})
+            }
+          } else {
+            // failTip(res.code + ' - ' + res.msg)
+          }
+          resolve()
+          // closeLoading()
+        })
+        .catch((e) => {
+          // failTip('网络请求异常，请联系管理员')
+          resolve()
+        })
+    })
+  }
 
   /* 获取0.6的客户信息 */
-  // const getOtherCustomerInfo = (id) => {
-  //   // openLoading()
-  //   customerInfo(id)
-  //     .then((res) => {
-  //       if (res.code == 200) {
-  //         businessStore.updateProtocolData(res.data)
-  //         businessStore.updateProtocolId(id)
-  //       } else {
-  //         // failTip(res.code + ' - ' + res.msg)
-  //       }
-  //       // closeLoading()
-  //     })
-  // }
+  const getOtherCustomerInfo = (id) => {
+    // openLoading()
+    customerInfo(id)
+      .then((res) => {
+        if (res.code == 200) {
+          businessStore.updateProtocolData(res.data)
+          businessStore.updateProtocolId(id)
+        } else {
+          // failTip(res.code + ' - ' + res.msg)
+        }
+        // closeLoading()
+      })
+  }
   /* 提交时的数据转换 */
   const dataTrans = () => {
     return new Promise((res,rej)=>{
@@ -1519,9 +1551,9 @@ const {
   /* 暴露表单信息 */
   defineExpose({
     submit,
-    // changeState,
+    changeState,
     demandForm,
-    // getFormData,
+    getFormData,
     isEdit,
     dataTrans,
     ruleFormRef,
