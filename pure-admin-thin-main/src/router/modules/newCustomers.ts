@@ -24,6 +24,15 @@ export default {
         title: "新增客户",
         showLink: false
       }
+    },
+    {
+      path: "/newCustomers/MeetingAppointment",
+      name: "MeetingAppointment",
+      component: () => import("@/views/newCustomers/DingDingMeeting.vue"),
+      meta: {
+        title: "钉钉会议预约",
+        showLink: false
+      }
     }
   ]
 };
