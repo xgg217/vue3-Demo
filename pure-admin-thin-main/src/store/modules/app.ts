@@ -5,7 +5,7 @@ import { getConfig } from "@/config";
 import { deviceDetection, storageLocal } from "@pureadmin/utils";
 
 export const useAppStore = defineStore({
-  id: "pure-app",
+  id: "app",
   state: (): appType => ({
     sidebar: {
       opened:
@@ -57,6 +57,16 @@ export const useAppStore = defineStore({
     setLayout(layout) {
       this.layout = layout;
     }
+  },
+  // 持久化
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'app',  //自定义 Key值
+        storage: sessionStorage,
+      }
+    ]
   }
 });
 

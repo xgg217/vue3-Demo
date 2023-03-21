@@ -5,7 +5,7 @@ import { constantMenus } from "@/router";
 import { ascending, filterTree, filterNoPermissionTree } from "@/router/utils";
 
 export const usePermissionStore = defineStore({
-  id: "pure-permission",
+  id: "permission",
   state: () => ({
     // 静态路由生成的菜单
     constantMenus,
@@ -39,6 +39,16 @@ export const usePermissionStore = defineStore({
       this.wholeMenus = [];
       this.cachePageList = [];
     }
+  },
+  // 持久化
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'permission',  //自定义 Key值
+        storage: sessionStorage,
+      }
+    ]
   }
 });
 
