@@ -29,7 +29,6 @@ const route = useRoute()
 const loading = ref(false) // 加载状态
 
 onMounted(async () => {
-  console.log('gaodemap111111111111111111')
   if (window.AMap && window.AMapUI) {
     createdMap()
   } else {
@@ -76,7 +75,6 @@ const createdMap = () => {
     ElMessage.error('载入地图失败！')
     return
   }
-  // console.log(window.AMap)
   AMap = window.AMap;
   loading.value = true;
   map = new AMap.Map('gaodeMapWrap', {
@@ -107,7 +105,6 @@ const createdMap = () => {
 
   map.on('complete', function () {
     loading.value = false
-    console.log('地图加载完成')
     if (AMap.Autocomplete) {
       const auto = new AMap.Autocomplete({
         input: 'mapSearchIn'
@@ -133,7 +130,6 @@ const destoryMap = () => {
 
 /* 地图标记 */
 const markMap = (lnglat) => {
-  console.log(lnglat);
   if (!lnglat) {
     // failTip("该地址不可用，请重新选择！")
     ElMessage.warning('该地址不可用，请重新选择！')
@@ -149,7 +145,6 @@ const markMap = (lnglat) => {
   }
   marker.setPosition(lnglat)
   addressLnglat = reactive(JSON.parse(JSON.stringify(lnglat)))
-  console.log(geocoder.getAddress);
   geocoder.getAddress(lnglat, function (status, result) {
     if (status === 'complete') {
       const { regeocode } = result
@@ -174,10 +169,7 @@ const comfiremMapSelect = () => {
 }
 
 watch(() => props.type, (newVal, oldVal) => {
-  console.log(newVal, oldVal);
   const { lng, lat } = props.lnglat;
-  console.log( props.lnglat);
-
 
   if (!lng || !lat) {
     addressName.value = '';
