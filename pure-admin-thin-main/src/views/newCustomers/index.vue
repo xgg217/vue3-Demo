@@ -125,14 +125,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <!-- <el-form :inline="true" :model="formInline" class="demo-form-inline head">
-      <el-form-item label="客户名称">
-        <el-input v-model="formInline.user" placeholder="请输入" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary">搜索</el-button>
-      </el-form-item>
-    </el-form> -->
 
     <div class="table">
       <div class="table-title">
