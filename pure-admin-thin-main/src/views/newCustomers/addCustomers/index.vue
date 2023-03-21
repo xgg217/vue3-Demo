@@ -176,12 +176,14 @@ const {
         const resData = res.data as any;
 
         //关联报价单id
-        if(extraData?.isOutData){
+        if ((extraData as any)?.isOutData) {
+          console.log('关联报价单id');
           let outData = getItem('outData')
           try {
-            await putHttpOnRecord({customerOfferId:outData.offerId,customerId:params.customerId,customerBaseId:res.data.customerBaseId})
-          } catch (error) {
+            await putHttpOnRecord({customerOfferId:outData.offerId,customerId:params.customerId,customerBaseId: (res.data as any).customerBaseId})
             ElMessage.success('关联报价单成功')
+          } catch (error) {
+            ElMessage.error('关联报价单失败')
           }
           // let [err,]=await to()
           // if (!err) {
@@ -190,19 +192,21 @@ const {
         }
         ElMessage.success("提交成功")
         if (resData.runProcessResponse?.processInstanceId) {
-          sessionStorage.set("taskId", resData.runProcessResponse.processInstanceId)
+          console.log(1111);
+
+          sessionStorage.setItem("taskId", resData.runProcessResponse.processInstanceId)
         }
         if (flag) {
           console.log('flag',flag);
-
-          // router.push({path: "/myClient"})
-          // createdConf(resData.customerBaseId)
+          // 跳转到会议预约页面
+          router.replace({path: "/newCustomers/MeetingAppointment", query: {id: resData.customerBaseId}})
         } else {
-          // router.push({path: "/myClient"})
-          console.log('flag',flag);
+          router.replace({path: "/newCustomers/index"})
         }
       })
-      .catch((e) => {
+      .catch(e => {
+        console.log(e);
+
         data.value.customerId = ''
       }).finally(() => {
         loading.value = false
@@ -221,6 +225,9 @@ const {
     chenckMettingInfo
   }
 })();
+const handleH = () => {
+  router.replace({path: "/newCustomers/MeetingAppointment"})
+}
 
 onMounted(() => {
   console.log('route.name', route.name);
@@ -255,6 +262,8 @@ const { ruleForm1, rules, ruleFormRef } = (() => {
     <div class="formWrap">
       <demandForm ref="formData" :submitForm="submitFormData"></demandForm>
     </div>
+
+    <div @click="handleH">会议预约</div>
 
     <div class="bottomOperate flex-center" v-if="state < 3 || (state > 5 && state < 7) || route.name == 'addCustomers'">
       <div class="bottomOperateWrap flex-center">

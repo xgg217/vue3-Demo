@@ -74,3 +74,13 @@ export const addCustomerDemand = (data) => {
 export const putHttpOnRecord = (data) => {
   return http.request<Result>('post', '/customer/internalOffer/putOnRecord', { data })
 }
+
+export const baseUrlApi = (url: string) =>
+  process.env.NODE_ENV === "development"
+    ? `/meeting/${url}`
+    : `http://192.168.28.51:30300/${url}`;
+
+// 创建会议
+export const apiMeetingCreate = (data) => {
+  return http.request<Result>('post', '/create', { data }, { baseURL: 'http://192.168.11.110:8200/meeting' })
+}

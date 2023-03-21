@@ -52,7 +52,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         "/upms/.*": {
           target: 'http://192.168.28.51:30300',
           changeOrigin: true, // 是否跨域
-          rewrite: (path) => path.replace(/^\/aa/, '')
+          rewrite: (path) => path.replace(/^\/upms/, '')
+        },
+        "/meeting/.*": {
+          target: 'http://192.168.11.110:8200',
+          changeOrigin: true, // 是否跨域
+          rewrite: (path) => path.replace(/^\/meeting/, '')
         }
       },
 

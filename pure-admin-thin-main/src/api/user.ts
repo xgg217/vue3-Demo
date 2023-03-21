@@ -45,7 +45,6 @@ export const refreshTokenApi = (data?: object) => {
 
 
 // export const baseURL = import.meta.env.PROD ? '/upms' : 'http://192.168.28.51:30300'
-export const baseURL = import.meta.env.PROD ? '/upms' : 'http://192.168.28.51:30300/upms'
 
 export const baseUrlApi = (url: string) =>
   process.env.NODE_ENV === "development"
