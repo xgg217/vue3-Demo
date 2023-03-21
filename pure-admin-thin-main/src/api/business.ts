@@ -53,3 +53,24 @@ export const checkProduct = (data) => {
 export const addProduct = (data) => {
   return http.request<Result>('post', '/customer/product/save', { data })
 }
+
+/* 更新客户需求 */
+// export const updataCustomerDemand = (params) => fetchPut('/customer_needs/update', params)
+export const updataCustomerDemand = (data) => {
+  return http.request<Result>('put', '/customer/customer_needs/update', { data })
+}
+
+/* 更新客户 */
+export const updateCustomer = (data) => {
+  return http.request<Result>('put', '/customer/customer/update_relation', { data })
+}
+
+/* 新增客户需求 */
+export const addCustomerDemand = (data) => {
+  return http.request<Result>('post', '/customer/customer_needs/save', { data })
+}
+
+//去建档-补业务需求表
+export const putHttpOnRecord = (data) => {
+  return http.request<Result>('post', '/customer/internalOffer/putOnRecord', { data })
+}
