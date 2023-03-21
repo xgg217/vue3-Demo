@@ -1328,7 +1328,6 @@ const {
     await ruleFormRef.value.validate((valid, fields) => {
       if (valid) {
         props.submitForm(demandForm, flag,{isOutData:isOutData.value})
-        // console.log(12121212);
       } else {
         let key = Object.keys(fields)[0]
         document.querySelector('#' + key).scrollIntoView()
