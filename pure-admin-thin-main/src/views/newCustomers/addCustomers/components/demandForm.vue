@@ -716,8 +716,10 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { ref, reactive, watch, onMounted } from 'vue';
-import employeeNumberOptionsList from '@/enum/employeeNumberOptions'; // 员工人数
-import currencyArr from '@/enum/currencyList'; // 员工人数
+import {
+  employeeNumberOptions as employeeNumberOptionsList, // 人数
+  currencyList, // 币种
+} from '@/enum/dict'; // 员工人数
 import elUploadCmp from '@/components/elUploadCmp.vue';
 import remoteSelectInput from "./remoteSelectInput.vue"
 import remoteSelectPro from "./remoteSelectPro.vue"
@@ -1120,7 +1122,7 @@ const {
   }
 
   /* 注册资本 */
-  const currencyList = currencyArr
+  // const currencyList = currencyArr
   // 转换，号
   const transComma = (value, sttr) => {
     demandForm.value[sttr] = addComma(value)
