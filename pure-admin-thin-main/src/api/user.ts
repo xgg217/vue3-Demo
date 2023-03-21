@@ -28,6 +28,11 @@ export type RefreshTokenResult = {
   };
 };
 
+type Result = {
+  success: boolean;
+  data: Array<any>;
+};
+
 /** 登录 */
 export const getLogin = (data?: object) => {
   return http.request<UserResult>("post", "/login", { data });
@@ -36,4 +41,18 @@ export const getLogin = (data?: object) => {
 /** 刷新token */
 export const refreshTokenApi = (data?: object) => {
   return http.request<RefreshTokenResult>("post", "/refreshToken", { data });
+};
+
+
+// export const baseURL = import.meta.env.PROD ? '/upms' : 'http://192.168.28.51:30300'
+export const baseURL = import.meta.env.PROD ? '/upms' : 'http://192.168.28.51:30300/upms'
+
+export const baseUrlApi = (url: string) =>
+  process.env.NODE_ENV === "development"
+    ? `/upms/${url}`
+    : `http://192.168.28.51:30300/${url}`;
+
+// 获取公司人员列表
+export const apiUserGetList = () => {
+  return http.request<Result>("post", baseUrlApi("/api/user/getList"), { data: {} });
 };
