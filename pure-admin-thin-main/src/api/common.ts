@@ -7,5 +7,5 @@ type Result = {
 
 // 字典
 export const getParameterConfig = (id: number) => {
-  return http.request<Result>("get", '/customer/parameterConfig/list');
+  return http.request<Result>("get", '/crm/parameterConfig/list');
 }
