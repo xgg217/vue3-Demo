@@ -3,6 +3,8 @@ import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from "vue-router";
 import { customerPageList } from '@/api/business';
 import { businessStatus } from '@/enum/dict'
+import MeetingResults from './components/MeetingResults.vue'
+import type { IRuleForm } from './types'
 
 const router = useRouter();
 
@@ -115,6 +117,54 @@ const {
     handleSizeChange,
     handleCurrentChange,
   }
+  })();
+
+// 会议决议
+const {
+  isMeeting,
+  openMeeting,
+  handleMeetingSave
+} = (function () {
+  const isMeeting = ref(true);
+
+  // 会议信息
+  const meetingObj = {
+    customerBaseId: 0, // 客户业务需求id
+    customerId: 0, // 客户id
+  }
+
+  // 打开会议决议弹出
+  const openMeeting = (data) => {
+    isMeeting.value = true;
+    meetingObj.customerBaseId = data.baseCustomerId;
+    meetingObj.customerId = data.id
+  }
+
+  const handleMeetingSave = (data:IRuleForm) => {
+    console.log('会议决议保存')
+    const obj = {
+      ...meetingObj,
+      ...data
+    };
+
+  }
+
+  return {
+    isMeeting,
+    openMeeting,
+    handleMeetingSave,
+  }
+})();
+
+// 董事长审批
+const {
+  isCEO
+} = (function () {
+  const isCEO = ref(false);
+
+  return {
+    isCEO
+  }
 })();
 
 onMounted(() => {
@@ -149,8 +199,8 @@ onMounted(() => {
         <el-table-column prop="name" label="操作" width="200px">
           <template #default="scope">
             <el-button size="small">查看详情</el-button>
-            <el-button size="small">会议决议</el-button>
-            <el-button size="small">审批结果</el-button>
+            <el-button size="small" @click="openMeeting(scope.row)">会议决议</el-button>
+            <el-button size="small" @click="isCEO = true">董事长审批</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -168,6 +218,29 @@ onMounted(() => {
         />
       </div>
     </div>
+
+    <!-- 会议决议 -->
+    <el-dialog
+      v-model="isMeeting"
+      title="会议决议"
+      width="500px"
+      destroy-on-close
+    >
+      <MeetingResults
+        @close="isMeeting = false"
+        @save="handleMeetingSave"
+      />
+    </el-dialog>
+
+    <!-- 董事长审批 -->
+    <el-dialog
+      v-model="isCEO"
+      title="董事长审批"
+      width="30%"
+      destroy-on-close
+    >
+      <!-- <ExamineAndVerify></ExamineAndVerify> -->
+    </el-dialog>
   </div>
 </template>
 

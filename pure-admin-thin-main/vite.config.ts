@@ -44,12 +44,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       host: "0.0.0.0",
       // 本地跨域代理 https://cn.vitejs.dev/config/server-options.html#server-proxy
       proxy: {
-        "/api": {
+        "/api/.*": {
           target: 'http://192.168.28.51:30300',
           changeOrigin: true, // 是否跨域
           rewrite: (path) => path.replace(/^\/api/, '')
         },
-        "/upms/.*": {
+        "/api/upms/.*": {
           target: 'http://192.168.28.51:30300',
           changeOrigin: true, // 是否跨域
           rewrite: (path) => path.replace(/^\/upms/, '')

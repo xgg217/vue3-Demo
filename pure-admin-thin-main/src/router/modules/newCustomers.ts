@@ -11,7 +11,7 @@ export default {
     {
       path: "/newCustomers/index",
       name: "newCustomers",
-      component: () => import("@/views/newCustomers/index.vue"),
+      component: () => import("@/views/newCustomers/index/index.vue"),
       meta: {
         title: "我的客户"
       }

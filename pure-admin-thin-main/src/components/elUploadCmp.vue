@@ -17,6 +17,22 @@ const props = defineProps({
   //   type: Boolean,
   //   default: false
   // },
+  // 最大上传数量
+  limit: {
+    type: Number,
+    default: 1
+  },
+
+  // 是否多选
+  multiple: {
+    type: Boolean,
+    default: false
+  },
+
+  title: {
+    type: String,
+    default: '上传附件'
+  },
 });
 
 const emit = defineEmits(["input"])
@@ -62,11 +78,12 @@ const handlePreview: UploadProps['onPreview'] = (uploadFile) => {
 
 // 当超出限制时，执行的钩子函数
 const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
-  ElMessage.warning(
-    `The limit is 3, you selected ${files.length} files this time, add up to ${
-      files.length + uploadFiles.length
-    } totally`
-  )
+  // ElMessage.warning(
+  //   `The limit is 3, you selected ${files.length} files this time, add up to ${
+  //     files.length + uploadFiles.length
+  //   } totally`
+  // )
+  ElMessage.warning(`最多上传${props.limit}个文件`)
 }
 
 // 删除文件之前的钩子，参数为上传的文件和文件列表， 若返回 false 或者返回 Promise 且被 reject，则停止删除。
@@ -86,15 +103,19 @@ const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
     class="upload-demo"
     action="#"
     :http-request="handleUpload"
-    multiple
+    :multiple="props.multiple"
+    :limit="props.limit"
     :on-preview="handlePreview"
     :on-remove="handleRemove"
     :before-remove="beforeRemove"
     :on-exceed="handleExceed"
   >
-    <el-button type="primary">上传文件</el-button>
+    <el-button type="primary">{{ props.title }}</el-button>
   </el-upload>
 </template>
 
 <style lang="scss" scoped>
+.upload-demo {
+  width: 100%;
+}
 </style>
