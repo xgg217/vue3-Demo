@@ -125,7 +125,7 @@ const {
   openMeeting,
   handleMeetingSave
 } = (function () {
-  const isMeeting = ref(true);
+  const isMeeting = ref(false);
 
   // 会议信息
   const meetingObj = {
@@ -146,6 +146,8 @@ const {
       ...meetingObj,
       ...data
     };
+
+
 
   }
 
