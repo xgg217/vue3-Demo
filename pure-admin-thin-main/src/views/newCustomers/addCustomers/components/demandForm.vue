@@ -618,7 +618,7 @@
             <div class="vantUploadWrap">
               <div style="width: 100%; margin: 0.5rem 0" v-if="isEdit">
                 <!-- <vantUpload @getFileInfo="getFileInfo" :filesList="demandForm.supplierFileList"></vantUpload> -->
-                <elUploadCmp @input="handleUploadAgreeOn" />
+                <ElUploadCmp @input="handleUploadAgreeOn" />
               </div>
               <!-- <businessFileList :fileList="demandForm.supplierFileList" @removeFile="removeFile" :showDelete="isEdit"></businessFileList> -->
             </div>
@@ -676,7 +676,7 @@
         <div class="vantUploadWrap">
           <div style="width: 100%; margin: 0.5rem 0" v-if="isEdit && demandForm.fileList.length < 5">
             <!-- <vantUpload @getFileInfo="getOtherFileInfo" :filesList="demandForm.fileList"></vantUpload> -->
-            <elUploadCmp @input="handleUpload"></elUploadCmp>
+            <ElUploadCmp @input="handleUpload"></ElUploadCmp>
           </div>
           <!-- <businessFileList :fileList="demandForm.fileList" @removeFile="removeOtherFile" :showDelete="isEdit"></businessFileList> -->
         </div>
@@ -720,7 +720,7 @@ import {
   employeeNumberOptions as employeeNumberOptionsList, // 人数
   currencyList, // 币种
 } from '@/enum/dict'; // 员工人数
-import elUploadCmp from '@/components/elUploadCmp.vue';
+import ElUploadCmp from '@/components/ElUploadCmp.vue';
 import remoteSelectInput from "./remoteSelectInput.vue"
 import remoteSelectPro from "./remoteSelectPro.vue"
 import GaodeMap from "@/components/GaodeMap.vue";

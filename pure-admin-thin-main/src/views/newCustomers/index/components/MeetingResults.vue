@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import ElUploadCmp from '@/components/elUploadCmp.vue'
+import ElUploadCmp from '@/components/ElUploadCmp.vue'
 
 import type { IRuleForm } from './../types'
 
