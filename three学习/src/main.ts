@@ -6,6 +6,7 @@ import {
   BoxGeometry,
   MeshBasicMaterial,
   Mesh,
+  Vector3,
   AxesHelper,
 } from 'three';
 
@@ -35,13 +36,17 @@ const crearGeometry = () => {
 }
 
 
-
 // 创建相机
 const crearCamera = () => {
+  // 定义相机输出画布的尺寸
   const camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
 
   // 设置相机位置
   camera.position.set(200, 200, 200);
+
+  // 相机的视线 观察目标点的坐标
+  camera.lookAt(0,0,0);
+
 
   scene.add( camera );
 }
@@ -49,6 +54,8 @@ const crearCamera = () => {
 const init = () => {
   // 创建物体
   const mesh = crearGeometry();
+
+  console.log(mesh.position)
 
   // 创建相机
   crearCamera();
