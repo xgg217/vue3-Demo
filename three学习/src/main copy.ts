@@ -6,14 +6,18 @@ import {
   BoxGeometry,
   MeshLambertMaterial,
   DirectionalLight,
+  PointLight,
   DirectionalLightHelper,
   Mesh,
   AxesHelper,
 } from 'three';
+import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 // 创建3D场景对象Scene
 const scene = new Scene();
+// 创建stats对象
+const stats = new Stats();
 
 // 创建物体
 const crearGeometry = () => {
@@ -23,20 +27,28 @@ const crearGeometry = () => {
   //创建一个材质对象Material
   const material = new MeshLambertMaterial({
     color: 0x00ffff,//0xff0000设置材质颜色为红色
-//    transparent:true,//开启透明
-//    opacity:0.8,//设置透明度
+    transparent:true,//开启透明
+    opacity:0.8,//设置透明度
   });
 
   // 两个参数分别为几何体geometry、材质material
-  const mesh = new Mesh(geometry, material); //网格模型对象Mesh
+//  const mesh = new Mesh(geometry, material); //网格模型对象Mesh
+  for(let i = 0; i <= 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      const mesh = new Mesh(geometry, material); //网格模型对象Mesh
+      mesh.position.set(i * 200, 0, j * 200);
 
+      // 把网格模型mesh添加到三维场景scene中
+      scene.add(mesh);
+    }
+
+  }
   //设置网格模型在三维空间中的位置坐标，默认是坐标原点
-  mesh.position.set(0, 0, 0);
 
-  // 把网格模型mesh添加到三维场景scene中
-  scene.add(mesh);
 
-  return mesh
+
+
+//  return mesh
 }
 
 
@@ -46,7 +58,7 @@ const crearCamera = () => {
   const camera = new PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 3000 );
 
   // 设置相机位置
-  camera.position.set(200, 200, 200);
+  camera.position.set(800, 800, 800);
 
   // 相机的视线 观察目标点的坐标
   camera.lookAt(0,0,0);
@@ -80,7 +92,7 @@ const setLight = () => {
 
 const init = () => {
   // 创建物体
-  const mesh = crearGeometry();
+  crearGeometry();
 
   // 创建相机
   const camera = crearCamera();
@@ -102,13 +114,13 @@ const init = () => {
   // 执行渲染操作
   renderer.render(scene, camera);
 
-  // function render() {
-  //   renderer.render(scene, camera);
-  //   mesh.rotateY(0.01);//每次绕y轴旋转0.01弧度
-  //   stats.update();
-  //   requestAnimationFrame(render);//请求再次执行渲染函数render，渲染下一帧
-  // }
-  // render()
+//  function render() {
+//    renderer.render(scene, camera);
+//    mesh.rotateY(0.01);//每次绕y轴旋转0.01弧度
+//    stats.update();
+//    requestAnimationFrame(render);//请求再次执行渲染函数render，渲染下一帧
+//  }
+//  render()
 
   // 相机
 
@@ -116,9 +128,10 @@ const init = () => {
   const controls = new OrbitControls(camera, renderer.domElement);
   // 如果OrbitControls改变了相机参数，重新调用渲染器渲染三维场景
   controls.addEventListener('change', function () {
-   renderer.render(scene, camera); //执行渲染操作
+    renderer.render(scene, camera); //执行渲染操作
   });//监听鼠标、键盘事件
 
+  document.getElementById('app')!.appendChild(stats.domElement);
   document.getElementById('app')!.appendChild(renderer.domElement);
 }
 

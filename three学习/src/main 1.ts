@@ -10,10 +10,13 @@ import {
   Mesh,
   AxesHelper,
 } from 'three';
+import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 // 创建3D场景对象Scene
 const scene = new Scene();
+// 创建stats对象
+const stats = new Stats();
 
 // 创建物体
 const crearGeometry = () => {
@@ -100,15 +103,15 @@ const init = () => {
   renderer.setSize(window.innerWidth, window.innerHeight); //设置three.js渲染区域的尺寸(像素px)
 
   // 执行渲染操作
-  renderer.render(scene, camera);
+//  renderer.render(scene, camera);
 
-  // function render() {
-  //   renderer.render(scene, camera);
-  //   mesh.rotateY(0.01);//每次绕y轴旋转0.01弧度
-  //   stats.update();
-  //   requestAnimationFrame(render);//请求再次执行渲染函数render，渲染下一帧
-  // }
-  // render()
+  function render() {
+    renderer.render(scene, camera);
+    mesh.rotateY(0.01);//每次绕y轴旋转0.01弧度
+    stats.update();
+    requestAnimationFrame(render);//请求再次执行渲染函数render，渲染下一帧
+  }
+  render()
 
   // 相机
 
@@ -116,9 +119,10 @@ const init = () => {
   const controls = new OrbitControls(camera, renderer.domElement);
   // 如果OrbitControls改变了相机参数，重新调用渲染器渲染三维场景
   controls.addEventListener('change', function () {
-   renderer.render(scene, camera); //执行渲染操作
+//    renderer.render(scene, camera); //执行渲染操作
   });//监听鼠标、键盘事件
 
+  document.getElementById('app')!.appendChild(stats.domElement);
   document.getElementById('app')!.appendChild(renderer.domElement);
 }
 
