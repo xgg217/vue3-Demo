@@ -42,7 +42,7 @@
     scene.add( cube );
 
     // 光源设置
-    const directionLight = new THREE.DirectionalLight(0xffffff, 1);
+    const directionLight = new THREE.DirectionalLight(0xffffff, 0.4);
     directionLight.position.set(80, 100, 50);
     scene.add(directionLight);
 
@@ -70,10 +70,12 @@
       // 实例化一个gui对象
       const gui = new GUI();
 
-      const obj = {
-        x: 30,
-      };
-      gui.add(obj, 'x', 0, 100);
+
+
+      // const obj = {
+      //   '测试': 30,
+      // };
+      gui.add(directionLight, 'intensity', 0, 2).name("光照强度");
     })()
 
     renderer.render( scene, camera );
