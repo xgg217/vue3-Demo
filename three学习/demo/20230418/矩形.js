@@ -8,24 +8,17 @@ const vertices = new Float32Array([
   0, 0, 0, //顶点1坐标
   80, 0, 0, //顶点2坐标
   80, 80, 0, //顶点3坐标
-  0, 80, 0, //顶点4坐标
+  80, 80, 0, //顶点4坐标
+  0, 80, 0, //顶点5坐标
+  0, 0, 0, //顶点6坐标
 ]);
 
 // 创建属性缓冲区对象
-// 3个为一组，表示一个顶点的xyz坐标
+//3个为一组，表示一个顶点的xyz坐标
 const attribue = new THREE.BufferAttribute(vertices, 3);
+
 // 设置几何体attributes属性的位置属性
 geometry.attributes.position = attribue;
-
-// Uint16Array类型数组创建顶点索引数据
-const indexes = new Uint16Array([
-  // 下面索引值对应顶点位置数据中的顶点坐标
-  0, 1, 2, 0, 2, 3,
-])
-
-// 索引数据赋值给几何体的index属性
-geometry.index = new THREE.BufferAttribute(indexes, 1); //1个为一组
-
 
 // // 点渲染模式
 // const material = new THREE.PointsMaterial({
