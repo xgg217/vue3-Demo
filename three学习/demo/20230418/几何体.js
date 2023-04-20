@@ -27,16 +27,6 @@ const indexes = new Uint16Array([
 geometry.index = new THREE.BufferAttribute(indexes, 1); //1个为一组
 
 
-const normals = new Float32Array([
-  0, 0, 1, //顶点1法线( 法向量 )
-  0, 0, 1, //顶点2法线
-  0, 0, 1, //顶点3法线
-  0, 0, 1, //顶点4法线
-]);
-
-// 设置几何体的顶点法线属性.attributes.normal
-geometry.attributes.normal = new THREE.BufferAttribute(normals, 3);
-
 // // 点渲染模式
 // const material = new THREE.PointsMaterial({
 //   color: 0xffff00,
@@ -54,9 +44,9 @@ geometry.attributes.normal = new THREE.BufferAttribute(normals, 3);
 // const line = new THREE.LineSegments(geometry, material);
 
 // 线模型对象
-const metr = new THREE.MeshLambertMaterial({
-  color: 0x0000ff,
-   side: THREE.DoubleSide, //两面可见
+const metr = new THREE.MeshBasicMaterial({
+  color: 0xff0000,
+  // side: THREE.DoubleSide, //两面可见
 })
 
 // 创建线模型对象
