@@ -1,24 +1,14 @@
 import * as THREE from "three";
 
+// 创建一个Mesh（绿色的3D立方体），并添加到场景中
+const geometry = new THREE.BoxGeometry( 50, 50, 50 );
+
+const material = new THREE.MeshPhongMaterial( { color: 0x00ff00, shininess: 100 } );
+
 //创建一个空的几何体对象
-const geometry = new THREE.PlaneGeometry(100, 100);
+const mesh = new THREE.Mesh(geometry, material);
+const mesh2 = new THREE.Mesh(geometry, material);
 
-console.log(geometry.attributes.position);
+mesh2.position.x = 100;
 
-geometry.translate(50,0,0)
-
-console.log(geometry.attributes.position);
-
-// 线模型对象
-const metr = new THREE.MeshLambertMaterial({
-  color: 0x0000ff,
-   side: THREE.DoubleSide, //两面可见
-})
-
-// 创建线模型对象
-const mesh = new THREE.Mesh(geometry, metr);
-
-const v3 = new THREE.Vector3(100,100,100)
-console.log(v3);
-
-export default mesh;
+export{ mesh, mesh2 };
