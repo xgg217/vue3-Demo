@@ -1,6 +1,6 @@
 import * as THREE from "./three.module.min.js"
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import {mesh, mesh2} from './model.js'
+import group from './model.js'
 
 const scene = new THREE.Scene();
 
@@ -11,17 +11,7 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 camera.position.set(100, 100, 100);
 scene.add(camera)
 
-scene.add(mesh);
-scene.add(mesh2);
-
-// 创建一个Mesh（绿色的3D立方体），并添加到场景中
-// const geometry = new THREE.BoxGeometry( 30, 30, 30 );
-// // // const geometry = new THREE.SphereGeometry( 30);
-// const material = new THREE.MeshPhongMaterial( { color: 0x00ff00, shininess: 100 } );
-// // // 更加集合体和材质创建物体
-// const cube = new THREE.Mesh( geometry, material );
-// // // 将几何体添加到场景中
-// scene.add( cube );
+scene.add(group);
 
 // 光源设置
 const directionLight = new THREE.DirectionalLight(0xffffff, 0.4);
@@ -49,5 +39,6 @@ controls.addEventListener('change', function () {
   renderer.render(scene, camera); //执行渲染操作
 });//监听鼠标、键盘事件
 
+console.log(scene.children)
 
 renderer.render(scene, camera);
