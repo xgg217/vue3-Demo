@@ -1,6 +1,6 @@
 import * as THREE from "./three.module.min.js"
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import group from './model.js'
+import { model } from './model.js'
 
 const scene = new THREE.Scene();
 
@@ -11,7 +11,7 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 camera.position.set(100, 100, 100);
 scene.add(camera)
 
-scene.add(group);
+scene.add(model);
 
 // 光源设置
 const directionLight = new THREE.DirectionalLight(0xffffff, 0.4);
