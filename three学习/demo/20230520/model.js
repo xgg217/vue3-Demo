@@ -1,26 +1,14 @@
-import { BoxGeometry, Group, Mesh, MeshPhongMaterial, Vector3, AxesHelper } from "three";
+import { Mesh, TextureLoader, MeshLambertMaterial, SphereGeometry } from "three";
 
-// 创建一个Mesh（绿色的3D立方体），并添加到场景中
-const geometry = new BoxGeometry( 50, 50, 50 );
+const geometry = new SphereGeometry( 190 );
 
-const material = new MeshPhongMaterial( { color: 0x00ff00, shininess: 100 } );
+// 创建一个纹理加载器
+const loadText = new TextureLoader();
+// 加载图片返回纹理对象
+const texture = loadText.load('./worldmap1.jpg')
 
-const group = new Group();
-const mesh = new Mesh(geometry, material);
-mesh.position.x = 50;
+const material = new MeshLambertMaterial( { map: texture } );
 
-group.add(mesh);
+const mesh = new Mesh( geometry, material );
 
-group.position.x = 50;
-
-
-const worldPosition = new Vector3();
-// 获取mesh的世界坐标，你会发现mesh的世界坐标受到父对象group的.position影响
-mesh.getWorldPosition(worldPosition);
-console.log('世界坐标',worldPosition);
-console.log('本地坐标',mesh.position);
-
-const meshAxesHelper = new AxesHelper(50);
-mesh.add(meshAxesHelper);
-
-export default group;
+export default mesh;

@@ -14,7 +14,7 @@ scene.add(camera)
 scene.add(group);
 
 // 光源设置
-const directionLight = new THREE.DirectionalLight(0xffffff, 0.4);
+const directionLight = new THREE.AmbientLight(0xffffff, 0.4);
 directionLight.position.set(80, 100, 50);
 scene.add(directionLight);
 
