@@ -1,14 +1,33 @@
-import { Mesh, TextureLoader, MeshLambertMaterial, SphereGeometry } from "three";
+import { Mesh, TextureLoader,MeshBasicMaterial, Float32Array, Uint16Array, BufferGeometry, BufferAttribute, TextureLoader, MeshBasicMaterial } from "three";
 
-const geometry = new SphereGeometry( 190 );
+// 创建一个几何体
+const geometry = new BufferGeometry();
 
-// 创建一个纹理加载器
-const loadText = new TextureLoader();
-// 加载图片返回纹理对象
-const texture = loadText.load('./worldmap1.jpg')
+// 类型数组创建顶点数据
+const vertices = new Float32Array([
+  0,0,0, // 顶点1坐标
+  160,0,0, // 顶点2坐标
+  160,80,0, // 顶点3坐标
+  0,80,0, // 顶点4坐标
+]);
 
-const material = new MeshLambertMaterial( { map: texture } );
+// 创建属性缓冲区对象
+const attribue = new BufferAttribute(vertices, 3);
 
-const mesh = new Mesh( geometry, material );
+geometry.attributes.position = attribue;
+
+const indexex = new Uint16Array([
+  0,1,2,0,2,3,
+])
+
+geometry.index = new BufferAttribute(indexex, 1);
+
+const textLoader = new TextureLoader();
+const texture = textLoader.load('./worldmap1.jpg');
+const material = new MeshBasicMaterial({
+  map: texture
+});
+
+const mesh = new Mesh(geometry, material)
 
 export default mesh;
