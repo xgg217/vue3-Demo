@@ -5,7 +5,7 @@ import group from './model.js'
 const scene = new THREE.Scene();
 
 // 2.创建相机
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
 
 // 设置相机位置
 camera.position.set(100, 100, 100);
