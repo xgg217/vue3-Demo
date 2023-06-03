@@ -33,12 +33,20 @@ document.body.appendChild(renderer.domElement)
 const axesHelper = new THREE.AxesHelper(100);
 scene.add(axesHelper);
 
+// 添加一个辅助网格地面
+const gridHelper = new THREE.GridHelper(300, 25, 0x004444, 0x004444);
+
+console.log(scene.children)
+scene.add( gridHelper );
+
 const controls = new OrbitControls(camera, renderer.domElement);
 
 controls.addEventListener('change', function () {
   renderer.render(scene, camera); //执行渲染操作
 });//监听鼠标、键盘事件
 
-console.log(scene.children)
+
+
+
 
 renderer.render(scene, camera);
