@@ -13,7 +13,6 @@ const material = new MeshBasicMaterial({
   side: DoubleSide
 });
 
-
 const mesh = new Mesh(geometry, material)
 
 mesh.rotateX(-Math.PI/2);

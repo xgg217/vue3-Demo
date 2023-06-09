@@ -10,7 +10,6 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 // 设置相机位置
 camera.position.set(100, 100, 100);
 scene.add(camera)
-
 scene.add(group);
 
 // 光源设置
@@ -44,9 +43,5 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.addEventListener('change', function () {
   renderer.render(scene, camera); //执行渲染操作
 });//监听鼠标、键盘事件
-
-
-
-
 
 renderer.render(scene, camera);
