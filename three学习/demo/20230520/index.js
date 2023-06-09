@@ -9,14 +9,13 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 
 // 设置相机位置
 camera.position.set(100, 100, 100);
-scene.add(camera)
+scene.add(camera);
 scene.add(group);
 
 // 光源设置
 const directionLight = new THREE.AmbientLight(0xffffff, 0.4);
 directionLight.position.set(80, 100, 50);
 scene.add(directionLight);
-
 
 // 初始化渲染器
 const renderer = new THREE.WebGLRenderer({
