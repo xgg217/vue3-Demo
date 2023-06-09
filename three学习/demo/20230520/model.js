@@ -1,4 +1,4 @@
-import { Mesh,MeshBasicMaterial,DoubleSide, TextureLoader, PlaneGeometry, RepeatWrapping } from "three";
+import { Mesh,MeshBasicMaterial,DoubleSide, TextureLoader, PlaneGeometry } from "three";
 
 // 创建一个几何体
 const geometry = new PlaneGeometry(20,20);
