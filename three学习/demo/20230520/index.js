@@ -1,6 +1,6 @@
 import * as THREE from "./three.module.min.js"
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import group from './model.js'
+import { mesh } from './model.js'
 
 const scene = new THREE.Scene();
 
@@ -10,7 +10,7 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 // 设置相机位置
 camera.position.set(100, 100, 100);
 scene.add(camera);
-scene.add(group);
+scene.add(mesh);
 
 // 光源设置
 const directionLight = new THREE.AmbientLight(0xffffff, 0.4);
@@ -32,10 +32,10 @@ const axesHelper = new THREE.AxesHelper(100);
 scene.add(axesHelper);
 
 // 添加一个辅助网格地面
-const gridHelper = new THREE.GridHelper(300, 25, 0x004444, 0x004444);
-
-console.log(scene.children)
-scene.add( gridHelper );
+//const gridHelper = new THREE.GridHelper(300, 25, 0x004444, 0x004444);
+//
+//console.log(scene.children)
+//scene.add( gridHelper );
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
