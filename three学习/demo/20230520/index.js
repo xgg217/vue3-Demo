@@ -1,6 +1,6 @@
 import * as THREE from "./three.module.min.js"
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { mesh } from './model.js'
+import { mesh, texture } from './model.js'
 
 const scene = new THREE.Scene();
 
@@ -43,4 +43,11 @@ controls.addEventListener('change', function () {
   renderer.render(scene, camera); //执行渲染操作
 });//监听鼠标、键盘事件
 
-renderer.render(scene, camera);
+//renderer.render(scene, camera);
+
+const render = () => {
+  texture.offset.x += 0.001;
+  renderer.render(scene, camera);
+  requestAnimationFrame(render);
+};
+render();
