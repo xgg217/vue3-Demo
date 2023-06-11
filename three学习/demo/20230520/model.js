@@ -15,8 +15,8 @@ const mesh = new Mesh(geometry, material)
 
 mesh.rotateX(-Math.PI/2);
 
-//texture.offset.x = -0.5; // UV 坐标的 V方向偏移
-texture.offset.y = 0.5; // UV 坐标的 V方向偏移
-//texture.wrapS = RepeatWrapping; // 改变包裹，或者映射方式
+texture.offset.x = 0.5; // UV 坐标的 V方向偏移
+//texture.offset.y = 0.5; // UV 坐标的 V方向偏移
+texture.wrapS = RepeatWrapping; // 改变包裹，或者映射方式
 
 export{mesh, texture} ;
