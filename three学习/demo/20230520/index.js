@@ -46,7 +46,7 @@ controls.addEventListener('change', function () {
 //renderer.render(scene, camera);
 
 const render = () => {
-  texture.offset.x += 0.001;
+  texture.offset.x += 0.05;
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 };
