@@ -1,41 +1,38 @@
 import * as THREE from "./three.module.min.js"
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { mesh, texture } from './model.js'
+import model from './model.js'
 
+// 场景
 const scene = new THREE.Scene();
+scene.add(model); //模型对象添加到场景中
 
-// 2.创建相机
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
-
-// 设置相机位置
-camera.position.set(100, 100, 100);
-scene.add(camera);
-scene.add(mesh);
-
-// 光源设置
-const directionLight = new THREE.AmbientLight(0xffffff, 0.4);
-directionLight.position.set(80, 100, 50);
-scene.add(directionLight);
-
-// 初始化渲染器
-const renderer = new THREE.WebGLRenderer({
-  antialias: true
-})
-// 设置渲染的尺寸大小
-renderer.setSize(window.innerWidth, window.innerHeight)
-// console.log(renderer)
-renderer.setClearColor(0x444444, 1); //设置背景颜色
-// 将webgl渲染的canvas内容添加到body
-document.body.appendChild(renderer.domElement)
-
+// 辅助观察的坐标系
 const axesHelper = new THREE.AxesHelper(100);
 scene.add(axesHelper);
 
-// 添加一个辅助网格地面
-//const gridHelper = new THREE.GridHelper(300, 25, 0x004444, 0x004444);
-//
-//console.log(scene.children)
-//scene.add( gridHelper );
+// 光源设置
+const directionLight = new THREE.DirectionalLight(0xffffff, 0.8);
+directionLight.position.set(400, 200, 300);
+scene.add(directionLight);
+const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambient);
+
+//渲染器和相机
+const width = window.innerWidth;
+const height = window.innerHeight;
+const camera = new THREE.PerspectiveCamera(30, width / height, 1, 3000);
+// camera.position.set(292, 223, 185);
+camera.position.set(200, 200, 200);//根据渲染范围尺寸数量级设置相机位置
+camera.lookAt(0, 0, 0);
+
+
+// 初始化渲染器
+const renderer = new THREE.WebGLRenderer({
+})
+// 设置渲染的尺寸大小
+renderer.setSize(width, height)
+// 将webgl渲染的canvas内容添加到body
+document.body.appendChild(renderer.domElement)
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -46,8 +43,14 @@ controls.addEventListener('change', function () {
 //renderer.render(scene, camera);
 
 const render = () => {
-  texture.offset.x += 0.05;
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 };
 render();
+
+// 画布跟随窗口变化
+window.onresize = function () {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+};
