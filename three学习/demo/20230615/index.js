@@ -36,6 +36,8 @@ document.body.appendChild(renderer.domElement)
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
+renderer.outputEncoding = THREE.sRGBEncoding;
+
 controls.addEventListener('change', function () {
   renderer.render(scene, camera); //执行渲染操作
 });//监听鼠标、键盘事件
