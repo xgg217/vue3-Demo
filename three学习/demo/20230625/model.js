@@ -19,5 +19,4 @@ loader.load("./gltf模型/手机模型/手机模型.glb", function (gltf) { //gl
     model.add(gltf.scene); //三维场景添加到model组对象中
 })
 
-
 export default model;
