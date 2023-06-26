@@ -10,12 +10,17 @@ scene.add(model); //模型对象添加到场景中
 const axesHelper = new THREE.AxesHelper(100);
 scene.add(axesHelper);
 
+const textureCube = new THREE.CubeTextureLoader().setPath('./环境贴图/').load(["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg"]); //加载立方体贴图
+textureCube.encoding = THREE.sRGBEncoding;
+scene.environment = textureCube;
+
+
 // 光源设置
-const directionLight = new THREE.DirectionalLight(0xffffff, 0.8);
-directionLight.position.set(400, 200, 300);
-scene.add(directionLight);
-const ambient = new THREE.AmbientLight(0xffffff, 0.4);
-scene.add(ambient);
+// const directionLight = new THREE.DirectionalLight(0xffffff, 0.8);
+// directionLight.position.set(400, 200, 300);
+// scene.add(directionLight);
+// const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+// scene.add(ambient);
 
 //渲染器和相机
 const width = window.innerWidth;
