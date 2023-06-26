@@ -16,11 +16,11 @@ scene.environment = textureCube;
 
 
 // 光源设置
-// const directionLight = new THREE.DirectionalLight(0xffffff, 0.8);
-// directionLight.position.set(400, 200, 300);
-// scene.add(directionLight);
-// const ambient = new THREE.AmbientLight(0xffffff, 0.4);
-// scene.add(ambient);
+const directionLight = new THREE.DirectionalLight(0xffffff, 0.8);
+directionLight.position.set(400, 200, 300);
+scene.add(directionLight);
+const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambient);
 
 //渲染器和相机
 const width = window.innerWidth;
@@ -37,7 +37,7 @@ const renderer = new THREE.WebGLRenderer({
 // 设置渲染的尺寸大小
 renderer.setSize(width, height)
 // 将webgl渲染的canvas内容添加到body
-document.body.appendChild(renderer.domElement)
+document.getElementById('can').appendChild(renderer.domElement)
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
