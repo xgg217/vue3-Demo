@@ -17,7 +17,7 @@ const material2 = new MeshLambertMaterial({
     side: DoubleSide,
 });
 const mesh2 = new Mesh(geometry2, material2);
-mesh2.position.z = 1;
+mesh2.position.z = 0.1;
 
 group.add(mesh2);
 
