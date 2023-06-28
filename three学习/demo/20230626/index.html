@@ -18,18 +18,34 @@
       border: 1px solid red;
     }
 
-    #btn {
+    .btn {
       position: absolute;
       bottom: 10%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
+
+    .red {
+      color: red;
+    }
+
+    .bu {
+      left: calc(50% + 50px);
+      color: blue;
+    }
+
+    .download {
+      left: calc(50% + 100px);
+    }
+
   </style>
 </head>
 <body>
 
   <div id="can">
-    <button id="btn">按钮</button>
+    <button class="btn red">红</button>
+    <button class="btn bu">绿</button>
+    <button class="btn download">下载</button>
   </div>
   <script type="importmap">
     {

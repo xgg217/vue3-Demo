@@ -33,7 +33,11 @@ camera.lookAt(0, 0, 0);
 
 // 初始化渲染器
 const renderer = new THREE.WebGLRenderer({
+  alpha: true,
+  preserveDrawingBuffer:true
 })
+
+renderer.setClearAlpha(0.5);
 // 设置渲染的尺寸大小
 renderer.setSize(width, height)
 // 将webgl渲染的canvas内容添加到body
@@ -61,3 +65,17 @@ window.onresize = function () {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 };
+
+(() => {
+  console.log(renderer.domElement)
+  const download = document.querySelector('.download');
+  const c = document.querySelector('#can canvas');
+  console.log(c)
+  download.addEventListener('click',function(){
+    const link = document.createElement('a');
+    link.download = 'download.png';
+    // link.href = renderer.domElement.toDataURL('image/png');
+    link.href = c.toDataURL('image/png');
+    link.click();
+  });
+})();
