@@ -1,5 +1,5 @@
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { EllipseCurve,Points,BufferGeometry, LineBasicMaterial,Line} from 'three';
+import { EllipseCurve,Points,BufferGeometry, PointsMaterial} from 'three';
 
 const arc = new EllipseCurve(0, 0, 100, 50);
 
@@ -9,13 +9,14 @@ console.log('曲线上获取坐标',pointsArr);
 const geometry = new BufferGeometry()
 geometry.setFromPoints(pointsArr)
 
-// 线材质对象
-const material = new LineBasicMaterial({
+// 点材质对象
+const material = new PointsMaterial({
     color: 0xff0000,
+    size: 10.0 //点对象像素尺寸
 })
 
-// 线模型对象
-const points = new Line(geometry, material)
+// 点模型对象
+const points = new Points(geometry, material)
 
 
 export default points;
