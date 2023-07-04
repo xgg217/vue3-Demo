@@ -10,9 +10,6 @@ scene.add(model); //模型对象添加到场景中
 const axesHelper = new THREE.AxesHelper(100);
 scene.add(axesHelper);
 
-const textureCube = new THREE.CubeTextureLoader().setPath('./环境贴图/').load(["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg"]); //加载立方体贴图
-textureCube.encoding = THREE.sRGBEncoding;
-scene.environment = textureCube;
 
 
 // 光源设置

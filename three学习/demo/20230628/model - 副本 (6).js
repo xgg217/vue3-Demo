@@ -1,15 +1,17 @@
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { Group, PointsMaterial,Points,BufferGeometry, LineBasicMaterial,Line,Vector2,SplineCurve} from 'three';
+import { Group, PointsMaterial,EllipseCurve,Points,BufferGeometry, LineBasicMaterial,Line,Vector3,CatmullRomCurve3} from 'three';
 
-// 二维向量Vector3创建一组顶点坐标
+// 三维向量Vector3创建一组顶点坐标
 const arr = [
-  new Vector2(-100, 0),
-  new Vector2(0, 30),
-  new Vector2(100, 0),
+  new Vector3(-50, 20, 90),
+  new Vector3(-10, 40, 40),
+  new Vector3(0, 0, 0),
+  new Vector3(60, -60, 0),
+  new Vector3(70, 0, 80)
 ]
 
-// 二维样条曲线
-const curve = new SplineCurve(arr);
+// 三维样条曲线
+const curve = new CatmullRomCurve3(arr);
 
 const line = (() => {
   const pointsArr = curve.getPoints(100); //分段数50，返回51个顶点
