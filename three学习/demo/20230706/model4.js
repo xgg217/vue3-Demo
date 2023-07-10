@@ -1,21 +1,18 @@
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { Vector2,Shape,ExtrudeGeometry,MeshLambertMaterial,DoubleSide,Mesh,Group} from 'three';
+import { Vector2,Shape,ShapeGeometry,MeshLambertMaterial,DoubleSide,Mesh,Group} from 'three';
 
-
+// 三维向量Vector3创建一组顶点坐标
 const arr = [
   new Vector2(-50, -50),
-  new Vector2(-50, 50),
-  new Vector2(50, 50),
+  new Vector2(-60, 0),
+  new Vector2(0, 50),
+  new Vector2(60, 0),
   new Vector2(50, -50),
 ]
 
 
 const shape = new Shape(arr);
-const geometry = new ExtrudeGeometry(shape, {
-  depth: 20, //拉伸长度
-  bevelThickness: 5, //倒角尺寸:拉伸方向
-  bevelSegments: 1, //倒直角
-});
+const geometry = new ShapeGeometry(shape);
 
 const material = new MeshLambertMaterial({
   color: 0x00ffff,
