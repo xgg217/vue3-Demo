@@ -25,6 +25,4 @@ loader.load("./建筑模型.gltf", gltf => {
   model.add(scene)
 })
 
-
-
 export default model;
