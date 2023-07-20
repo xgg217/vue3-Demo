@@ -7,12 +7,20 @@ console.log(THREE.Scene)
 
 const scene = new THREE.Scene();
 
-// 2.创建相机
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-// 设置相机位置
-camera.position.set(100, 100, 100);
-scene.add(camera)
+// 2.创建相机 - 正交相机
+const camera = (() => {
+  const width = window.innerWidth; //canvas画布宽度
+  const height = window.innerHeight; //canvas画布高度
+  const k = width / height; //canvas画布宽高比
+  const s = 600;//控制 left, right, top, bottom范围大小
+  const camera =  new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 8000);
+  
+  // 设置相机位置
+  camera.position.set(0, 2000, 0); //相机放在了y轴上
+  camera.lookAt(0, 0, 0);//指向坐标原点
+  scene.add(camera)
+  return camera;
+})();
 
 // // 创建一个Mesh（绿色的3D立方体），并添加到场景中
 // const geometry = new THREE.BoxGeometry( 30, 30, 30 );
@@ -24,10 +32,12 @@ scene.add(camera)
 scene.add( Model );
 
 // 光源设置
-const directionLight = new THREE.DirectionalLight(0xffffff, 0.4);
-directionLight.position.set(80, 100, 50);
-scene.add(directionLight);
-
+const directionLight = (() => {
+  const directionLight = new THREE.DirectionalLight(0xffffff, 0.4);
+  directionLight.position.set(80, 100, 50);
+  scene.add(directionLight);
+  return directionLight
+})();
 
 // 初始化渲染器
 const renderer = new THREE.WebGLRenderer({
