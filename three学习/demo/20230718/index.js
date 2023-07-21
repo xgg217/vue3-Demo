@@ -58,16 +58,13 @@ controls.addEventListener('change', function () {
   renderer.render(scene, camera); //执行渲染操作
 });//监听鼠标、键盘事件
 
-(() => {
-  // 实例化一个gui对象
-  const gui = new GUI();
-
-
-
-  // const obj = {
-  //   '测试': 30,
-  // };
-  gui.add(directionLight, 'intensity', 0, 2).name("光照强度");
-})()
+window.onresize = function () {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  renderer.setSize(width, height);//重设渲染器宽高比
+  
+  camera.aspect = width / height;//重设相机宽高比
+  camera.updateProjectionMatrix();// 重新计算投影矩阵
+}
 
 renderer.render(scene, camera);
