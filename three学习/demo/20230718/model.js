@@ -1,24 +1,25 @@
 import * as THREE from "three";
 
-//创建一个空的几何体对象
-const geometry = new THREE.PlaneGeometry(100, 100);
+const geometry = new THREE.BoxGeometry(50, 50, 50);
+const material = new THREE.MeshLambertMaterial({
+  color: 0x00ffff,
+});
+const mesh = new THREE.Mesh(geometry, material);
+// 将几何体添加到场景中
 
-console.log(geometry.attributes.position);
 
-geometry.translate(50,0,0)
 
-console.log(geometry.attributes.position);
-
-// 线模型对象
-const metr = new THREE.MeshLambertMaterial({
-  color: 0x0000ff,
-   side: THREE.DoubleSide, //两面可见
-})
-
-// 创建线模型对象
-const mesh = new THREE.Mesh(geometry, metr);
-
-const v3 = new THREE.Vector3(100,100,100)
-console.log(v3);
+// 包围盒
+(() => {
+  const scale = new THREE.Vector3()
+  const box3 = new THREE.Box3()
+  console.log('box3',box3);
+  
+  box3.expandByObject(mesh); // 计算模型包围盒
+  
+  box3.getSize(scale)
+  
+  console.log('模型包围盒尺寸', scale);
+})();
 
 export default mesh;

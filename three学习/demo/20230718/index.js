@@ -1,70 +1,87 @@
 import * as THREE from "./three.module.min.js"
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import Model from './model.js'
 
 console.log(THREE.Scene)
 
 const scene = new THREE.Scene();
+let s = 50;//控制 left, right, top, bottom范围大小
+const width = window.innerWidth; //canvas画布宽度
+const height = window.innerHeight; //canvas画布高度
 
 // 2.创建相机 - 正交相机
 const camera = (() => {
-  const width = window.innerWidth; //canvas画布宽度
-  const height = window.innerHeight; //canvas画布高度
   const k = width / height; //canvas画布宽高比
-  const s = 600;//控制 left, right, top, bottom范围大小
-  const camera =  new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 8000);
-  
-  // 设置相机位置
-  camera.position.set(0, 2000, 0); //相机放在了y轴上
-  camera.lookAt(0, 0, 0);//指向坐标原点
-  scene.add(camera)
+  const camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 8000);
+  camera.position.set(300, 300, 300);
+  camera.lookAt(0, 0, 0); //指向坐标原点
   return camera;
 })();
 
-// // 创建一个Mesh（绿色的3D立方体），并添加到场景中
-// const geometry = new THREE.BoxGeometry( 30, 30, 30 );
-// // const geometry = new THREE.SphereGeometry( 30);
-// const material = new THREE.MeshPhongMaterial( { color: 0x00ff00, shininess: 100 } );
-// // 更加集合体和材质创建物体
-// const cube = new THREE.Mesh( geometry, material );
-// // 将几何体添加到场景中
+//
+// 几何体
+// (() => {
+//   const geometry = new THREE.BoxGeometry(50, 50, 50);
+//   const material = new THREE.MeshLambertMaterial({
+//     color: 0x00ffff,
+//   });
+//   const mesh = new THREE.Mesh(geometry, material);
+//   scene.add( mesh );
+//
+//   return mesh
+// })();
 scene.add( Model );
 
 // 光源设置
 const directionLight = (() => {
-  const directionLight = new THREE.DirectionalLight(0xffffff, 0.4);
-  directionLight.position.set(80, 100, 50);
-  scene.add(directionLight);
-  return directionLight
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+  directionalLight.position.set(100, 60, 50);
+  scene.add(directionalLight);
+  const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+  scene.add(ambient);
+  return directionalLight
 })();
 
-// 初始化渲染器
-const renderer = new THREE.WebGLRenderer({
-  antialias: true
-})
-// 设置渲染的尺寸大小
-renderer.setSize(window.innerWidth, window.innerHeight)
-// console.log(renderer)
-renderer.setClearColor(0x444444, 1); //设置背景颜色
-// 将webgl渲染的canvas内容添加到body
-document.body.appendChild(renderer.domElement)
-
-const axesHelper = new THREE.AxesHelper(100);
-scene.add(axesHelper);
-
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.addEventListener('change', function () {
-  renderer.render(scene, camera); //执行渲染操作
-});//监听鼠标、键盘事件
-
-window.onresize = function () {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  renderer.setSize(width, height);//重设渲染器宽高比
+// WebGL渲染器设置
+const renderer = (() => {
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true, //开启优化锯齿
+  });
+  renderer.setPixelRatio(window.devicePixelRatio); //防止输出模糊
+  renderer.setSize(width, height);
+  document.body.appendChild(renderer.domElement);
   
-  camera.aspect = width / height;//重设相机宽高比
-  camera.updateProjectionMatrix();// 重新计算投影矩阵
+  return renderer
+})();
+
+//辅助观察的坐标系
+const axesHelper = (() => {
+  const axesHelper = new THREE.AxesHelper(1000);
+  scene.add(axesHelper);
+  return axesHelper
+})();
+
+// 渲染循环
+function render() {
+  renderer.render(scene, camera);
+  requestAnimationFrame(render);
+}
+render();
+
+
+window.onresize = () => {
+  const width = window.innerWidth - 200 ; //canvas画布宽度
+  const height = window.innerHeight - 200; //canvas画布高度
+  // 1. WebGL渲染器渲染的Cnavas画布尺寸更新
+  renderer.setSize(width, height);
+  // 2.1.更新相机参数
+  //canvas画布宽高比会影响left, right需要跟着更新
+  const k = width / height; //canvas画布宽高比
+  camera.left = -s*k;
+  camera.right = s*k;
+  // 2.2.相机的left, right等属性变化了，通知threejs系统
+  camera.updateProjectionMatrix();
+  
 }
 
-renderer.render(scene, camera);
+new OrbitControls(camera, renderer.domElement);
