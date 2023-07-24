@@ -11,10 +11,11 @@ const height = window.innerHeight; //canvas画布高度
 
 // 2.创建相机 - 正交相机
 const camera = (() => {
+  const x = 113.51,y = 33.88;
   const k = width / height; //canvas画布宽高比
   const camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 8000);
-  camera.position.set(300, 300, 300);
-  camera.lookAt(113.5, 33.88, 0); //指向坐标原点
+  camera.position.set(x, y, 300);
+  camera.lookAt(x, y, 0); //指向坐标原点
   return camera;
 })();
 
