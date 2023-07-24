@@ -5,7 +5,7 @@ import Model from './model.js'
 console.log(THREE.Scene)
 
 const scene = new THREE.Scene();
-let s = 50;//控制 left, right, top, bottom范围大小
+let s = 2.5;//控制 left, right, top, bottom范围大小
 const width = window.innerWidth; //canvas画布宽度
 const height = window.innerHeight; //canvas画布高度
 
@@ -14,22 +14,10 @@ const camera = (() => {
   const k = width / height; //canvas画布宽高比
   const camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 8000);
   camera.position.set(300, 300, 300);
-  camera.lookAt(0, 0, 0); //指向坐标原点
+  camera.lookAt(113.5, 33.88, 0); //指向坐标原点
   return camera;
 })();
 
-//
-// 几何体
-// (() => {
-//   const geometry = new THREE.BoxGeometry(50, 50, 50);
-//   const material = new THREE.MeshLambertMaterial({
-//     color: 0x00ffff,
-//   });
-//   const mesh = new THREE.Mesh(geometry, material);
-//   scene.add( mesh );
-//
-//   return mesh
-// })();
 scene.add( Model );
 
 // 光源设置
@@ -81,7 +69,8 @@ window.onresize = () => {
   camera.right = s*k;
   // 2.2.相机的left, right等属性变化了，通知threejs系统
   camera.updateProjectionMatrix();
-  
 }
 
-new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(113.5, 33.88, 0); //与lookAt参数保持一致
+controls.update();//update()函数内会执行camera.lookAt(controls.target)
