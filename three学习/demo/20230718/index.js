@@ -5,7 +5,7 @@ import Model from './model.js'
 console.log(THREE.Scene)
 
 const scene = new THREE.Scene();
-let s = 2.5;//控制 left, right, top, bottom范围大小
+let s = 2.9;//控制 left, right, top, bottom范围大小
 const width = window.innerWidth; //canvas画布宽度
 const height = window.innerHeight; //canvas画布高度
 
