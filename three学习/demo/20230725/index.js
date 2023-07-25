@@ -61,7 +61,7 @@ let i = 0; //在渲染循环中累加变化
 function render() {
   if (i < pointsArr.length - 1) {
     // 相机位置设置在当前点位置
-    camera.position.copy(pointsArr[i]);
+    camera.position.set(...pointsArr[i]);
     // 曲线上当前点pointsArr[i]和下一个点pointsArr[i+1]近似模拟当前点曲线切线
     // 设置相机观察点为当前点的下一个点，相机视线和当前点曲线切线重合
     camera.lookAt(pointsArr[i + 1]);

@@ -1,6 +1,6 @@
 import * as THREE from "./three.module.min.js"
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import Model from './model.js'
+import Model from './model3.js'
 
 
 const can = document.querySelector('#can')
@@ -15,9 +15,6 @@ export const camera = (() => {
   const camera = new THREE.PerspectiveCamera(30, width / height, 1, 3000);
   camera.position.set(200, 200, 200);//根据渲染范围尺寸数量级设置相机位置
   
-  
-  console.log(camera.up)
-  camera.up.set(0,-1,0);
   
   camera.lookAt(0, 0, 0);
   return camera
@@ -59,6 +56,20 @@ const axesHelper = (() => {
   return axesHelper
 })();
 
+const controls = (() => {
+  const controls = new OrbitControls(camera, renderer.domElement);
+  
+  controls.minDistance = 200;
+  controls.maxDistance = 500;
+  
+  
+  
+  controls.target.set(0, 0, 0); //与lookAt参数保持一致
+  controls.update();//update()函数内会执行camera.lookAt(controls.target)
+  
+  return controls
+})();
+
 // 渲染循环
 let angle = 0; //用于圆周运动计算的角度值
 const R = 100; //相机圆周运动的半径
@@ -68,6 +79,9 @@ function render() {
   // camera.position.x = R * Math.cos(angle);
   // camera.position.z = R * Math.sin(angle);
   // camera.lookAt(0,0,0);
+  // const dis = controls.getDistance();
+  // console.log('dis',dis);
+  
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 }
@@ -80,6 +94,4 @@ window.onresize = () => {
   camera.updateProjectionMatrix();
 }
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.target.set(0, 0, 0); //与lookAt参数保持一致
-controls.update();//update()函数内会执行camera.lookAt(controls.target)
+
