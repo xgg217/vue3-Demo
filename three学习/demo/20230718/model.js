@@ -1,36 +1,15 @@
-import * as THREE from "three";
-import dataArr from "./data.js"
-// 将几何体添加到场景中
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { Group} from 'three';
 
-const geometruy = (() => {
-  const pointsArr = [];
-  dataArr.forEach(e => {
-    const v2 = new THREE.Vector2(e[0],e[1])
-    pointsArr.push(v2);
-  })
-  const shape = new THREE.Shape(pointsArr);
-  return new THREE.ShapeGeometry(shape);
-  // return geometruy
-})();
+const model = new Group();
 
-const material =  new THREE.MeshLambertMaterial({
-  color: 0x00ffff,
-  side: THREE.DoubleSide
+// 创建GLTF加载器对象
+const loader = new GLTFLoader();
+loader.load( './工厂.glb', function ( gltf ) {
+  // console.log('控制台查看加载gltf文件返回的对象结构',gltf);
+  // console.log('gltf对象场景属性',gltf.scene);
+  // 返回的场景对象gltf.scene插入到threejs场景中
+  model.add(gltf.scene);
 })
 
-const mesh = new THREE.Mesh(geometruy, material);
-
-// 包围盒
-(() => {
-  // 包围盒计算模型对象的大小和位置
-  const box3 = new THREE.Box3();
-  box3.expandByObject(mesh); // 计算模型包围盒
-  const size = new THREE.Vector3();
-  box3.getSize(size); // 计算包围盒尺寸
-  console.log('模型包围盒尺寸',size);
-  const center = new THREE.Vector3();
-  box3.getCenter(center); // 计算包围盒中心坐标
-  console.log('模型中心坐标',center);
-})();
-
-export default mesh;
+export default model;
