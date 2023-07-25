@@ -41,7 +41,7 @@ const renderer = (() => {
 // 将webgl渲染的canvas内容添加到body
   can.appendChild(renderer.domElement);
   const controls = new OrbitControls(camera, renderer.domElement);
-  renderer.outputEncoding = THREE.sRGBEncoding;
+  // renderer.outputEncoding = THREE.sRGBEncoding;
   controls.addEventListener('change', function () {
     renderer.render(scene, camera); //执行渲染操作
   });//监听鼠标、键盘事件
@@ -56,14 +56,19 @@ const axesHelper = (() => {
 })();
 
 // 渲染循环
-let angle = 0; //用于圆周运动计算的角度值
-const R = 100; //相机圆周运动的半径
+// 渲染循环
+let i = 0; //在渲染循环中累加变化
 function render() {
-  // angle += 0.01;
-  // // 相机y坐标不变，在XOZ平面上做圆周运动
-  // camera.position.x = R * Math.cos(angle);
-  // camera.position.z = R * Math.sin(angle);
-  // camera.lookAt(0,0,0);
+  if (i < pointsArr.length - 1) {
+    // 相机位置设置在当前点位置
+    camera.position.copy(pointsArr[i]);
+    // 曲线上当前点pointsArr[i]和下一个点pointsArr[i+1]近似模拟当前点曲线切线
+    // 设置相机观察点为当前点的下一个点，相机视线和当前点曲线切线重合
+    camera.lookAt(pointsArr[i + 1]);
+    i += 1; //调节速度
+  } else {
+    i = 0
+  }
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 }
