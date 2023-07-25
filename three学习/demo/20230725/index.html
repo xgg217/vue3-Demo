@@ -6,35 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    #can {
-      position: relative;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #000;
-      margin: 0;
-      padding: 0;
-    }
-
-    #can button {
-      position: absolute;
-      bottom: 20px;
-    }
-
-    #can button.y {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    #can button.x {
-      left: 50%;
-      transform: translateX(calc(-50% - 50px));
-    }
-
-    #can button.z {
-      left: 50%;
-      transform: translateX(calc(-50% + 50px));
+    body{
+      overflow: hidden;
+      margin: 0px;
     }
 
   </style>
@@ -42,16 +16,13 @@
 <body>
 
   <div id="can">
-    <button class="x">X</button>
-    <button class="y">Y</button>
-    <button class="z">Z</button>
   </div>
 
   <script type="importmap">
     {
       "imports": {
-        "three": "./three.module.min.js",
-        "three/addons/": "./jsm/"
+        "three": "../three.module.min.js",
+        "three/addons/": "../jsm/"
       }
     }
   </script>

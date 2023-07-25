@@ -1,6 +1,6 @@
 import * as THREE from "./three.module.min.js"
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import Model from './model.js'
+import {mesh,pointsArr} from './model.js'
 
 
 const can = document.querySelector('#can')
@@ -12,18 +12,13 @@ const scene = new THREE.Scene();
 // 2.创建相机 - 正交相机
 export const camera = (() => {
   //渲染器和相机
-  const camera = new THREE.PerspectiveCamera(30, width / height, 1, 3000);
-  camera.position.set(200, 200, 200);//根据渲染范围尺寸数量级设置相机位置
-  
-  
-  console.log(camera.up)
-  camera.up.set(0,-1,0);
-  
+  const camera = new THREE.PerspectiveCamera(90, width / height, 1, 3000);
+  camera.position.set(292, 223, 185);//根据渲染范围尺寸数量级设置相机位置
   camera.lookAt(0, 0, 0);
   return camera
 })();
 
-scene.add( Model );
+scene.add( mesh );
 
 // 光源设置
 const directionLight = (() => {
@@ -38,8 +33,9 @@ const directionLight = (() => {
 // WebGL渲染器设置
 const renderer = (() => {
   const renderer = new THREE.WebGLRenderer({
-    antialias: true, //开启优化锯齿
+    antialias: true, // 开启优化锯齿
   });
+  renderer.setPixelRatio(window.devicePixelRatio); //防止输出模糊
   // 设置渲染的尺寸大小
   renderer.setSize(width, height)
 // 将webgl渲染的canvas内容添加到body
@@ -54,7 +50,7 @@ const renderer = (() => {
 
 //辅助观察的坐标系
 const axesHelper = (() => {
-  const axesHelper = new THREE.AxesHelper(1000);
+  const axesHelper = new THREE.AxesHelper(100);
   scene.add(axesHelper);
   return axesHelper
 })();
@@ -80,6 +76,6 @@ window.onresize = () => {
   camera.updateProjectionMatrix();
 }
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.target.set(0, 0, 0); //与lookAt参数保持一致
-controls.update();//update()函数内会执行camera.lookAt(controls.target)
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.target.set(0, 0, 0); //与lookAt参数保持一致
+// controls.update();//update()函数内会执行camera.lookAt(controls.target)
