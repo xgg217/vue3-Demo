@@ -1,36 +1,30 @@
-import { Group,PlaneGeometry,BoxGeometry, TubeGeometry,TextureLoader,RepeatWrapping,MeshLambertMaterial,DoubleSide,Mesh} from 'three';
-
+import { Group,CubeTextureLoader,sRGBEncoding} from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const group = new Group();
 
-// 平面
-const plane = (() => {
-  const geometry = new PlaneGeometry( 600, 300,);
-  const material = new MeshLambertMaterial( {color: 0x999999} );
+// 加载工厂模型
+(() => {
+  // 创建GLTF加载器对象
+  const loader = new GLTFLoader();
   
-  const plane = new Mesh( geometry, material );
+  const textureCube = new CubeTextureLoader().setPath('./环境贴图/').load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']);
+  textureCube.encoding = sRGBEncoding;
   
-  plane.rotation.x = -Math.PI / 2;
-  
-  // 设置接收阴影的投影面
-  plane.receiveShadow = true;
-  
-  return plane
-})();
+  loader.load( '工厂.glb', function ( gltf ) {
+    gltf.scene.traverse(function (child) {
+      if(child.isMesh){
+        child.material.envMap = textureCube; // 设置环境贴图
+        // child.material.envMapIntensity = 2;
+        
+        // 批量设置所有Mesh都可以产生阴影和接收阴影
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    group.add( gltf.scene );
+  })
 
-// 立方体
-const plane1 = (() => {
-  const geometry = new BoxGeometry(50,100,50);
-  const material = new MeshLambertMaterial( {color: 0x00ffff} );
-  const plane = new Mesh( geometry, material );
-  plane.translateY(50);
-  
-  // 设置产生投影的网格模型
-  plane.castShadow = true;
-  
-  return plane;
 })();
-
-group.add( plane,plane1);
 
 export default group;
