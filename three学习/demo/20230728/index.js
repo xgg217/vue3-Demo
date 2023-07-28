@@ -13,7 +13,7 @@ const scene = new THREE.Scene();
 export const camera = (() => {
   //渲染器和相机
   const camera = new THREE.PerspectiveCamera(90, width / height, 1, 3000);
-  camera.position.set(2, 2, 1);//根据渲染范围尺寸数量级设置相机位置
+  camera.position.set(100, 100, 100);//根据渲染范围尺寸数量级设置相机位置
   camera.lookAt(0, 0, 0);
   return camera
 })();
@@ -23,7 +23,7 @@ scene.add( mesh );
 // 光源设置
 const directionLight = (() => {
   const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-  directionalLight.position.set(100, 60, 50);
+  directionalLight.position.set(200, 200, 200);
   scene.add(directionalLight);
  
   return directionalLight
