@@ -50,6 +50,8 @@ css2Renderer.domElement.style.pointerEvents = 'none';
 
 // 渲染循环
 function render() {
+  
+  
   // 用法和webgl渲染器渲染方法类似
   css2Renderer.render(scene, camera)
   renderer.render(scene, camera);
@@ -62,7 +64,9 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // 画布跟随窗口变化
 window.onresize = function () {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
+  renderer.setSize(width, height);
+  css2Renderer.setSize(width,height);
+  renderer.setSize(width, height);
+  camera.aspect = width/ height;
   camera.updateProjectionMatrix();
 };
