@@ -6,16 +6,12 @@ const group = new THREE.Group();
 
 const {group1,mesh} = (() => {
   const group1 = new THREE.Group();
-  const geometry = new THREE.ConeGeometry(25, 80);
-  const material = new THREE.LineBasicMaterial({
+  const geometry = new THREE.BoxGeometry(100, 60, 20);
+  const material = new THREE.LineBasicMaterial( {
     color: 0xffff00,
   });
   
   const mesh = new THREE.Mesh(geometry, material);
-  
-  // 可视化模型的局部坐标系
-  const axesHelper = new THREE.AxesHelper(100);
-  mesh.add(axesHelper);
   
   group1.add(mesh);
   
@@ -23,8 +19,8 @@ const {group1,mesh} = (() => {
   
   const div = document.querySelector('#tag');
   const tag = new CSS2DObject(div);
-  // const pos = geometry.attributes.position;
-  // tag.position.set(pos.getX(0),pos.getY(0),pos.getZ(0));
+  const pos = geometry.attributes.position;
+  tag.position.set(pos.getX(0),pos.getY(0),pos.getZ(0));
   mesh.add(tag);
   
   
