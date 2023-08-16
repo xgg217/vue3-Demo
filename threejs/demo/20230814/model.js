@@ -28,6 +28,8 @@ const group = new THREE.Group();
   })
 })();
 
+// 导入模型
+const loader = new GLTFLoader();
 
 
 export {group};
