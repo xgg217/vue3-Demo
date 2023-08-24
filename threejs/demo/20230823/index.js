@@ -8,6 +8,8 @@ import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
 import {GammaCorrectionShader} from 'three/addons/shaders/GammaCorrectionShader.js';
 import {ShaderPass} from 'three/addons/postprocessing/ShaderPass.js';
 import {SMAAPass} from 'three/addons/postprocessing/SMAAPass.js';
+import {CSS2DRenderer} from 'three/addons/renderers/CSS2DRenderer.js';
+import tag from './tag.js';
 
 import  {group}  from './model.js';//模型对象
 
@@ -42,7 +44,19 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(width, height);
 can.appendChild(renderer.domElement);
 
-
+const css2Renderer = (() =>{
+  // 创建一个CSS2渲染器CSS2DRenderer
+  const css2Renderer = new CSS2DRenderer();
+  css2Renderer.setSize(width, height);
+  // HTML标签<div id="tag"></div>外面父元素叠加到canvas画布上且重合
+  css2Renderer.domElement.style.position = 'absolute';
+  css2Renderer.domElement.style.top = '0px';
+  //设置.pointerEvents=none，解决HTML元素标签对threejs canvas画布鼠标事件的遮挡
+  css2Renderer.domElement.style.pointerEvents = 'none';
+  document.body.appendChild(css2Renderer.domElement);
+  
+  return css2Renderer
+})();
 
 
 
@@ -85,52 +99,55 @@ const {composer, outlinePass} = (() => {
 
 
   
-  renderer.domElement.addEventListener('click', (e) => {
-    const px = e.offsetX;
-    const py = e.offsetY;
-    console.log(px, py);
+renderer.domElement.addEventListener('click', (e) => {
+  const px = e.offsetX;
+  const py = e.offsetY;
+  console.log(px, py);
 
-    //屏幕坐标px、py转WebGL标准设备坐标x、y
-    //width、height表示canvas画布宽高度
-    const x = (px / window.innerWidth) * 2 - 1;
-    const y = -(py / window.innerHeight) * 2 + 1;
+  //屏幕坐标px、py转WebGL标准设备坐标x、y
+  //width、height表示canvas画布宽高度
+  const x = (px / window.innerWidth) * 2 - 1;
+  const y = -(py / window.innerHeight) * 2 + 1;
 
-    //创建一个射线投射器`Raycaster`
-    const raycaster = new THREE.Raycaster();
-    //.setFromCamera()计算射线投射器`Raycaster`的射线属性.ray
-    // 形象点说就是在点击位置创建一条射线，用来选中拾取模型对象
-    raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
-    
-    const cunchu = group.getObjectByName("存储罐");
-    
-    for (let i = 0; i < cunchu.children.length; i++) {
-      const group = cunchu.children[i];
-      //递归遍历chooseObj，并给chooseObj的所有子孙后代设置一个ancestors属性指向自己
-      group.traverse(function (obj) {
-        if (obj.isMesh) {
-          obj.ancestors = group;
-        }
-      })
-    }
-    
-    const intersects = raycaster.intersectObjects(cunchu.children);
-    console.log(intersects);
+  //创建一个射线投射器`Raycaster`
+  const raycaster = new THREE.Raycaster();
+  //.setFromCamera()计算射线投射器`Raycaster`的射线属性.ray
+  // 形象点说就是在点击位置创建一条射线，用来选中拾取模型对象
+  raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
+  
+  const cunchu = group.getObjectByName("存储罐");
+  
+  for (let i = 0; i < cunchu.children.length; i++) {
+    const group = cunchu.children[i];
+    //递归遍历chooseObj，并给chooseObj的所有子孙后代设置一个ancestors属性指向自己
+    group.traverse(function (obj) {
+      if (obj.isMesh) {
+        obj.ancestors = group;
+      }
+    })
+  }
+  
+  const intersects = raycaster.intersectObjects(cunchu.children);
+  console.log(intersects);
 
-    // const intersects = raycaster.intersectObjects([mesh1, mesh2, mesh3]);
-    // console.log("射线器返回的对象", intersects);
-    // // intersects.length大于0说明，说明选中了模型
-    if (intersects.length > 0) {
-      // 选中模型的第一个模型，设置为红色
-      // intersects[0].object.material.color.set(0xff0000);
-      
-      
-      outlinePass.selectedObjects = [intersects[0].object.ancestors];
-    }
-  });
+  // const intersects = raycaster.intersectObjects([mesh1, mesh2, mesh3]);
+  // console.log("射线器返回的对象", intersects);
+  // // intersects.length大于0说明，说明选中了模型
+  if (intersects.length > 0) {
+    // 选中模型的第一个模型，设置为红色
+    // intersects[0].object.material.color.set(0xff0000);
+    
+    
+    outlinePass.selectedObjects = [intersects[0].object.ancestors];
+    console.log(tag)
+    intersects[0].object.ancestors.add(tag)
+  }
+});
 
 
 // 渲染循环
 function render() {
+  css2Renderer.render(scene, camera);
   composer.render();
   // renderer.render(scene, camera);
   requestAnimationFrame(render);
