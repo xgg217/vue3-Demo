@@ -15,6 +15,4 @@ const group = new THREE.Group();
   })
 })();
 
-
-
 export {group};

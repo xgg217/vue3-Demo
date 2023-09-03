@@ -18,6 +18,10 @@
       width: 65px;
     }
 
+    #close:hover {
+      cursor: pointer;
+    }
+
   </style>
 </head>
 <body>
@@ -30,7 +34,7 @@
         <!-- 名称、存储量、设备状态、等信息叠加到背景图上即可 -->
         <div style="position:absolute;left:48px;top:36px;font-size:16px;">
           <div style="font-size:20px;font-weight: 400;">
-            <span>设备A</span>
+            <span id="name">设备A</span>
           </div>
           <div style="margin-top: 30px;">
             <span style="font-weight: 400;margin-left: 80px;font-size: 40px;color: #00ffff;">276559 L</span>
@@ -46,6 +50,10 @@
         </div>
         <div style="position:absolute;left:285px;top:35px;">
           <span style="color: #ffff00;">异常</span>
+        </div>
+
+        <div style="position:absolute;left:350px;top:20px;">
+          <img id="close" src="./关闭.png" width="32" style="pointer-events: auto;">
         </div>
   </div>
 
