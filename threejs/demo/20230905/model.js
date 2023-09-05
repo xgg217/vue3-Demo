@@ -1,18 +1,31 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+// 引入CSS3模型对象CSS3DObject
+import {
+    CSS3DObject
+} from 'three/addons/renderers/CSS3DRenderer.js';
 
+const geometry = new THREE.ConeGeometry(25, 80);
+geometry.translate(0, 40, 0); //y轴正方向，平移高度一半
+const material = new THREE.MeshLambertMaterial({
+    color: 0x00ffff,
+});
+const mesh = new THREE.Mesh(geometry, material);
+mesh.position.set(50, 0, 50);
+
+// 可视化模型的局部坐标系
+const axesHelper = new THREE.AxesHelper(100);
+mesh.add(axesHelper);
+
+const div = document.getElementById('tag');
+// HTML元素转化为threejs的CSS3模型对象
+const tag = new CSS3DObject(div);
+//标签tag作为mesh子对象，默认受到父对象位置影响
+mesh.add(tag);
+tag.position.y += 80; //圆锥mesh局部坐标系原点在自己底部时候，标签需要向上偏移圆锥自身高度
 const group = new THREE.Group();
+group.add(mesh);
 
-(() => {
-  // 创建GLTF加载器对象
-  const loader = new GLTFLoader();
-  
-  loader.load( '工厂.glb', function ( gltf ) {
-    console.log('控制台查看加载gltf文件返回的对象结构',gltf);
-    console.log('gltf对象场景属性',gltf.scene);
-    // 返回的场景对象gltf.scene插入到threejs场景中
-    group.add( gltf.scene );
-  })
-})();
+tag.scale.set(0.5,0.5,1);//缩放标签尺寸
+tag.position.y += 10;//累加标签高度一半，标签底部和圆锥顶部标注位置重合
 
-export {group};
+export default group;
