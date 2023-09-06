@@ -9,21 +9,23 @@
             overflow: hidden;
             margin: 0px;
         }
+
         #tag {
-            padding: 0px 10px;
-            /* border: #00ffff solid 1px; */
+            width: 70px;
             height: 40px;
-            line-height: 40px;
+            line-height: 32px;
+            text-align: center;
             color: #fff;
-            background: rgba(25, 25, 25, 0.5);
-            border-radius: 5px;
-            width: 65px;
+            font-size: 16px;
+            background-image: url(./标签箭头背景.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
         }
     </style>
 </head>
 
 <body>
-    <div id="tag">标签内容</div>
+    <div id="tag" style="display: none;">设备A</div>
     <!-- type="importmap"功能：.html文件中也能和nodejs开发环境中一样方式，引入npm安装的js库 -->
     <script type="importmap">
         {
