@@ -25,13 +25,9 @@ const mixer = new AnimationMixer(mesh);
 
 const clipAction = mixer.clipAction(clip);
 
-clipAction.play();
-clipAction.paused = true;
+// clipAction.play();
 // clipAction.loop = LoopOnce;
 // clipAction.clampWhenFinished = true;
-
-clipAction.time = 3;//物体状态为动画3秒对应状态
-// clip.duration = 5;
 
 
 const clock = new Clock();
@@ -42,6 +38,31 @@ function loop() {
     mixer.update(frameT);
 }
 loop();
+
+const stop = document.querySelector('#stop');
+const paly = document.querySelector('#play');
+const bu = document.querySelector('#bu');
+stop.addEventListener('click', () => {
+    clipAction.stop();
+})
+
+paly.addEventListener('click', () => {
+    clipAction.play();
+})
+
+bu.addEventListener('click', () => {
+
+    if(clipAction.paused) { // 当前暂停状态
+        clipAction.paused = false;//切换为播放状态
+        bu.textContent = "暂停"
+    } else {
+        clipAction.paused = true;//切换为状态状态
+        bu.textContent = "播放"
+    }
+    
+})
+
+
 
 
 
