@@ -1,5 +1,6 @@
 import {Mesh, Group, BoxGeometry,MeshBasicMaterial,KeyframeTrack,AnimationClip,AnimationMixer,Clock,LoopOnce} from 'three';
 
+const group = new Group();
 const box = new BoxGeometry(15,15,15);
 
 const material = new MeshBasicMaterial({
@@ -7,6 +8,8 @@ const material = new MeshBasicMaterial({
 });
 
 const mesh = new Mesh( box, material );
+
+group.add(mesh);
 
 mesh.name = "Box";
 
@@ -21,12 +24,12 @@ const colorKF = new KeyframeTrack('Box.material.color', [2, 5], [1, 0, 0, 0, 0, 
 
 const clip = new AnimationClip("test",6,[posKF, colorKF]);
 
-const mixer = new AnimationMixer(mesh);
+const mixer = new AnimationMixer(group);
 
 const clipAction = mixer.clipAction(clip);
 
 clipAction.play();
-clipAction.paused = true;
+// clipAction.paused = true;
 // clipAction.loop = LoopOnce;
 // clipAction.clampWhenFinished = true;
 
@@ -45,4 +48,4 @@ loop();
 
 
 
-export default mesh;
+export default group;
