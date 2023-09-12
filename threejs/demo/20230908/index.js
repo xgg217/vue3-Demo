@@ -14,7 +14,7 @@ scene.add(axesHelper);
 
 //光源设置
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(100, 60, 50);
+directionalLight.position.set(7, 4, 5);
 scene.add(directionalLight);
 const ambient = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambient);
@@ -24,7 +24,7 @@ scene.add(ambient);
 const width = window.innerWidth;
 const height = window.innerHeight;
 const camera = new THREE.PerspectiveCamera(30, width / height, 1, 3000);
-camera.position.set(292, 223, 185);
+camera.position.set(7, 4, 5);
 camera.lookAt(0, 0, 0);
 
 // WebGL渲染器设置
@@ -50,10 +50,10 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // 画布跟随窗口变化
 window.onresize = function () {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    // cnavas画布宽高度重新设置
-    renderer.setSize(width,height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+const width = window.innerWidth;
+const height = window.innerHeight;
+// cnavas画布宽高度重新设置
+renderer.setSize(width,height);
+camera.aspect = width / height;
+camera.updateProjectionMatrix();
 };

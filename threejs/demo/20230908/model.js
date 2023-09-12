@@ -1,50 +1,31 @@
 import {Mesh, Group, BoxGeometry,MeshBasicMaterial,KeyframeTrack,AnimationClip,AnimationMixer,Clock,LoopOnce} from 'three';
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const group = new Group();
-const box = new BoxGeometry(15,15,15);
+const loader = new GLTFLoader();
 
-const material = new MeshBasicMaterial({
-    color: 0xff0000
-});
+loader.load("./士兵.glb", (gltf) => {
+    console.log(gltf.animations);
+    group.add(gltf.scene);
 
-const mesh = new Mesh( box, material );
+    //包含关键帧动画的模型作为参数创建一个播放器
+    const mixer = new AnimationMixer(gltf.scene);
 
-group.add(mesh);
+    //  获取gltf.animations[0]的第一个clip动画对象
+    const clipAction = mixer.clipAction(gltf.animations[3]); //创建动画clipAction对象
+    clipAction.play(); //播放动画
 
-mesh.name = "Box";
-
-const times = [0, 3, 6]; //时间轴上，设置三个时刻0、3、6秒
-// times中三个不同时间点，物体分别对应values中的三个xyz坐标
-const values = [0, 0, 0, 100, 0, 0, 0, 0, 100];
-
-const posKF = new KeyframeTrack('Box.position', times, values);
-
-// 从2秒到5秒，物体从红色逐渐变化为蓝色
-const colorKF = new KeyframeTrack('Box.material.color', [2, 5], [1, 0, 0, 0, 0, 1]);
-
-const clip = new AnimationClip("test",6,[posKF, colorKF]);
-
-const mixer = new AnimationMixer(group);
-
-const clipAction = mixer.clipAction(clip);
-
-clipAction.play();
-// clipAction.paused = true;
-// clipAction.loop = LoopOnce;
-// clipAction.clampWhenFinished = true;
-
-clipAction.time = 3;//物体状态为动画3秒对应状态
-// clip.duration = 5;
-
-
-const clock = new Clock();
-function loop() {
-    requestAnimationFrame(loop);
-
-    const frameT = clock.getDelta();
-    mixer.update(frameT);
-}
-loop();
+    // 如果想播放动画,需要周期性执行`mixer.update()`更新AnimationMixer时间数据
+    const clock = new Clock();
+    function loop() {
+      requestAnimationFrame(loop);
+      //clock.getDelta()方法获得loop()两次执行时间间隔
+      const frameT = clock.getDelta();
+      // 更新播放器相关的时间
+      mixer.update(frameT);
+    }
+    loop();
+})
 
 
 

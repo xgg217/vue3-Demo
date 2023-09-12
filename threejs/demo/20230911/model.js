@@ -1,51 +1,40 @@
-import {Mesh, Group, BoxGeometry,MeshBasicMaterial,KeyframeTrack,AnimationClip,AnimationMixer,Clock,LoopOnce} from 'three';
+import {Mesh, Group, CubeTextureLoader,MeshBasicMaterial,KeyframeTrack,AnimationClip,AnimationMixer,Clock,LoopOnce} from 'three';
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+const loader = new GLTFLoader();
 
 const group = new Group();
-const box = new BoxGeometry(15,15,15);
 
-const material = new MeshBasicMaterial({
-    color: 0xff0000
-});
+const textureCube = new CubeTextureLoader().setPath('./环境贴图/').load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']);
 
-const mesh = new Mesh( box, material );
+loader.load('./机械装配动画.glb', (gltf) => {
+    gltf.scene.traverse((obj) => {
+        if(obj.isMesh) {
+            obj.material.metalness = 1.0;
+            obj.material.roughness = 0.35;
+            obj.material.envMap = textureCube;
+            obj.material.envMapIntensity = 0.5;
+        }
+    })
 
-group.add(mesh);
+    group.add(gltf.scene);
 
-mesh.name = "Box";
+    const miexer = new AnimationMixer(gltf.scene);
+    const clip = gltf.animations[0];
+    const clipAction = miexer.clipAction(clip);
+    clipAction.play();
+    clipAction.paused = true; //暂停状态
 
-const times = [0, 3, 6]; //时间轴上，设置三个时刻0、3、6秒
-// times中三个不同时间点，物体分别对应values中的三个xyz坐标
-const values = [0, 0, 0, 100, 0, 0, 0, 0, 100];
+    // 不循环播放
+    clipAction.loop = LoopOnce;
 
-const posKF = new KeyframeTrack('Box.position', times, values);
+    const clock = new Clock();
 
-// 从2秒到5秒，物体从红色逐渐变化为蓝色
-const colorKF = new KeyframeTrack('Box.material.color', [2, 5], [1, 0, 0, 0, 0, 1]);
-
-const clip = new AnimationClip("test",6,[posKF, colorKF]);
-
-const mixer = new AnimationMixer(group);
-
-const clipAction = mixer.clipAction(clip);
-
-clipAction.play();
-// clipAction.paused = true;
-// clipAction.loop = LoopOnce;
-// clipAction.clampWhenFinished = true;
-
-clipAction.time = 3;//物体状态为动画3秒对应状态
-// clip.duration = 5;
-
-
-const clock = new Clock();
-function loop() {
-    requestAnimationFrame(loop);
-
-    const frameT = clock.getDelta();
-    mixer.update(frameT);
-}
-loop();
-
-
+    const loop = () => {
+        requestAnimationFrame(loop);
+        const frameT = clock.getDelta();
+        miexer.update(frameT);
+    }
+    loop();
+})
 
 export default group;
