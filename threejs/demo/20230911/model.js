@@ -6,6 +6,10 @@ const group = new Group();
 
 const textureCube = new CubeTextureLoader().setPath('./环境贴图/').load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']);
 
+const play = document.querySelector('#play');
+const stop = document.querySelector('#stop');
+const bu = document.querySelector('#bu');
+
 loader.load('./机械装配动画.glb', (gltf) => {
     gltf.scene.traverse((obj) => {
         if(obj.isMesh) {
@@ -22,7 +26,7 @@ loader.load('./机械装配动画.glb', (gltf) => {
     const clip = gltf.animations[0];
     const clipAction = miexer.clipAction(clip);
     clipAction.play();
-    clipAction.paused = true; //暂停状态
+    clipAction.paused = true; // 暂停状态
 
     // 不循环播放
     clipAction.loop = LoopOnce;
@@ -35,6 +39,21 @@ loader.load('./机械装配动画.glb', (gltf) => {
         miexer.update(frameT);
     }
     loop();
+
+    // 播放
+    play.addEventListener('click', () => {
+        // if(clipAction.paused) {
+            clipAction.paused = false;
+        // } else {
+            // clipAction.paused = true;
+        // }
+    })
+
+    // 暂停
+    bu.addEventListener('click', () => {
+            clipAction.paused = true;
+        // }
+    })
 })
 
 export default group;
