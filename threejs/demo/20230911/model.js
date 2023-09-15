@@ -1,6 +1,8 @@
 import {Mesh, Group, CubeTextureLoader,MeshBasicMaterial,KeyframeTrack,AnimationClip,AnimationMixer,Clock,LoopOnce} from 'three';
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import {GUI} from 'three/addons/libs/lil-gui.module.min.js'
 const loader = new GLTFLoader();
+const gui = new GUI(); //创建GUI对象
 
 const group = new Group();
 
@@ -24,9 +26,22 @@ loader.load('./机械装配动画.glb', (gltf) => {
 
     const miexer = new AnimationMixer(gltf.scene);
     const clip = gltf.animations[0];
+
+    const duration = clip.duration; // 获取默认执行时间
+    console.log(duration);
     const clipAction = miexer.clipAction(clip);
     clipAction.play();
     clipAction.paused = true; // 暂停状态
+
+    gui.add(clipAction, 'time', 0, duration).step(0.1).name('播放时间').onChange(() => {
+        // 当前是否处于播放状态
+        if(!clipAction.paused) {
+            // 如果处于播放状态就暂停播放
+            clipAction.paused = true;
+            play.textContent = '播放'
+        }
+    });
+    gui.add(clipAction, 'timeScale', 0, 2).step(0.1).name('播放倍数');
 
     // 不循环播放
     clipAction.loop = LoopOnce;
@@ -42,17 +57,16 @@ loader.load('./机械装配动画.glb', (gltf) => {
 
     // 播放
     play.addEventListener('click', () => {
-        // if(clipAction.paused) {
-            clipAction.paused = false;
-        // } else {
-            // clipAction.paused = true;
-        // }
-    })
+        console.log(clipAction.paused);
 
-    // 暂停
-    bu.addEventListener('click', () => {
+        if(clipAction.paused) {
+            // 当前是播放状态
+            clipAction.paused = false;
+            play.textContent = '暂停'
+        } else {
             clipAction.paused = true;
-        // }
+            play.textContent = '播放'
+        }
     })
 })
 
