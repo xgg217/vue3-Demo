@@ -14,7 +14,7 @@ scene.add(axesHelper);
 
 //光源设置
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(100, 1500, 500);
+directionalLight.position.set(100, 60, 50);
 scene.add(directionalLight);
 const ambient = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambient);
@@ -24,7 +24,7 @@ scene.add(ambient);
 const width = window.innerWidth;
 const height = window.innerHeight;
 const camera = new THREE.PerspectiveCamera(30, width / height, 1, 3000);
-camera.position.set(200, 400, 600);
+camera.position.set(292, 223, 185);
 camera.lookAt(0, 0, 0);
 
 // WebGL渲染器设置
