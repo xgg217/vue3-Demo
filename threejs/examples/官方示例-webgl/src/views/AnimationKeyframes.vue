@@ -2,7 +2,5 @@
 </script>
 
 <template>
-  <main>
-    目录-webgl
-  </main>
+  1
 </template>
