@@ -3,6 +3,6 @@
 
 <template>
   <main>
-    目录
+    目录-webgl
   </main>
 </template>
