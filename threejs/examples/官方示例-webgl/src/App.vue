@@ -11,7 +11,12 @@ const avcStr = ref('animation / keyframes')
     <nav>
       <ul>
         <li>
-          <DirectoryCardCmp title="animation / keyframes" imgSrc="/src/assets/images/webgl_animation_keyframes.jpg" :isAvc="avcStr === 'animation / keyframes'" />
+          <DirectoryCardCmp
+            title="animation / keyframes"
+            imgSrc="/src/views/AnimationKeyframes/webgl_animation_keyframes.jpg"
+            :isAvc="avcStr === 'animation / keyframes'"
+            notes="东京街头"
+          />
         </li>
       </ul>
     </nav>
@@ -24,10 +29,7 @@ const avcStr = ref('animation / keyframes')
 
 <style scoped>
 main {
-  /* border: 1px solid red; */
-  /* width: 100vw; */
   display: flex;
-
 }
 
 nav {
@@ -40,7 +42,8 @@ nav {
 
 .right {
   flex: 1;
-  border: 1px solid #000;
+  /* border: 1px solid red; */
+  /* height: 97.5vh; */
 }
 
 ul {

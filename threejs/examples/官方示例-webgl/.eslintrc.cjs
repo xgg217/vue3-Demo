@@ -9,6 +9,13 @@ module.exports = {
     '@vue/eslint-config-typescript',
     '@vue/eslint-config-prettier/skip-formatting'
   ],
+
+  rules: {
+    // 添加组件命名忽略规则
+    "vue/multi-word-component-names": ["error",{
+      "ignores": ["index"]//需要忽略的组件名
+    }]
+  },
   parserOptions: {
     ecmaVersion: 'latest'
   }
