@@ -14,7 +14,10 @@ module.exports = {
     // 添加组件命名忽略规则
     "vue/multi-word-component-names": ["error",{
       "ignores": ["index"]//需要忽略的组件名
-    }]
+    }],
+    'no-duplicate-imports': 'off',
+    'max-nested-callbacks': 'off',
+    'vue/component-definition-name-casing': 'off'
   },
   parserOptions: {
     ecmaVersion: 'latest'

@@ -10,6 +10,7 @@ const height = ref(0); // 高度
 
 const scene = new Scene();
 
+
 //辅助观察的坐标系
 const axesHelper = (() => {
   const axesHelper = new AxesHelper(100);
@@ -17,7 +18,16 @@ const axesHelper = (() => {
   return axesHelper
 })();
 
-scene.add(axesHelper)
+scene.add(axesHelper);
+
+// 光源设置
+(() => {
+  const directionalLight = new DirectionalLight(0xffffff, 1);
+  directionalLight.position.set(100, 60, 50);
+  scene.add(directionalLight);
+  const ambient = new AmbientLight(0xffffff, 0.4);
+  scene.add(ambient);
+})();
 
 
 // 2.创建相机 - 正交相机
@@ -31,17 +41,10 @@ const cameraFun = (() => {
   return camera
 });
 
-// 光源设置
-(() => {
-  const directionalLight = new DirectionalLight(0xffffff, 1);
-  directionalLight.position.set(100, 60, 50);
-  scene.add(directionalLight);
-  const ambient = new AmbientLight(0xffffff, 0.4);
-  scene.add(ambient);
-})();
+
 
 // WebGL渲染器设置
-const renderer = function renderer(camera: PerspectiveCamera):WebGLRenderer {
+const renderer = function renderer(camera: PerspectiveCamera): WebGLRenderer {
 
   const renderer = new WebGLRenderer({
     antialias: true, // 开启优化锯齿
@@ -62,15 +65,12 @@ const renderer = function renderer(camera: PerspectiveCamera):WebGLRenderer {
 };
 
 
-
-
-
 onMounted(() => {
 
-  const {w, h} = getElmWidhtAndHeight(canRef.value);
+  const { w, h } = getElmWidhtAndHeight(canRef.value);
   width.value = w;
   height.value = h;
-  console.log(h);
+  // console.log(h);
 
   const camera = cameraFun();
 
