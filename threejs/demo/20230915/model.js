@@ -1,4 +1,6 @@
 import {BoxGeometry, MeshLambertMaterial, Mesh} from 'three';
+import {GUI} from 'three/addons/libs/lil-gui.module.min.js';
+const gui = new GUI();
 
 
 const geometry = new BoxGeometry(50,50,50);
@@ -14,6 +16,24 @@ const material = new MeshLambertMaterial({
 })
 
 const mesh = new Mesh(geometry, material)
+
+// mesh.morphTargetInfluences[0] = 0.5;
+// mesh.morphTargetInfluences[1] = 0.5;
+
+// GUI拖动条可视化改变变形目标权重系数
+const obj = {
+    t1: 0,
+    t2: 0,
+}
+gui.add(obj, 't1', 0, 1).name('变形目标1').onChange(function (v) {
+    // 变形目标1对物体形状影响权重
+    mesh.morphTargetInfluences[0] = v;
+});
+
+gui.add(obj, 't2', 0, 1).name('变形目标2').onChange(function (v) {
+    // 变形目标2对物体形状影响权重
+    mesh.morphTargetInfluences[1] = v;
+});
 
 
 export default mesh;
