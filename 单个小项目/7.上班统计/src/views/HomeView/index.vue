@@ -10,6 +10,7 @@ const value1 = ref('')
 onMounted(() => {
   value1.value = dayjs().format('YYYY-MM')
 })
+
 </script>
 
 <template>
