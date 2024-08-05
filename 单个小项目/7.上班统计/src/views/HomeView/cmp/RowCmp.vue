@@ -3,7 +3,7 @@
 import { ref, computed } from 'vue'
 import Big from 'big.js'
 import type { IItem } from './../types'
-import { getDateLen,getTitle } from './../utils'
+import { getTitle } from './../utils'
 
 const props = defineProps<{
   // list: IItem[]
