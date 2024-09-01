@@ -8,6 +8,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import dayjs from 'dayjs'
+import weekOfYear from 'dayjs/plugin/weekOfYear'
+dayjs.extend(weekOfYear)
 
 const emit = defineEmits<{
   (e: 'change', val: number): void

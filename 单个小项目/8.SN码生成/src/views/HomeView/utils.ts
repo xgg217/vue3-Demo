@@ -1,4 +1,4 @@
-import type { IItem } from './../types'
+import type { IItem } from './types'
 import { Workbook } from 'exceljs'
 
 // 数字枚举

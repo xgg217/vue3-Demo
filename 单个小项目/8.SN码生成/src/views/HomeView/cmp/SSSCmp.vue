@@ -20,7 +20,7 @@ import { ref, computed } from 'vue'
 import LCmp from './LCmp.vue'
 
 const emit = defineEmits<{
-  (e: 'change', val: number): void
+  (e: 'change', val: string): void
   (e: 'number', val: number): void
 }>()
 

@@ -44,6 +44,7 @@ import WeekCmp from './WeekCmp.vue'
 import LCmp from './LCmp.vue'
 import SSSCmp from './SSSCmp.vue'
 import { getSNCode, getExcel } from './../utils'
+import { ElMessage } from 'element-plus'
 
 const tableData = ref<IItem[]>([
   {

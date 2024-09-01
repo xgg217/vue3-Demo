@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vitejs/plugin-legacy": "^5.4.2",
     "dayjs": "^1.11.13",
     "element-plus": "^2.8.1",
     "exceljs": "^4.4.0",
