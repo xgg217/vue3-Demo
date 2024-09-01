@@ -2,7 +2,7 @@ export type IItem = {
   types: string
   AAAA: string
   A: string
-  Y: number
+  Y: string
   WW: string
   L: string
   SSS: string

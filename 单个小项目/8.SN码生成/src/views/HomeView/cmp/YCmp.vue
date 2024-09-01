@@ -20,7 +20,7 @@ const y = computed(() => {
     return '0'
   }
   const v = dayjs(val.value).year().toString()[3]
-  console.log(v)
+  // console.log(v)
 
   emit('change', v)
   return v

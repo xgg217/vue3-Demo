@@ -8,7 +8,6 @@
       <!-- 表示年份的最后位如2023年用3表示 -->
       <el-table-column prop="Y" label="Y">
         <template #default="{ row }">
-          <!-- <el-date-picker v-model="row.Y" type="year" placeholder="请选择年份" /> -->
           <YCmp @change="row.Y = $event" />
         </template>
       </el-table-column>
@@ -26,9 +25,9 @@
           <!-- <el-input-number v-model="row.L" :min="1" :max="10" @change="handleChange" /> -->
         </template>
       </el-table-column>
-      <el-table-column prop="SSS" label="SSS">
+      <el-table-column prop="SSS" label="SSS" width="300">
         <template #default="{ row }">
-          <SSSCmp @change="row.SSS = $event" />
+          <SSSCmp @change="row.SSS = $event" @number="row.num = $event" />
         </template>
       </el-table-column>
       <el-table-column prop="XX" label="XX" />
@@ -44,6 +43,7 @@ import YCmp from './YCmp.vue'
 import WeekCmp from './WeekCmp.vue'
 import LCmp from './LCmp.vue'
 import SSSCmp from './SSSCmp.vue'
+import { getSNCode, getExcel } from './../utils'
 
 const tableData = ref<IItem[]>([
   {
@@ -54,7 +54,8 @@ const tableData = ref<IItem[]>([
     WW: '',
     L: '',
     SSS: '',
-    XX: ''
+    XX: '',
+    num: 1
   }
 ])
 
@@ -97,6 +98,10 @@ const submit = () => {
     })
     return
   }
+
+  const arr = getSNCode(tableData.value[0])
+  console.log(arr)
+  getExcel(arr)
 }
 </script>
 

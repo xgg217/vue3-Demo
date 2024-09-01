@@ -6,7 +6,7 @@
     <el-table-column prop="Y" label="Y" />
     <el-table-column prop="WW" label="WW" />
     <el-table-column prop="L" label="L" />
-    <el-table-column prop="SSS" label="SSS" />
+    <el-table-column prop="SSS" label="SSS" width="300" />
     <el-table-column prop="XX" label="XX" />
   </el-table>
 </template>
@@ -23,7 +23,8 @@ const tableData: IItem[] = [
     WW: '表示雨位自然周别，如45表示45周',
     L: '1位工单批号,36进制,同一周内从"0"to"9"，"A"to"Z"',
     SSS: '3位Counter流水码36进制，每个单位递增一个计数，以"001"to"ZZZ"',
-    XX: '2位heck digit校验码由系统自动产生，有 "0"to"9"，"A"to"Z" 组成'
+    XX: '2位heck digit校验码由系统自动产生，有 "0"to"9"，"A"to"Z" 组成',
+    num: 1
   },
   {
     types: '示例',
@@ -33,7 +34,8 @@ const tableData: IItem[] = [
     WW: '45',
     L: '0',
     SSS: '001',
-    XX: 'ES'
+    XX: 'ES',
+    num: 1
   }
 ]
 </script>
