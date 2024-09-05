@@ -27,7 +27,7 @@ const tableData: IItem[] = [
     num: 1
   },
   {
-    types: '示例',
+    types: '示例...',
     AAAA: 'A7RZ',
     A: 'J',
     Y: '3',
