@@ -73,8 +73,52 @@ export const getSSS = (str: string, num: number) => {
   return arr
 }
 
-const getRandomColor = () => {
-  return Math.random().toString(36).substring(2, 4).toLocaleUpperCase().padEnd(2, '0')
+// 生成校验位
+function luhnCheckChars(s: string) {
+  const b = 36
+  let sum = 0
+  let f = 2
+  let n = s.length
+
+  // First pass
+  for (let i = n - 1; i >= 0; i--) {
+    let c = s.charCodeAt(i)
+    if (c >= 65) {
+      c = c - 55
+    } else {
+      c = c - 48
+    }
+    let add = c * f
+    add = Math.floor(add / b) + (add % b)
+    sum += add
+    f = 2 / f
+  }
+
+  sum = sum % b
+  sum = (b - sum) % b
+  const c = sum >= 10 ? sum + 55 : sum + 48
+  s = s.slice(-10) + String.fromCharCode(c)
+
+  n = s.length
+
+  for (let i = n - 1; i >= 0; i--) {
+    let c2 = s.charCodeAt(i)
+    if (c2 >= 65) {
+      c2 = c2 - 55
+    } else {
+      c2 = c2 - 48
+    }
+    let add = c2 * f
+    add = Math.floor(add / b) + (add % b)
+    sum += add
+    f = 2 / f
+  }
+
+  sum = sum % b
+  sum = (b - sum) % b
+  const c2 = sum >= 10 ? sum + 55 : sum + 48
+
+  return String.fromCharCode(c) + String.fromCharCode(c2)
 }
 
 export const getSNCode = (row: IItem) => {
@@ -84,7 +128,11 @@ export const getSNCode = (row: IItem) => {
   console.log(AAAA, A, Y, WW, L, SSS, num)
 
   const arr = getSSS(SSS, num).map((item) => {
-    return `${AAAA}${A}${Y}${WW}${L}${item}${getRandomColor()}`
+    const str = `${AAAA}${A}${Y}${WW}${L}${item}`
+
+    const code = luhnCheckChars(str)
+
+    return str + code
   })
   // console.log(a)
   return arr
