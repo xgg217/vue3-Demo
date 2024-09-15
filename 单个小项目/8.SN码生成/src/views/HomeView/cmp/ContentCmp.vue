@@ -2,8 +2,19 @@
   <div>
     <el-table :data="tableData" style="width: 100%" border>
       <el-table-column prop="types" label="格式" />
-      <el-table-column prop="AAAA" label="AAAA" />
-      <el-table-column prop="A" label="A" />
+
+      <el-table-column prop="AAAA" label="AAAA">
+      <template #default="{ row }">
+          <el-input v-model="row.AAAA" minlength="4" maxlength="4" :show-word-limit="true" placeholder="请输入" />
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="A" label="A">
+        <template #default="{ row }">
+        <el-input v-model="row.A" minlength="1" maxlength="1" placeholder="请输入" />
+        </template>
+      </el-table-column>
+
 
       <!-- 表示年份的最后位如2023年用3表示 -->
       <el-table-column prop="Y" label="Y">
@@ -45,12 +56,13 @@ import LCmp from './LCmp.vue'
 import SSSCmp from './SSSCmp.vue'
 import { getSNCode, getExcel } from './../utils'
 import { ElMessage } from 'element-plus'
+import {testValue4, testValue1} from "./../utils"
 
 const tableData = ref<IItem[]>([
   {
     types: '',
-    AAAA: 'A7RZ',
-    A: 'J',
+    AAAA: '',
+    A: '',
     Y: '',
     WW: '',
     L: '',
@@ -64,7 +76,31 @@ const tableData = ref<IItem[]>([
 const submit = () => {
   const row = tableData.value[0]
 
-  const { Y, WW, L, SSS } = row
+  const { AAAA, A, Y, WW, L, SSS } = row
+
+  // AAAA 校验输入框
+  {
+    testValue4.lastIndex = 0;
+    if (!testValue4.test(AAAA)) {
+      ElMessage({
+        message: 'AAAA-请输入 0-9、A-Z 组合长度为4的字符',
+        type: 'warning'
+      })
+      return
+    }
+  }
+
+  // A 校验输入框
+  {
+    testValue1.lastIndex = 0;
+    if (!testValue1.test(A)) {
+      ElMessage({
+        message: 'A-请输入 0-9或A-Z',
+        type: 'warning'
+      })
+      return
+    }
+  }
 
   if (!Y) {
     ElMessage({

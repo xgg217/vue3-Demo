@@ -174,3 +174,7 @@ export const getExcel = (arr: string[]) => {
       console.error(error)
     })
 }
+
+// 正则 校验只能输入4位 0-9 A-Z
+export const testValue4 = /^[A-Z0-9]{4}$/g
+export const testValue1 = /^[A-Z0-9]{1}$/g
