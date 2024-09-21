@@ -131,6 +131,10 @@ const onRead = () => {
     tableData.value = JSON.parse(val)
   }
 }
+
+const onDel = (index: number) => {
+  tableData.value.splice(index, 1)
+}
 </script>
 
 <template>
@@ -218,7 +222,12 @@ const onRead = () => {
           <span>{{ getDateLen(row.xw, row.ws, row.sw) }}</span>
         </template>
       </el-table-column> -->
-      <el-table-column prop="上午" label="统计" width="400"> </el-table-column>
+      <!-- <el-table-column prop="上午" label="统计" width="400"> </el-table-column> -->
+      <el-table-column label="" width="400">
+        <template #default="{ $index }">
+          <el-button link type="primary" size="small" @click="onDel($index)"> 删除 </el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <p>共计{{ tjVal }}小时 * {{ xs }}元/小时 = {{ len }}元</p>
