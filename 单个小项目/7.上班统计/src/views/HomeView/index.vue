@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import dayjs from 'dayjs'
 
 import ListCmp from './cmp/ListCmp.vue'
@@ -10,7 +10,6 @@ const value1 = ref('')
 onMounted(() => {
   value1.value = dayjs().format('YYYY-MM')
 })
-
 </script>
 
 <template>
