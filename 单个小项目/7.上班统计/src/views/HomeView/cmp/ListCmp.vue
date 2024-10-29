@@ -18,7 +18,7 @@ const tem: IItem = {
 
 const tjArr = ref<string[]>([])
 const tjVal = ref(0)
-const xs = 20
+const xs = ref(22) // 单价
 
 const tableData = ref<IItem[]>([])
 
@@ -61,7 +61,7 @@ const len = computed(() => {
   if (tjVal.value === 0) {
     return 0
   }
-  return Big(tjVal.value).times(xs).toNumber()
+  return Big(tjVal.value).times(xs.value).toNumber()
 })
 
 const add = () => {
@@ -143,6 +143,7 @@ const onDel = (index: number) => {
     <el-button @click="onClick">统计</el-button>
     <el-button @click="onSave">保存</el-button>
     <el-button @click="onRead">读取</el-button>
+    <el-input-number v-model="xs" />
     <el-table :data="tableData" border stripe>
       <el-table-column prop="day" label="日" width="120" sortable>
         <template #default="{ row }">
