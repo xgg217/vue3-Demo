@@ -15,19 +15,22 @@
       margin-top: 50px;
     }
 
-    table thead tr th:nth-child(1) {
-      width: 100px;
+    tr {
+      display: flex;
     }
 
-    table thead tr th:nth-child(2),
-    table thead tr th:nth-child(3),
-    table thead tr th:nth-child(4),
-    table thead tr th:nth-child(5),
-    table thead tr th:nth-child(6) {
+    th,
+    td {
       width: 200px;
     }
 
-    table thead tr th:nth-child(7) {
+    tr th:nth-child(1),
+    tr td:nth-child(1) {
+      width: 100px;
+    }
+
+    table thead tr th:nth-child(7),
+    table tbody tr td:nth-child(7) {
       width: 500px;
     }
 
@@ -35,6 +38,8 @@
       margin: 0;
     }
   </style>
+
+  <script src="./exceljs.js"></script>
 </head>
 
 <body>
@@ -108,17 +113,35 @@
         </td>
         <td>
           <!-- <input class="L" placeholder="请输入" /> -->
-          <select name="L" id="L" style="width: 100px;">
-            <option value="0">0</option>
+          <select name="L" id="L" class="l" style="width: 100px;">
+            <!-- <option value="0">0</option> -->
           </select>
         </td>
         <td>
-
+          <div>
+            <select name="L" id="L" class="sss1" style="width: 100px;">
+              <!-- <option value="0">0</option> -->
+            </select>
+            <select name="L" id="L" class="sss2" style="width: 100px;">
+              <!-- <option value="0">0</option> -->
+            </select>
+            <select name="L" id="L" class="sss3" style="width: 100px;">
+              <!-- <option value="0">0</option> -->
+            </select>
+          </div>
+          <div style="display: flex;">
+            <p>需要生成的数量</p>
+            <input class="sss4" type="number" min="1" placeholder="请输入数量" />
+          </div>
         </td>
         <td></td>
       </tr>
     </tbody>
   </table>
+
+  <button type="button" class="submit">提交</button>
+
+  <script src="./index.js"></script>
 </body>
 
 </html>
