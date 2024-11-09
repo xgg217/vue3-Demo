@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      border-color: #000;
+    }
+
+    .bt {
+      margin-top: 50px;
+    }
+
+    table thead tr th:nth-child(1) {
+      width: 100px;
+    }
+
+    table thead tr th:nth-child(2),
+    table thead tr th:nth-child(3),
+    table thead tr th:nth-child(4),
+    table thead tr th:nth-child(5),
+    table thead tr th:nth-child(6) {
+      width: 200px;
+    }
+
+    table thead tr th:nth-child(7) {
+      width: 500px;
+    }
+
+    p {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <table border="1" cellspacing="1">
+    <thead>
+      <tr>
+        <th scope="col">格式</th>
+        <th scope="col">AAAA</th>
+        <th scope="col">A</th>
+        <th scope="col">Y</th>
+        <th scope="col">WW</th>
+        <th scope="col">L</th>
+        <th scope="col">SSS</th>
+        <th scope="col">XX</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>表示的函数</td>
+        <td>4位SKU固定码从"A000"o"ZZZZ"详见料号对照表SKUIndicator栏</td>
+        <td>1位Supplier site固定码;料号对照表位如2023年用3Supplier site栏</td>
+        <td>表示年份的最后位如2023年用3表示</td>
+        <td>表示雨位自然周别，如45表示45周</td>
+        <td>1位工单批号,36进制,同一周内从"0"to"9"，"A"to"Z"</td>
+        <td>3位Counter流水码36进制，每个单位递增一个计数，以"001"to"ZZZ"</td>
+        <td>2位heck digit校验码由系统自动产生，有 "0"to"9"，"A"to"Z" 组成</td>
+      </tr>
+      <tr>
+        <td>示例</td>
+        <td>A7RZ</td>
+        <td>J</td>
+        <td>3</td>
+        <td>45</td>
+        <td>0</td>
+        <td>001</td>
+        <td>ES</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="bt"></p>
+
+  <table border="1" cellspacing="1">
+    <thead>
+      <tr>
+        <th>格式</th>
+        <th>AAAA</th>
+        <th>A</th>
+        <th>Y</th>
+        <th>WW</th>
+        <th>L</th>
+        <th>SSS</th>
+        <th>XX</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td scope="row"></td>
+        <td>
+          <input class="AAAA" placeholder="请输入" />
+        </td>
+        <td>
+          <input class="A" placeholder="请输入" />
+        </td>
+        <td class="Ytd">
+          <input class="Y" type="number" placeholder="请输入年份" />
+          <p>0</p>
+        </td>
+        <td class="WWtd">
+          <input class="WW" type="week" placeholder="请输入" />
+        </td>
+        <td>
+          <!-- <input class="L" placeholder="请输入" /> -->
+          <select name="L" id="L" style="width: 100px;">
+            <option value="0">0</option>
+          </select>
+        </td>
+        <td>
+
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
