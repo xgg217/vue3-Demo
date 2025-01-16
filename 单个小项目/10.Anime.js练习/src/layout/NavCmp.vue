@@ -36,10 +36,13 @@ const arr = shallowRef<ILeftItem[]>([]);
 // 获取所有路由
 const getRouterArr = () => {
   const list = router.getRoutes(); // 获取所有路由
+  console.log(list);
+  console.log(props.pathName);
 
   const arr = list.filter((item: any) => {
     return item.path === `/${props.pathName}`;
   });
+  console.log(list);
 
   return arr[0].children.map((item: any) => {
     const { name, meta } = item;
@@ -108,6 +111,7 @@ nav {
   overflow-y: scroll;
   padding: 0 8px 16px 8px;
   box-sizing: border-box;
+  border: 1px solid #000;
 }
 ul {
   padding-left: 0;
