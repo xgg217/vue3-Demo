@@ -28,6 +28,12 @@ const route = useRoute();
 
 const avcRouteName = ref(""); // 当前被激活的路由名称
 
+const getAssetsImages = (name: string) => {
+  console.log(`/src/views/${name}`);
+
+  return new URL(`../${name}`, import.meta.url).href; // 本地文件路径
+};
+
 const arr = shallowRef<ILeftItem[]>([]);
 
 // 默认占位符
@@ -41,22 +47,32 @@ const getRouterArr = () => {
     return item.path === `/${props.pathName}`;
   });
 
+  // console.log(arr);
+
+  if (!arr.length) {
+    console.error(`未找到${props.pathName}路由`);
+
+    return [];
+  }
+
+  console.log(import.meta.url);
+
   return arr[0].children.map((item: any) => {
     const { name, meta } = item;
 
     let imgSrc = placeholderURl;
+
     // 图片存在
     if (meta.imgSrc) {
+      // 在vite 6.0.5 中才需要这种处理
+      const arr = meta.imgSrc.split("/");
+
       imgSrc = new URL(
-        `/src/views/${props.pathName}/${meta.imgSrc}`,
+        `/src/views/${props.pathName}/${arr[0]}/${arr[1]}`,
+        // `/src/views/${props.pathName}/$meta.imgSrc}`,
         import.meta.url,
       ).href;
     }
-
-    // const imgSrc = new URL(
-    //   `/src/views/${props.pathName}/${meta?.imgSrc}`,
-    //   import.meta.url,
-    // ).href;
 
     const obj: ILeftItem = {
       imgSrc,

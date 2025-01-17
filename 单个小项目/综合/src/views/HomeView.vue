@@ -2,8 +2,6 @@
 import routerObj from "@/router/index";
 import type { RouteRecordRaw } from "vue-router";
 
-console.log(routerObj.options.routes);
-
 // 获取所有路由便于展示菜单
 const { routerList, getAllRouter } = (() => {
   // 白名单
@@ -29,6 +27,7 @@ onMounted(() => {
 
 <template>
   <el-menu
+    router
     style="width: 200px"
     class="el-menu-vertical-demo"
     active-text-color="#ffd04b"

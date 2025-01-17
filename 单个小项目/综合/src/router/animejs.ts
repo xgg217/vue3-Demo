@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import AnimejsLayout from "@/views/Animejs/layout/index.vue";
+import AnimejsLayout from "@/views/animejs/layout/index.vue";
 
 const animejs: RouteRecordRaw = {
   path: "/animejs",
@@ -13,19 +13,19 @@ const animejs: RouteRecordRaw = {
     {
       path: "index",
       name: "AnimejsIndex",
-      component: () => import("@/views/Animejs/index.vue"),
+      component: () => import("@/views/animejs/index.vue"),
       meta: {
         title: "占位图",
         imgSrc: "",
       },
     },
     {
-      path: "index2",
-      name: "AnimejsIndex2",
-      component: () => import("@/views/Animejs/index2.vue"),
+      path: "movingLetters",
+      name: "MovingLetters",
+      component: () => import("@/views/animejs/MovingLetters/index.vue"),
       meta: {
-        title: "占位图",
-        imgSrc: "",
+        title: "移动的字母",
+        imgSrc: "MovingLetters/MovingLetters.gif",
       },
     },
   ],

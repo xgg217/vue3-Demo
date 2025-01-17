@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: "/onDutyStatistics",
       name: "OnDutyStatistics",
-      component: () => import("@/views/OnDutyStatistics/index.vue"),
+      component: () => import("@/views/onDutyStatistics/index.vue"),
       meta: {
         title: "上班统计",
       },
