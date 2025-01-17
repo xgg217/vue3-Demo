@@ -28,12 +28,6 @@ const route = useRoute();
 
 const avcRouteName = ref(""); // 当前被激活的路由名称
 
-const getAssetsImages = (name: string) => {
-  console.log(`/src/views/${name}`);
-
-  return new URL(`../${name}`, import.meta.url).href; // 本地文件路径
-};
-
 const arr = shallowRef<ILeftItem[]>([]);
 
 // 默认占位符
@@ -47,15 +41,11 @@ const getRouterArr = () => {
     return item.path === `/${props.pathName}`;
   });
 
-  // console.log(arr);
-
   if (!arr.length) {
     console.error(`未找到${props.pathName}路由`);
 
     return [];
   }
-
-  console.log(import.meta.url);
 
   return arr[0].children.map((item: any) => {
     const { name, meta } = item;
@@ -101,7 +91,6 @@ const onPage = (name: ILeftItem["routeName"]) => {
   }
 
   const isBool = router.hasRoute(name);
-  // console.log(name);
 
   if (isBool) {
     router.push({ name });
