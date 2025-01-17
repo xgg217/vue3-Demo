@@ -1,35 +1,45 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import routerObj from "@/router/index";
+import type { RouteRecordRaw } from "vue-router";
+
+console.log(routerObj.options.routes);
+
+// 获取所有路由便于展示菜单
+const { routerList, getAllRouter } = (() => {
+  // 白名单
+  const whiteList = ["/", "/404"];
+
+  // 所有路由
+  const routerList = shallowRef<RouteRecordRaw[]>([]);
+
+  const getAllRouter = () => {
+    // routerObj.getRoutes
+    routerList.value = routerObj.options.routes.filter(item => {
+      return !whiteList.includes(item.path);
+    });
+  };
+
+  return { routerList, getAllRouter };
+})();
+
+onMounted(() => {
+  getAllRouter();
+});
+</script>
 
 <template>
-  <el-menu default-active="2" class="el-menu-vertical-demo">
-    <el-sub-menu index="1">
-      <template #title>
-        <el-icon><location /></el-icon>
-        <span>Navigator One</span>
-      </template>
-      <el-menu-item-group title="Group One">
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title>item four</template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
-      <span>Navigator Two</span>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <el-icon><document /></el-icon>
-      <span>Navigator Three</span>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon><setting /></el-icon>
-      <span>Navigator Four</span>
-    </el-menu-item>
+  <el-menu
+    style="width: 200px"
+    class="el-menu-vertical-demo"
+    active-text-color="#ffd04b"
+    background-color="#545c64"
+    default-active="2"
+    text-color="#fff"
+  >
+    <template v-for="item of routerList" :key="item.path">
+      <el-menu-item :index="item.path">
+        <span>{{ item.meta?.title }}</span>
+      </el-menu-item>
+    </template>
   </el-menu>
 </template>

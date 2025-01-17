@@ -19,6 +19,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "index2",
+      name: "AnimejsIndex2",
+      component: () => import("@/views/Animejs/index2.vue"),
+      meta: {
+        title: "占位图",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
