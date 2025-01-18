@@ -28,6 +28,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "MovingLetters/MovingLetters.gif",
       },
     },
+    {
+      path: "circularMotion",
+      name: "CircularMotion",
+      component: () => import("@/views/animejs/CircularMotion/index.vue"),
+      meta: {
+        title: "圆周运动",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
