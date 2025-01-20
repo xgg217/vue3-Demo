@@ -46,17 +46,20 @@ const emit = defineEmits<{
   cursor: pointer;
   box-sizing: border-box;
   margin-bottom: 16px;
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
+  width: calc(var(--nav) - 50px);
 }
 
 .avc {
   border-color: #049ef4;
-  border-width: 3px;
+  /* border-width: 3px; */
 }
 
 .imgs {
   /* border: 1px solid blue; */
-  width: 100%;
+  /* width: 100%; */
+  /* width: var(calc(var(--nav) - 24px)); */
+  width: 270px;
   height: 160px;
   box-sizing: border-box;
   display: flex;

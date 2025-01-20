@@ -10,7 +10,7 @@ const { xs, tjVal, len, tjArr } = (() => {
   const xs = ref(22); // 单价
   const tjVal = ref(0);
 
-  const tjArr = ref<string[]>([]);
+  const tjArr = shallowRef<string[]>([]);
 
   const len = computed(() => {
     if (tjVal.value === 0) {

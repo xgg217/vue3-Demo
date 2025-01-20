@@ -1,33 +1,61 @@
 <template>
-  <ul>
-    <li><ThursdayCmp></ThursdayCmp></li>
-    <li>
-      <SunnyMorningsCmp></SunnyMorningsCmp>
+  <ul class="moving">
+    <li v-for="item in myComponents" :key="item">
+      <component :is="item" />
     </li>
-    <li>
-      <GreatThinkersCmp></GreatThinkersCmp>
-    </li>
-    <li>1</li>
   </ul>
 </template>
 
 <script setup lang="ts">
-import ThursdayCmp from "./cmp/ThursdayCmp.vue";
-import SunnyMorningsCmp from "./cmp/SunnyMorningsCmp.vue";
-import GreatThinkersCmp from "./cmp/GreatThinkersCmp.vue";
+const myComponents = shallowRef<any>({});
+
+const init = () => {
+  // 导入当前所有子组件
+  const modules = import.meta.glob("@/views/animejs/MovingLetters/cmp/*.vue", {
+    eager: true,
+  });
+  // console.log(modules);
+
+  myComponents.value = Object.values(modules).map(item => {
+    // @ts-ignore
+    return item.default;
+  });
+
+  // for (const path in modules) {
+  //   const componentName = path.replace(/^\.\/(.*)\.vue$/, "$1");
+  //   // console.log(name, component);
+  //   // console.log(componentName);
+  //   // console.log(modules.default);
+  //   // @ts-ignore
+  //   myComponents[componentName] = modules[path].default;
+  // }
+
+  console.log(myComponents);
+};
+
+onMounted(() => {
+  init();
+});
 </script>
 
 <style scoped>
-ul {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 500px);
+ul.moving {
+  border: 1px solid #000;
+  /* display: grid; */
+  width: calc(100vw - var(--nav));
+  height: 100%;
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  border: 1px solid #000;
   padding: 0;
   margin: 0;
 }
 
 li {
   list-style: none;
+  height: 500px;
+  width: 50%;
   /* border: 1px solid #000; */
 }
 </style>
