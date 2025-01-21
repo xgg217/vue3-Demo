@@ -1,20 +1,9 @@
 <template>
-  <div class="layout">
-    <!-- 左侧导航栏 -->
-    <NavCmp path-name="animejs" />
-
-    <!-- 内容区 -->
-    <MainCmp />
-  </div>
+  <LayoutCmp path-name="animejs"></LayoutCmp>
 </template>
 
 <script setup lang="ts">
-import MainCmp from "@/components/layout/MainCmp.vue";
-import NavCmp from "@/components/layout/NavCmp.vue";
+import LayoutCmp from "@/components/layout/index.vue";
 </script>
 
-<style scoped>
-.layout {
-  display: flex;
-}
-</style>
+<style scoped></style>

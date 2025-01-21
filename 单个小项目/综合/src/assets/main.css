@@ -1,6 +1,19 @@
 :root {
   --nav: 330px;
-  --view-height: 96.5vh;
+  --view-height: 100vh;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+
+
+
+main {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 main > .box {
@@ -8,4 +21,8 @@ main > .box {
   align-items: center;
   height: 100%;
   box-sizing: border-box;
+}
+
+li {
+  list-style: none;
 }
