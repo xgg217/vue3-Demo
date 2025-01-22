@@ -2,6 +2,7 @@
   <div>
     <ul>
       <li>学习 https://www.php.cn/faq/597799.html</li>
+      <li>学习 https://www.php.cn/faq/601326.html</li>
       <li>移动字母 https://tobiasahlin.com/moving-letters/</li>
       <li>
         官网示例 https://blog.csdn.net/qq_50497708/article/details/128347670

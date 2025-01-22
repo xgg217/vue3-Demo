@@ -29,6 +29,15 @@ const animejs: RouteRecordRaw = {
       },
     },
     {
+      path: "targetAndAttribute",
+      name: "TargetAndAttribute",
+      component: () => import("@/views/animejs/TargetAndAttribute/index.vue"),
+      meta: {
+        title: "第一部分 目标与属性",
+        imgSrc: "",
+      },
+    },
+    {
       path: "circularMotion",
       name: "CircularMotion",
       component: () => import("@/views/animejs/CircularMotion/index.vue"),
