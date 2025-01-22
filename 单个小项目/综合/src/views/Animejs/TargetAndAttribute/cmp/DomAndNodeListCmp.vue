@@ -24,12 +24,9 @@
 
 <script setup lang="ts">
 import anime from "animejs";
+import type { TAnimeInstance } from "@/views/animejs/types";
 
-type AnimeInstance = {
-  [key: string]: anime.AnimeInstance | null;
-};
-
-const animeRow: AnimeInstance = {
+const animeRow: TAnimeInstance = {
   orange: null,
   first: null,
   // redBlue: null,

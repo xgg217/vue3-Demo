@@ -1,33 +1,36 @@
 <template>
-  <div class="box1">
+  <div class="box3">
     <h3>对象</h3>
 
-    <ul>
-      <li v-for="i in 9" :key="i"></li>
-    </ul>
+    <h2 class="scan-headline">
+      Files Scanned: <span class="scan-count">0</span>
+    </h2>
+    <h2 class="infected-headline">
+      Infected Files: <span class="infected-count">0</span>
+    </h2>
 
     <div class="but">
-      <el-button type="primary" @click="onBlue">蓝色下落</el-button>
+      <!-- <el-button type="primary" @click="onBlue">蓝色下落</el-button>
       <el-button type="primary" @click="onBlueRed">蓝色红色下落</el-button>
       <el-button type="primary" @click="onEven">偶数行下落</el-button>
       <el-button type="primary" @click="onNotRed">非红下落</el-button>
-      <el-button type="primary" @click="onReset">重置</el-button>
+      <el-button type="primary" @click="onReset">重置</el-button> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import anime from "animejs";
+import type { TAnimeInstance } from "@/views/animejs/types";
 
-type AnimeInstance = {
-  [key: string]: anime.AnimeInstance | null;
+const obj = {
+  filesScanned: 1000,
+  infectedFiles: 8,
 };
 
-const animeRow: AnimeInstance = {
-  blue: null,
-  blueRed: null,
-  even: null,
-  notRed: null,
+const animeRow: TAnimeInstance = {
+  filesScanned: null,
+  infectedFiles: null,
 };
 
 const init = () => {
@@ -87,51 +90,31 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.box1 {
+.box3 {
   /* border: 1px solid red; */
   width: 100%;
   height: 100%;
   position: relative;
   top: 0;
   left: 0;
-}
-.box1 ul {
-  position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  li {
-    width: 50px;
-    height: 50px;
-    /* border: 1px solid #000; */
-    margin-right: 10px;
+  .scan-headline {
+    color: cornflowerblue;
   }
 
-  li:nth-child(3n + 1) {
-    background: blue;
+  .infected-headline {
+    color: red;
   }
 
-  li:nth-child(3n + 2) {
-    background: red;
+  .but {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
-
-  li:nth-child(3n + 3) {
-    background: black;
-  }
-}
-
-.box1 .but {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 </style>
