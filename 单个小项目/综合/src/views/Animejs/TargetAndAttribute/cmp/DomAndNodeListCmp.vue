@@ -3,19 +3,73 @@
     <h3>DOM 节点或NodeList</h3>
 
     <ul>
-      <li v-for="i in 9" :key="i"></li>
+      <li class="blue"></li>
+      <li class="red"></li>
+      <li class="orange"></li>
+      <li class="blue"></li>
+      <li class="red"></li>
+      <li class="black"></li>
+      <li class="blue"></li>
+      <li class="red"></li>
+      <li class="black"></li>
     </ul>
 
-    <!-- <div class="but">
-      <el-button type="primary" @click="onBlue">蓝色下落</el-button>
-      <el-button type="primary" @click="onBlueRed">蓝色红色下落</el-button>
-      <el-button type="primary" @click="onEven">偶数行下落</el-button>
-      <el-button type="primary" @click="onNotRed">非红色</el-button>
-    </div> -->
+    <div class="but">
+      <el-button type="primary" @click="onOrange">黄色下落</el-button>
+      <el-button type="primary" @click="onFirst">第一个下落</el-button>
+      <el-button type="primary" @click="onReset">重置</el-button>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import anime from "animejs";
+
+type AnimeInstance = {
+  [key: string]: anime.AnimeInstance | null;
+};
+
+const animeRow: AnimeInstance = {
+  orange: null,
+  first: null,
+  // redBlue: null,
+  // even: null,
+  // notRed: null,
+};
+
+const init = () => {
+  animeRow.orange = anime({
+    targets: document.querySelectorAll(".box2 li.orange"),
+    translateY: 400,
+    autoplay: false,
+  });
+
+  animeRow.first = anime({
+    targets: document.querySelectorAll(".box2 li")[0],
+    translateY: 400,
+    autoplay: false,
+  });
+};
+
+// 黄色下落
+const onOrange = () => {
+  animeRow.orange?.restart();
+};
+
+// 第一个下落
+const onFirst = () => {
+  animeRow.first?.restart();
+};
+
+// 重置
+const onReset = () => {
+  Object.values(animeRow).forEach(item => item?.seek(0));
+};
+
+onMounted(() => {
+  init();
+});
+</script>
 
 <style scoped>
 .box2 {
@@ -42,15 +96,19 @@
     margin-right: 10px;
   }
 
-  li:nth-child(3n + 1) {
+  li.blue {
     background: blue;
   }
 
-  li:nth-child(3n + 2) {
+  li.red {
     background: red;
   }
 
-  li:nth-child(3n + 3) {
+  li.orange {
+    background: orange;
+  }
+
+  li.black {
     background: black;
   }
 }
