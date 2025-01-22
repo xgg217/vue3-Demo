@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="card">
     <li v-for="item in props.arr" :key="item">
       <component :is="item" />
     </li>
@@ -11,13 +11,13 @@ const props = defineProps<{ arr: any[] }>();
 </script>
 
 <style scoped>
-ul {
+ul.card {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
 
-li {
+.card li {
   width: 50%;
   box-sizing: border-box;
   border: 1px solid #000;

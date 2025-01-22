@@ -1,6 +1,9 @@
 <template>
   <div>
     <ul>
+      <li>
+        https://code.tutsplus.com/javascript-based-animations-using-animejs-targets-and-properties--cms-28894t
+      </li>
       <li>学习 https://www.php.cn/faq/597799.html</li>
       <li>学习 https://www.php.cn/faq/601326.html</li>
       <li>移动字母 https://tobiasahlin.com/moving-letters/</li>
