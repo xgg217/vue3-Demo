@@ -3,72 +3,54 @@
     <h3>对象</h3>
 
     <h2 class="scan-headline">
-      Files Scanned: <span class="scan-count">0</span>
+      Files Scanned: <span class="scan-count">{{ endObj.filesScanned }}</span>
     </h2>
     <h2 class="infected-headline">
-      Infected Files: <span class="infected-count">0</span>
+      Infected Files:
+      <span class="infected-count">{{ endObj.infectedFiles }}</span>
     </h2>
 
-    <div class="but"></div>
+    <div class="but">
+      <el-button type="primary" @click="onStart">开始</el-button>
+      <el-button type="primary" @click="onReset">重置</el-button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import anime from "animejs";
-import type { TAnimeInstance } from "@/views/animejs/types";
 
-const obj = {
-  filesScanned: 1000,
-  infectedFiles: 8,
-};
-
-const row = reactive({
+const endObj = reactive({
   filesScanned: 0,
   infectedFiles: 0,
 });
 
-const animeRow: TAnimeInstance = {
-  filesScanned: null,
-  infectedFiles: null,
-};
+const startObj = { filesScanned: 0, infectedFiles: 0 };
+const animeRow = ref<anime.AnimeInstance | null>(null);
 
 const init = () => {
-  animeRow.filesScanned = anime({
-    targets: ".box3 .scan-count",
-    translateY: 400,
+  animeRow.value = anime({
+    targets: startObj,
+    filesScanned: 1000,
+    infectedFiles: 8,
     autoplay: false,
-  });
-
-  animeRow.infectedFiles = anime({
-    targets: ".box3 .infected-count",
-    translateY: 400,
-    autoplay: false,
+    round: 1,
+    easing: "linear",
+    duration: 1500,
+    update: function () {
+      Object.assign(endObj, { ...startObj });
+    },
   });
 };
 
 // 蓝色下落
-const onBlue = () => {
-  animeRow.blue?.restart();
-};
-
-// 蓝色红色下落
-const onBlueRed = () => {
-  animeRow.blueRed?.restart();
-};
-
-// 偶数行下落
-const onEven = () => {
-  animeRow.even?.restart();
-};
-
-// 非红色
-const onNotRed = () => {
-  animeRow.notRed?.restart();
+const onStart = () => {
+  animeRow.value?.restart();
 };
 
 // 重置
 const onReset = () => {
-  Object.values(animeRow).forEach(item => item?.seek(0));
+  animeRow.value?.seek(0);
 };
 
 onMounted(() => {

@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import AnimejsLayout from "@/views/animejs/layout/index.vue";
+import AnimejsLayout from "@/views/Animejs/layout/index.vue";
 
 const animejs: RouteRecordRaw = {
   path: "/animejs",
@@ -13,7 +13,7 @@ const animejs: RouteRecordRaw = {
     {
       path: "index",
       name: "AnimejsIndex",
-      component: () => import("@/views/animejs/index.vue"),
+      component: () => import("@/views/Animejs/index.vue"),
       meta: {
         title: "占位图",
         imgSrc: "",
@@ -22,7 +22,7 @@ const animejs: RouteRecordRaw = {
     {
       path: "movingLetters",
       name: "MovingLetters",
-      component: () => import("@/views/animejs/MovingLetters/index.vue"),
+      component: () => import("@/views/Animejs/MovingLetters/index.vue"),
       meta: {
         title: "移动的字母",
         imgSrc: "MovingLetters/MovingLetters.gif",
@@ -31,7 +31,7 @@ const animejs: RouteRecordRaw = {
     {
       path: "targetAndAttribute",
       name: "TargetAndAttribute",
-      component: () => import("@/views/animejs/TargetAndAttribute/index.vue"),
+      component: () => import("@/views/Animejs/TargetAndAttribute/index.vue"),
       meta: {
         title: "第一部分 目标与属性",
         imgSrc: "",
@@ -40,7 +40,7 @@ const animejs: RouteRecordRaw = {
     {
       path: "circularMotion",
       name: "CircularMotion",
-      component: () => import("@/views/animejs/CircularMotion/index.vue"),
+      component: () => import("@/views/Animejs/CircularMotion/index.vue"),
       meta: {
         title: "圆周运动",
         imgSrc: "",
