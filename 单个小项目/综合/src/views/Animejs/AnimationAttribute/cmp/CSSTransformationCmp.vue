@@ -1,13 +1,13 @@
 <template>
-  <div class="box1">
+  <div class="box2">
     <h3>CSS 转换</h3>
     <div class="square"></div>
 
     <div class="but">
-      <el-button type="primary" @click="onLeft">向左移动</el-button>
-      <el-button type="primary" @click="onBGCOrange">变橙色</el-button>
-      <el-button type="primary" @click="onRadius">变成圆角</el-button>
-      <el-button type="primary" @click="onAll">向左+变色+圆角</el-button>
+      <el-button type="primary" @click="onScale">缩小</el-button>
+      <el-button type="primary" @click="onTranslateX">向右移动</el-button>
+      <el-button type="primary" @click="onRotate">旋转</el-button>
+      <el-button type="primary" @click="onAll">缩小+向右移动+旋转</el-button>
       <el-button type="primary" @click="onReset">重置</el-button>
     </div>
   </div>
@@ -18,57 +18,57 @@ import anime from "animejs";
 import type { TAnimeInstance } from "@/views/Animejs/types";
 
 const animeRow: TAnimeInstance = {
-  left: null,
-  bgcOrange: null,
-  radius: null,
+  scale: null,
+  translateX: null,
+  rotate: null,
   all: null,
 };
 
 const row = {
+  scale: 0.8,
   translateX: 400,
-  backgroundColor: "#ffa500",
-  borderRadius: "50%",
+  rotate: "1turn",
 };
 
 const init = () => {
-  animeRow.left = anime({
-    targets: ".box1 .square",
+  animeRow.scale = anime({
+    targets: ".box2 .square",
+    scale: row.scale,
+    autoplay: false,
+  });
+  animeRow.translateX = anime({
+    targets: ".box2 .square",
     translateX: row.translateX,
     autoplay: false,
   });
-  animeRow.bgcOrange = anime({
-    targets: ".box1 .square",
-    backgroundColor: row.backgroundColor,
-    autoplay: false,
-  });
-  animeRow.radius = anime({
-    targets: ".box1 .square",
-    borderRadius: row.borderRadius,
+  animeRow.rotate = anime({
+    targets: ".box2 .square",
+    rotate: row.rotate,
     autoplay: false,
   });
   animeRow.all = anime({
-    targets: ".box1 .square",
+    targets: ".box2 .square",
     ...row,
     autoplay: false,
   });
 };
 
-// 向左移动
-const onLeft = () => {
-  animeRow.left?.restart();
+// 缩小
+const onScale = () => {
+  animeRow.scale?.restart();
 };
 
-// 变橙色
-const onBGCOrange = () => {
-  animeRow.bgcOrange?.restart();
+// 向右移动
+const onTranslateX = () => {
+  animeRow.translateX?.restart();
 };
 
-// 变成圆角
-const onRadius = () => {
-  animeRow.radius?.restart();
+// 旋转
+const onRotate = () => {
+  animeRow.rotate?.restart();
 };
 
-// 向左+变色+圆角
+// 缩小+向右移动+旋转
 const onAll = () => {
   animeRow.all?.restart();
 };
@@ -84,7 +84,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.box1 {
+.box2 {
   position: relative;
   top: 0;
   left: 0;
@@ -93,13 +93,13 @@ onMounted(() => {
   padding: 50px 0 0 50px;
   box-sizing: border-box;
 }
-.box1 .square {
+.box2 .square {
   width: 150px;
   height: 150px;
   background-color: blue;
 }
 
-.box1 .but {
+.box2 .but {
   position: absolute;
   bottom: 50px;
   left: 50%;

@@ -4,7 +4,7 @@
     <div class="square"></div>
 
     <div class="but">
-      <el-button type="primary" @click="onLeft">向左移动</el-button>
+      <el-button type="primary" @click="onLeft">向右移动</el-button>
       <el-button type="primary" @click="onBGCOrange">变橙色</el-button>
       <el-button type="primary" @click="onRadius">变成圆角</el-button>
       <el-button type="primary" @click="onAll">向左+变色+圆角</el-button>
