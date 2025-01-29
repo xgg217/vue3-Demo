@@ -1,6 +1,6 @@
 <template>
   <div class="box1">
-    <h3>CSS 属性</h3>
+    <h3>CSS 转换</h3>
     <div class="square"></div>
 
     <div class="but">
