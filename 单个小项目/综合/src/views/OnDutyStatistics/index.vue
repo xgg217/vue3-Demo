@@ -27,115 +27,129 @@ const { xs, tjVal, len, tjArr } = (() => {
   };
 })();
 
-const { tableData, add, onClick, onSave, onRead, onDel, tableDataInit } =
-  (() => {
-    const tem: IItem = {
-      day: 0,
-      xwS: "", // 下午
-      xwE: "", // 下午
-      wsS: "", // 晚上
-      wsE: "", // 晚上
-      swS: "", // 上午
-      swE: "", // 上午
-    };
+const {
+  tableData,
+  loading,
+  add,
+  onClick,
+  onSave,
+  onRead,
+  onDel,
+  tableDataInit,
+} = (() => {
+  const tem: IItem = {
+    day: 0,
+    xwS: "", // 下午
+    xwE: "", // 下午
+    wsS: "", // 晚上
+    wsE: "", // 晚上
+    swS: "", // 上午
+    swE: "", // 上午
+  };
 
-    const tableData = shallowRef<IItem[]>([]);
+  const loading = ref(false);
 
-    const add = () => {
-      tableData.value.push({
-        ...tem,
-        day: 1,
+  const tableData = shallowRef<IItem[]>([]);
+
+  const add = () => {
+    tableData.value.push({
+      ...tem,
+      day: 1,
+    });
+  };
+
+  const onClick = () => {
+    let tj = Big(0);
+    tjArr.value = tableData.value
+      .map(item => {
+        const { day, xwS, xwE, wsS, wsE, swS, swE } = item;
+
+        const arr1: IDate = [xwS, xwE];
+        const arr2: IDate = [wsS, wsE];
+        const arr3: IDate = [swS, swE];
+        // arr.push(arr1, arr2, arr3)
+        // const obj = {
+        //   day,
+        //   arr
+        // }
+        // return obj
+        // return `${day}号`
+        let str = `${day}号`;
+
+        // 下午存在
+        if (xwS && xwE) {
+          str += ` ${xwS}-${xwE}`;
+        }
+
+        // 晚上存在
+        if (wsS && wsE) {
+          // str += ` ${wsS}-${wsE}`
+          // 凌晨存在
+          if (swS && swE) {
+            str += ` ${xwS}-${swE}`;
+          } else {
+            str += ` ${wsS}-${wsE}`;
+          }
+        }
+
+        const val = getDateLen(arr1, arr2, arr3);
+        return {
+          day: item.day,
+          val,
+        };
+      })
+      .filter(item => {
+        return item.val > 0;
+      })
+      .map(item => {
+        tj = Big(tj).plus(item.val);
+        return `${item.day}号 ${item.val}小时`;
       });
-    };
 
-    const onClick = () => {
-      let tj = Big(0);
-      tjArr.value = tableData.value
-        .map(item => {
-          const { day, xwS, xwE, wsS, wsE, swS, swE } = item;
+    tjVal.value = tj.toNumber();
+  };
 
-          const arr1: IDate = [xwS, xwE];
-          const arr2: IDate = [wsS, wsE];
-          const arr3: IDate = [swS, swE];
-          // arr.push(arr1, arr2, arr3)
-          // const obj = {
-          //   day,
-          //   arr
-          // }
-          // return obj
-          // return `${day}号`
-          let str = `${day}号`;
+  const onDel = (index: number) => {
+    tableData.value.splice(index, 1);
+  };
 
-          // 下午存在
-          if (xwS && xwE) {
-            str += ` ${xwS}-${xwE}`;
-          }
+  // 存储
+  const onSave = () => {
+    window.localStorage.setItem(name, JSON.stringify(tableData.value));
+  };
 
-          // 晚上存在
-          if (wsS && wsE) {
-            // str += ` ${wsS}-${wsE}`
-            // 凌晨存在
-            if (swS && swE) {
-              str += ` ${xwS}-${swE}`;
-            } else {
-              str += ` ${wsS}-${wsE}`;
-            }
-          }
+  // 读取
+  const onRead = () => {
+    const val = window.localStorage.getItem(name);
+    if (val) {
+      tableData.value = JSON.parse(val);
+    }
+  };
 
-          const val = getDateLen(arr1, arr2, arr3);
-          return {
-            day: item.day,
-            val,
-          };
-        })
-        .filter(item => {
-          return item.val > 0;
-        })
-        .map(item => {
-          tj = Big(tj).plus(item.val);
-          return `${item.day}号 ${item.val}小时`;
-        });
-
-      tjVal.value = tj.toNumber();
-    };
-
-    const onDel = (index: number) => {
-      tableData.value.splice(index, 1);
-    };
-
-    // 存储
-    const onSave = () => {
-      window.localStorage.setItem(name, JSON.stringify(tableData.value));
-    };
-
-    // 读取
-    const onRead = () => {
-      const val = window.localStorage.getItem(name);
-      if (val) {
-        tableData.value = JSON.parse(val);
-      }
-    };
-
-    // 初始化
-    const tableDataInit = () => {
-      const arr: IItem[] = [];
-
+  // 初始化
+  const tableDataInit = () => {
+    const arr: IItem[] = [];
+    loading.value = true;
+    setTimeout(() => {
       for (let i = 1; i <= 31; i++) {
         arr.push({ ...tem, day: i });
       }
       tableData.value = arr;
-    };
+      loading.value = false;
+    }, 1000);
+  };
 
-    return {
-      tableData,
-      add,
-      onClick,
-      onSave,
-      onRead,
-      onDel,
-      tableDataInit,
-    };
-  })();
+  return {
+    tableData,
+    loading,
+    add,
+    onClick,
+    onSave,
+    onRead,
+    onDel,
+    tableDataInit,
+  };
+})();
 
 onMounted(() => {
   tableDataInit();
@@ -152,7 +166,7 @@ onMounted(() => {
       <el-input-number v-model="xs" />
     </div>
     <div class="table">
-      <el-table :data="tableData" border stripe>
+      <el-table :data="tableData" border stripe v-loading="loading">
         <el-table-column prop="day" label="日" width="120" sortable>
           <template #default="{ row }">
             <el-select v-model="row.day" style="width: 80px">
