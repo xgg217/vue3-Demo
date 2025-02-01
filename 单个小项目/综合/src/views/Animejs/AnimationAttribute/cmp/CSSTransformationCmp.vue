@@ -27,7 +27,8 @@ const animeRow: TAnimeInstance = {
 const row = {
   scale: 0.8,
   translateX: 400,
-  rotate: "1turn",
+  // rotate: "1turn", // 旋转360度
+  rotate: "650deg", // 650度
 };
 
 const init = () => {
@@ -36,16 +37,19 @@ const init = () => {
     scale: row.scale,
     autoplay: false,
   });
+
   animeRow.translateX = anime({
     targets: ".box2 .square",
     translateX: row.translateX,
     autoplay: false,
   });
+
   animeRow.rotate = anime({
     targets: ".box2 .square",
     rotate: row.rotate,
     autoplay: false,
   });
+
   animeRow.all = anime({
     targets: ".box2 .square",
     ...row,
