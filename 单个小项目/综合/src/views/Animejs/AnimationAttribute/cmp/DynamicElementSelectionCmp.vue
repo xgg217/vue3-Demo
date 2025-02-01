@@ -42,7 +42,9 @@ const onReset = () => {
 
 onMounted(() => {
   content.value = content.value.replace(/(\w+)/g, "<span>$&</span>");
-  init();
+  setTimeout(() => {
+    init();
+  }, 1000);
 });
 </script>
 
