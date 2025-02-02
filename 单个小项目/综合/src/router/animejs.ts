@@ -47,6 +47,15 @@ const animejs: RouteRecordRaw = {
       },
     },
     {
+      path: "attributeParameter",
+      name: "AttributeParameter",
+      component: () => import("@/views/Animejs/AttributeParameter/index.vue"),
+      meta: {
+        title: "第二部分 属性参数",
+        imgSrc: "",
+      },
+    },
+    {
       path: "custom",
       name: "Custom",
       component: () => import("@/views/Animejs/Custom/index.vue"),
