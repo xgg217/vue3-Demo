@@ -5,7 +5,13 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+/**
+ * 动态添加元素
+ * 圆周运动
+ * 鼠标点击跟随运动
+ */
+</script>
 
 <style scoped>
 .box {

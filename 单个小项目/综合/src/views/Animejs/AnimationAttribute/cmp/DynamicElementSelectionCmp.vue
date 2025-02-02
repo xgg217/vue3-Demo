@@ -6,7 +6,6 @@
 
     <div class="but">
       <el-button type="primary" @click="onProgress">开始</el-button>
-      <el-button type="primary" @click="onReset">重置</el-button>
     </div>
   </div>
 </template>
@@ -25,6 +24,7 @@ const init = () => {
   animeRow.all = anime({
     targets: ".box4 .title span",
     opacity: 1,
+    color: "#000",
     translateY: 100,
     delay: anime.stagger(1000),
     // autoplay: false,
@@ -33,11 +33,6 @@ const init = () => {
 
 const onProgress = () => {
   animeRow.all?.restart();
-};
-
-// 重置
-const onReset = () => {
-  Object.values(animeRow).forEach(item => item?.seek(0));
 };
 
 onMounted(() => {
@@ -67,7 +62,7 @@ onMounted(() => {
     justify-content: center;
     flex-wrap: wrap;
     gap: 2rem;
-    /* color: white; */
+    color: white;
     /* border: 1px solid #000; */
     width: 80%;
     height: 80%;

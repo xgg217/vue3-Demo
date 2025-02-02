@@ -47,11 +47,11 @@ const animejs: RouteRecordRaw = {
       },
     },
     {
-      path: "circularMotion",
-      name: "CircularMotion",
-      component: () => import("@/views/Animejs/CircularMotion/index.vue"),
+      path: "custom",
+      name: "Custom",
+      component: () => import("@/views/Animejs/Custom/index.vue"),
       meta: {
-        title: "圆周运动",
+        title: "自定义",
         imgSrc: "",
       },
     },
