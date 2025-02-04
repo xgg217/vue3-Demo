@@ -1,5 +1,5 @@
 <template>
-  <div class="box1">
+  <div class="box2">
     <h3>纯CSS</h3>
     <div class="sphere"></div>
     <div class="tips"></div>
@@ -28,12 +28,12 @@ const init = () => {
   // const centerX = 391 + 150;
   // const centerY = ;
 
-  const box1 = document.querySelector(".box1")! as HTMLElement;
+  const box2 = document.querySelector(".box2")! as HTMLElement;
 
   // 获取矩形中心点
   {
-    centerX.value = box1.offsetLeft + box1.clientWidth / 2;
-    centerY.value = box1.offsetTop + box1.clientHeight / 2;
+    centerX.value = box2.offsetLeft + box2.clientWidth / 2;
+    centerY.value = box2.offsetTop + box2.clientHeight / 2;
     console.log(centerX.value, centerY.value);
   }
 
@@ -42,7 +42,7 @@ const init = () => {
 
   // 获取元素位置
   const rect = sphereDom.getBoundingClientRect();
-  const elementLeft = rect.left - box1.offsetLeft;
+  const elementLeft = rect.left - box2.offsetLeft;
   const elementTop = rect.top;
   console.log(elementLeft, elementTop);
 
@@ -101,7 +101,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.box1 {
+.box2 {
   /* border: 1px solid red; */
   width: 100%;
   height: 100%;
