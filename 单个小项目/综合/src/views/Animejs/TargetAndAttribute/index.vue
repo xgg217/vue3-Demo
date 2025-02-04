@@ -28,17 +28,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-ul {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-li {
-  width: 50%;
-  box-sizing: border-box;
-  border: 1px solid #000;
-  height: 700px;
-}
-</style>
+<style scoped></style>
