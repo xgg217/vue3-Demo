@@ -3,8 +3,8 @@
     <h3>沿着矩形轨迹运动</h3>
     <div class="box">
       <div
-        class="sphere"
-        :style="{ transform: `translateX(${x}px) translateY(${y}px)` }"
+        class="sphere3"
+        :style="{ transform: `translateX(${row.x}px) translateY(${row.y}px)` }"
       ></div>
     </div>
 
@@ -19,18 +19,15 @@
 import anime from "animejs";
 import type { TAnimeInstance } from "@/views/animejs/types";
 
-const x = ref(0);
-const y = ref(0);
-
 const animeRow: TAnimeInstance = {
   start: null,
 };
 
-const row = {
+const row = reactive({
   x: 0,
   y: 0,
   // angle: [0, ]
-};
+});
 
 const init = () => {
   animeRow.start = anime
@@ -43,12 +40,12 @@ const init = () => {
       round: 1,
       // direction: "alternate",
       loop: true,
-      update: function () {
-        console.log(row);
+      // update: function () {
+      //   console.log(row);
 
-        x.value = row.x;
-        y.value = row.y;
-      },
+      //   x.value = row.x;
+      //   y.value = row.y;
+      // },
     })
     .add({
       x: 0,
@@ -115,7 +112,7 @@ onMounted(() => {
     margin: 100px auto 0 auto;
     /* border-radius: 50%; */
 
-    .sphere {
+    .sphere3 {
       position: absolute;
       width: 100px;
       height: 100px;
@@ -138,20 +135,4 @@ onMounted(() => {
     flex-wrap: wrap;
   }
 }
-/* .box1 .square {
-  width: 150px;
-  height: 150px;
-  background-color: blue;
-}
-
-.box1 .but {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-} */
 </style>
