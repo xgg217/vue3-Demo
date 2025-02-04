@@ -11,7 +11,7 @@ const myComponentsList = shallowRef<any[]>([]);
 
 const init = () => {
   // 导入当前所有子组件
-  const modules = import.meta.glob("@/views/animejs/MovingLetters/cmp/*.vue", {
+  const modules = import.meta.glob("@/views/Animejs/MovingLetters/cmp/*.vue", {
     eager: true,
   });
   // console.log(modules);

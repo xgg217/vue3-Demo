@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import BoxListCmp from "@/views/animejs/cmp/BoxListCmp.vue";
+import BoxListCmp from "@/views/Animejs/cmp/BoxListCmp.vue";
 
 const myComponentsList = shallowRef<any[]>([]);
 const init = () => {

@@ -12,7 +12,7 @@
  * 圆周运动
  * 鼠标点击跟随运动
  */
-import BoxListCmp from "@/views/animejs/cmp/BoxListCmp.vue";
+import BoxListCmp from "@/views/Animejs/cmp/BoxListCmp.vue";
 
 const myComponentsList = shallowRef<any[]>([]);
 const init = () => {

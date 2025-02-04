@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import anime from "animejs";
-import type { TAnimeInstance } from "@/views/animejs/types";
+import type { TAnimeInstance } from "@/views/Animejs/types";
 
 const animeRow: TAnimeInstance = {
   one: null,
@@ -78,21 +78,6 @@ const init = () => {
     easing: "easeInOutCubic",
     autoplay: false,
   });
-  // animeRow.bgcOrange = anime({
-  //   targets: ".box1 .square",
-  //   backgroundColor: row.backgroundColor,
-  //   autoplay: false,
-  // });
-  // animeRow.radius = anime({
-  //   targets: ".box1 .square",
-  //   borderRadius: row.borderRadius,
-  //   autoplay: false,
-  // });
-  // animeRow.all = anime({
-  //   targets: ".box1 .square",
-  //   ...row,
-  //   autoplay: false,
-  // });
 };
 
 // 向左移动

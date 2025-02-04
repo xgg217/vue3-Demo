@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import anime from "animejs";
-import type { TAnimeInstance } from "@/views/animejs/types";
+import type { TAnimeInstance } from "@/views/Animejs/types";
 
 const animeRow: TAnimeInstance = {
   left: null,
