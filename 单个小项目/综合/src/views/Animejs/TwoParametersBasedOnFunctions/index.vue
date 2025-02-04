@@ -1,7 +1,28 @@
 <template>
-  <div>1</div>
+  <div class="box">
+    <BoxListCmp :arr="myComponentsList"></BoxListCmp>
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import BoxListCmp from "@/views/Animejs/cmp/BoxListCmp.vue";
 
-<style lang="scss" scoped></style>
+const myComponentsList = shallowRef<any[]>([]);
+const init = () => {
+  // 导入当前所有子组件
+  const modules = import.meta.glob("./cmp/*.vue", {
+    eager: true,
+  });
+
+  myComponentsList.value = Object.values(modules).map(item => {
+    // @ts-ignore
+    return item.default;
+  });
+};
+
+onMounted(() => {
+  init();
+});
+</script>
+
+<style scoped></style>

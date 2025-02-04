@@ -62,7 +62,7 @@ const animejs: RouteRecordRaw = {
       path: "twoParametersBasedOnFunctions",
       name: "TwoParametersBasedOnFunctions",
       component: () =>
-        import("@/views/Animejs/TwoAttributeParameter/index.vue"),
+        import("@/views/Animejs/TwoParametersBasedOnFunctions/index.vue"),
       meta: {
         title: "第二部分 基于函数的参数",
         imgSrc: "",
