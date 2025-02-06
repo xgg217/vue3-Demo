@@ -100,6 +100,7 @@ onMounted(() => {
 });
 </script>
 
+<style scoped src="@/views/Animejs/style.css"></style>
 <style scoped>
 .box2 {
   /* border: 1px solid red; */
@@ -133,17 +134,6 @@ onMounted(() => {
     left: 50%;
     transform: translate(-50%, -50%);
     border: 1px solid #000;
-  }
-
-  .but {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
   }
 }
 </style>

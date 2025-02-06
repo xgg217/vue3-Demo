@@ -68,6 +68,7 @@ onMounted(() => {
 });
 </script>
 
+<style scoped src="@/views/Animejs/style.css"></style>
 <style scoped>
 .box2 {
   /* border: 1px solid red; */

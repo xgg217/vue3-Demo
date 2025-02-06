@@ -10,12 +10,9 @@ import BoxListCmp from "@/views/Animejs/cmp/BoxListCmp.vue";
 const myComponentsList = shallowRef<any[]>([]);
 const init = () => {
   // 导入当前所有子组件
-  const modules = import.meta.glob(
-    "@/views/animejs/TargetAndAttribute/cmp/*.vue",
-    {
-      eager: true,
-    },
-  );
+  const modules = import.meta.glob("./cmp/*.vue", {
+    eager: true,
+  });
 
   myComponentsList.value = Object.values(modules).map(item => {
     // @ts-ignore

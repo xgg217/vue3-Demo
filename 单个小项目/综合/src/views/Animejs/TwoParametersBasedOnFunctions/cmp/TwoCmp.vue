@@ -1,6 +1,6 @@
 <template>
-  <div class="box1">
-    <h3>duration delay easing 属性</h3>
+  <div class="box2">
+    <h3>easing 属性</h3>
     <!-- <div class="square"></div> -->
     <ul>
       <li></li>
@@ -11,10 +11,8 @@
     </ul>
 
     <div class="but">
-      <el-button type="primary" @click="onOne">延迟升序</el-button>
-      <el-button type="primary" @click="onTwo">延迟降序</el-button>
-      <el-button type="primary" @click="onThree">运动时间升序</el-button>
-      <el-button type="primary" @click="onFour">运动时间降序</el-button>
+      <el-button type="primary" @click="onOne">easeIn</el-button>
+      <el-button type="primary" @click="onTwo"> easeOut</el-button>
       <el-button type="primary" @click="onReset">重置</el-button>
     </div>
   </div>
@@ -24,71 +22,67 @@
 import anime from "animejs";
 import type { TAnimeInstance } from "@/views/Animejs/types";
 
+const easeInValues = [
+  "easeInQuad",
+  "easeInCubic",
+  "easeInQuart",
+  "easeInQuint",
+  "easeInSine",
+  "easeInExpo",
+  "easeInCirc",
+  "easeInBack",
+  "easeInElastic",
+];
+
+const easeOutValues = [
+  "easeOutQuad",
+  "easeOutCubic",
+  "easeOutQuart",
+  "easeOutQuint",
+  "easeOutSine",
+  "easeOutExpo",
+  "easeOutCirc",
+  "easeOutBack",
+  "easeOutElastic",
+];
+
 const animeRow: TAnimeInstance = {
   one: null,
   two: null,
-  three: null,
-  four: null,
-  five: null,
-  all: null,
 };
 
 const init = () => {
   animeRow.one = anime({
-    targets: ".box1 ul li",
+    targets: ".box2 ul li",
     translateY: 250,
-    autoplay: false,
-    delay: function (target, index) {
-      return index * 200;
+    duration: 2000,
+    //@ts-ignore
+    easing: (target, index) => {
+      return easeInValues[index];
     },
+    autoplay: false,
   });
 
   animeRow.two = anime({
-    targets: ".box1 ul li",
+    targets: ".box2 ul li",
     translateY: 250,
-    autoplay: false,
-    delay: function (target, index, targetCount) {
-      return (targetCount - index) * 200;
+    duration: 2000,
+    //@ts-ignore
+    easing: (target, index) => {
+      return easeInValues[index];
     },
-  });
-
-  animeRow.three = anime({
-    targets: ".box1 ul li",
-    translateY: 250,
     autoplay: false,
-    duration: function (target, index) {
-      return 1000 + index * 800;
-    },
-  });
-
-  animeRow.four = anime({
-    targets: ".box1 ul li",
-    translateY: 250,
-    autoplay: false,
-    duration: function (target, index, targetCount) {
-      return 1000 + (targetCount - index) * 800;
-    },
   });
 };
 
-// 延迟升序
+// 向左+变色+圆角
 const onOne = () => {
   animeRow.one?.restart();
 };
 
-// 延迟降序
+// 向左+变色+圆角
 const onTwo = () => {
   animeRow.two?.restart();
-};
-
-// 运动时间升序
-const onThree = () => {
-  animeRow.three?.restart();
-};
-
-// 运动时间降序
-const onFour = () => {
-  animeRow.four?.restart();
 };
 
 // 重置
@@ -103,7 +97,7 @@ onMounted(() => {
 
 <style scoped src="@/views/Animejs/style.css"></style>
 <style scoped>
-.box1 {
+.box2 {
   position: relative;
   top: 0;
   left: 0;
