@@ -12,8 +12,8 @@
 
     <div class="but">
       <el-button type="primary" @click="onOne">循环4次</el-button>
-      <el-button type="primary" @click="onTwo">反方向循环4次</el-button>
-      <!-- <el-button type="primary" @click="onThree">溜溜球效果</el-button> -->
+      <!-- <el-button type="primary" @click="onTwo">反方向循环4次</el-button> -->
+      <el-button type="primary" @click="onThree">溜溜球效果</el-button>
       <el-button type="primary" @click="onReset">重置</el-button>
     </div>
   </div>
@@ -41,17 +41,17 @@ const init = () => {
     },
   });
 
-  animeRow.two = anime({
-    targets: ".box3 ul li",
-    translateY: 250,
-    delay: function (target, index) {
-      return index * 200;
-    },
-    loop: 4,
-    easing: "easeInSine",
-    direction: "reverse",
-    autoplay: false,
-  });
+  // animeRow.two = anime({
+  //   targets: ".box3 ul li",
+  //   translateY: 250,
+  //   delay: function (target, index) {
+  //     return index * 200;
+  //   },
+  //   loop: 4,
+  //   easing: "easeInSine",
+  //   direction: "reverse",
+  //   autoplay: false,
+  // });
 
   animeRow.three = anime({
     targets: ".box3 ul li",
@@ -72,9 +72,9 @@ const onOne = () => {
 };
 
 // 延迟降序
-const onTwo = () => {
-  animeRow.two?.restart();
-};
+// const onTwo = () => {
+//   animeRow.two?.restart();
+// };
 
 // 运动时间升序
 const onThree = () => {
