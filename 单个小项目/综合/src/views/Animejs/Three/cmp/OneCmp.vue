@@ -1,6 +1,6 @@
 <template>
   <div class="box1">
-    <h3>duration delay easing 属性</h3>
+    <h3>指定属性值</h3>
     <!-- <div class="square"></div> -->
     <ul>
       <li></li>
