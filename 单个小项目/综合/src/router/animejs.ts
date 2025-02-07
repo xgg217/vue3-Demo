@@ -69,6 +69,15 @@ const animejs: RouteRecordRaw = {
       },
     },
     {
+      path: "three",
+      name: "Three",
+      component: () => import("@/views/Animejs/Three/index.vue"),
+      meta: {
+        title: "第三部分 值、时间轴和播放",
+        imgSrc: "",
+      },
+    },
+    {
       path: "custom",
       name: "Custom",
       component: () => import("@/views/Animejs/Custom/index.vue"),
