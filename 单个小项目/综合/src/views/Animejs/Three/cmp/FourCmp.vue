@@ -1,6 +1,6 @@
 <template>
   <div class="box4">
-    <h3>创建和作时间轴</h3>
+    <h3>4创建和作时间轴</h3>
     <ul>
       <li class="blue"></li>
       <li class="red"></li>

@@ -1,6 +1,6 @@
 <template>
   <div class="box1">
-    <h3>指定属性值</h3>
+    <h3>1指定属性值</h3>
     <ul>
       <li></li>
       <li></li>

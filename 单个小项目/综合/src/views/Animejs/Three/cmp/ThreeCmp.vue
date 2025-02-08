@@ -1,6 +1,6 @@
 <template>
   <div class="box3">
-    <h3>关键帧</h3>
+    <h3>3关键帧</h3>
     <ul>
       <li></li>
       <li></li>

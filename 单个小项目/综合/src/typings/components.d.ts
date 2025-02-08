@@ -11,6 +11,7 @@ declare module 'vue' {
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElSlider: typeof import('element-plus/es')['ElSlider']
     Layout: typeof import('./../components/layout/index.vue')['default']
     NavItemCmp: typeof import('./../components/layout/NavItemCmp.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
