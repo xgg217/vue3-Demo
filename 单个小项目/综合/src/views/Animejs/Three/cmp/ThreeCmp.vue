@@ -1,6 +1,6 @@
 <template>
-  <div class="box2">
-    <h3>指定属性值</h3>
+  <div class="box3">
+    <h3>关键帧</h3>
     <!-- <div class="square"></div> -->
     <ul>
       <li></li>
@@ -32,52 +32,60 @@ const animeRow: TAnimeInstance = {
   all: null,
 };
 
+const obj = {
+  translateY: [
+    { value: 100, duration: 500 },
+    { value: "+=100", duration: 1000, delay: 1000 },
+    { value: "+=100", duration: 1000, delay: 1000 },
+    { value: 40, duration: 500, delay: 1000 },
+  ],
+  scale: [
+    { value: 1.1, duration: 500 },
+    { value: 0.5, duration: 1000, delay: 1000 },
+    { value: 1, duration: 500, delay: 1000 },
+  ],
+  rotate: [
+    { value: 60, duration: 500 },
+    { value: -60, duration: 1000, delay: 1000 },
+    { value: 75, duration: 500, delay: 1000 },
+  ],
+  borderRadius: [
+    { value: 10, duration: 500 },
+    { value: 50, duration: 1000, delay: 1000 },
+    { value: 25, duration: 500, delay: 1000 },
+  ],
+} as const;
+
 const init = () => {
   animeRow.one = anime({
-    targets: ".box2 ul li",
-    translateY: (el: HTMLLIElement, i: number) => {
-      return 50 + i * 50;
-    },
+    targets: ".box3 ul li",
+    translateY: obj.translateY,
     autoplay: false,
   });
 
   animeRow.two = anime({
-    targets: ".box2 ul li",
-    scale: (el: HTMLLIElement, i: number) => {
-      return Math.random() * 0.8 + i / 10;
-    },
+    targets: ".box3 ul li",
+    scale: obj.scale,
     autoplay: false,
   });
 
   animeRow.three = anime({
-    targets: ".box2 ul li",
-    rotate: (el: HTMLLIElement, i: number) => {
-      return anime.random(-180, 180);
-    },
+    targets: ".box3 ul li",
+    rotate: obj.rotate,
     autoplay: false,
   });
 
   animeRow.four = anime({
-    targets: ".box2 ul li",
-    borderRadius: function (el: HTMLLIElement) {
-      return 20 + (Math.random() * el.offsetWidth) / 4;
-    },
+    targets: ".box3 ul li",
+    borderRadius: obj.borderRadius,
     autoplay: false,
   });
   animeRow.all = anime({
-    targets: ".box2 ul li",
-    translateY: (el: HTMLLIElement, i: number) => {
-      return 50 + i * 50;
-    },
-    scale: (el: HTMLLIElement, i: number) => {
-      return Math.random() * 0.8 + i / 10;
-    },
-    rotate: (el: HTMLLIElement, i: number) => {
-      return anime.random(-180, 180);
-    },
-    borderRadius: function (el: HTMLLIElement) {
-      return 20 + (Math.random() * el.offsetWidth) / 4;
-    },
+    targets: ".box3 ul li",
+    translateY: obj.translateY,
+    scale: obj.scale,
+    rotate: obj.rotate,
+    borderRadius: obj.borderRadius,
     autoplay: false,
   });
 };
@@ -119,7 +127,7 @@ onMounted(() => {
 
 <style scoped src="@/views/Animejs/style.css"></style>
 <style scoped>
-.box2 {
+.box3 {
   position: relative;
   top: 0;
   left: 0;
