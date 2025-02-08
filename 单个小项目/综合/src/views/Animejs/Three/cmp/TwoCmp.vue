@@ -1,7 +1,6 @@
 <template>
   <div class="box2">
     <h3>指定属性值</h3>
-    <!-- <div class="square"></div> -->
     <ul>
       <li></li>
       <li></li>

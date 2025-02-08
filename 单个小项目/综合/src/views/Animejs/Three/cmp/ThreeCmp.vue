@@ -1,7 +1,6 @@
 <template>
   <div class="box3">
     <h3>关键帧</h3>
-    <!-- <div class="square"></div> -->
     <ul>
       <li></li>
       <li></li>
