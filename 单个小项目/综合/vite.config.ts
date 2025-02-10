@@ -16,8 +16,6 @@ export default defineConfig({
     vueDevTools(),
     AutoImport({
       imports: ["vue", "vue-router"],
-      // 自定义 导入
-      dirs: ["./src/api"],
       dts: "src/typings/auto-imports.d.ts", //自定义生成 auto-imports.d.ts 路径丢失的问题
       resolvers: [ElementPlusResolver()],
     }),
