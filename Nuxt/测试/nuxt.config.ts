@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { fileURLToPath } from "node:url";
+// import { fileURLToPath } from "node:url";
 import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/scripts",
     "@nuxt/test-utils",
-    "@nuxt/ui",
+    "@nuxt/ui-pro",
     "@nuxt/content",
     "@pinia/nuxt",
   ],
@@ -26,9 +26,9 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/globl.css"],
 
-  alias: {
-    images: fileURLToPath(new URL("./assets/images", import.meta.url)),
-  },
+  // alias: {
+  //   images: fileURLToPath(new URL("./assets/images", import.meta.url)),
+  // },
 
   components: [
     {
