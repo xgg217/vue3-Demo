@@ -1,6 +1,7 @@
 <template>
   <div>
     12
+    <NuxtLink to="/about/email">about/email</NuxtLink>
     <img src="~/assets/images/牛马.jpg" />
     <img :src="url" />
   </div>

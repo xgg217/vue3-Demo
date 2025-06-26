@@ -2,7 +2,7 @@
   <div class="header">
     <UHeader>
       <template #title>
-        <Logo class="h-6 w-auto" />
+        <p>后台管理系统</p>
       </template>
 
       <UNavigationMenu :items="items" />
@@ -24,11 +24,6 @@ const items = computed<NavigationMenuItem[]>(() => [
     label: "首页",
     to: "/",
     active: route.path.startsWith("/"),
-  },
-  {
-    label: "主页",
-    to: "/home",
-    active: route.path.startsWith("/home"),
   },
   {
     label: "关于",

@@ -1,5 +1,5 @@
 <template>
-  <div>home</div>
+  <div>about/email.vue</div>
 </template>
 
 <script setup lang="ts"></script>
