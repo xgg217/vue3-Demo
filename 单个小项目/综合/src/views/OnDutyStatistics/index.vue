@@ -188,7 +188,7 @@ onMounted(() => {
               placeholder="开始"
               start="11:00"
               step="00:30"
-              end="16:00"
+              end="17:00"
             />
             <el-time-select
               v-model="row.xwE"
@@ -197,7 +197,7 @@ onMounted(() => {
               placeholder="结束"
               start="11:00"
               step="00:30"
-              end="16:00"
+              end="17:00"
             />
           </template>
         </el-table-column>
