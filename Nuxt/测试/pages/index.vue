@@ -1,7 +1,7 @@
 <template>
   <div>
     <UTable :data="userList" class="flex-1">
-      <template #name-cell="{ row }">
+      <template #column="{ row }">
         <p>1</p>
       </template>
     </UTable>
