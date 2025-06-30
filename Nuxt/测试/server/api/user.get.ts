@@ -1,6 +1,6 @@
-import
+import { USER_LIST } from "./../consts";
 
-export default defineEventHandler((event) => {
+export default defineEventHandler(() => {
   // const query = getQuery(event);
-  return query;
-})
+  return USER_LIST;
+});
