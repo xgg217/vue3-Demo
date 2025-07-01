@@ -184,7 +184,6 @@ onMounted(() => {
             <el-time-select
               v-model="row.xwS"
               style="width: 120px"
-              max-time="16:30"
               placeholder="开始"
               start="11:00"
               step="00:30"
@@ -193,7 +192,6 @@ onMounted(() => {
             <el-time-select
               v-model="row.xwE"
               style="width: 120px"
-              max-time="16:30"
               placeholder="结束"
               start="11:00"
               step="00:30"
