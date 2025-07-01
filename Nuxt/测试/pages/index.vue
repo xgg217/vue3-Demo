@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UTable :data="userList" class="flex-1">
+    <UTable :data="data" class="flex-1">
       <UDropdownMenu>
         12
         <!-- <UButton
@@ -19,35 +19,7 @@
 <script setup lang="ts">
 // import { useUserStore } from "~/stores/index";
 
-import { ref } from "vue";
-
-// const { userList } = useUserStore();
-const userList = ref([]);
-
-const { data } = await useAsyncData("userList", () =>
-  $fetch("/api/user", { method: "GET" })
-);
-console.log(data.value);
-userList.value = data.value;
-
-// onMounted(async () => {
-//   const { data, pending, refresh } = await useAsyncData("userList", () =>
-//     $fetch("/api/user", { method: "GET" })
-//   );
-//   console.log(data);
-//   userList.value = data.value;
-// });
-
-// onMounted(async () => {
-//   // useAsyncData("/api/user", { method: "GET" })
-//   //   .then((res) => {
-//   //     console.log(res);
-//   //     userList.value = res as any[];
-//   //   })
-//   //   .catch((err) => {
-//   //     console.error(err);
-//   //   });
-// });
+const { data } = await useFetch("/api/user", { method: "GET" });
 </script>
 
 <style lang="scss" scoped></style>
