@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import animejs from "./animejs";
+import GSAP from "./GSAP";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,8 +11,12 @@ const router = createRouter({
       name: "home",
       component: HomeView,
     },
+
     // Animejs 动画
     animejs,
+
+    // GSAP 动画
+    GSAP,
 
     // 上班统计
     {
