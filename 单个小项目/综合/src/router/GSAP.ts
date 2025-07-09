@@ -19,6 +19,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "apiDemo",
+      name: "GSAPApiDemo",
+      component: () => import("@/views/GSAP/ApiDemo/index.vue"),
+      meta: {
+        title: "api熟悉",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
