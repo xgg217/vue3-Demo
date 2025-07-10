@@ -30,21 +30,6 @@
         <li>
           <Function1Cmp />
         </li>
-        <!-- <li>
-          <StaggerObjectCmp />
-        </li> -->
-      </ul>
-    </div>
-
-    <div class="card">
-      <h2>时间线</h2>
-      <ul>
-        <li>
-          <TimelineCmp />
-        </li>
-        <!-- <li>
-          <StaggerObjectCmp />
-        </li> -->
       </ul>
     </div>
   </div>
@@ -54,7 +39,6 @@
 import StaggerNumberCmp from "./components/StaggerNumberCmp.vue";
 import StaggerObjectCmp from "./components/StaggerObjectCmp.vue";
 import Function1Cmp from "./components/Function1Cmp.vue";
-import TimelineCmp from "./components/TimelineCmp.vue";
 </script>
 
 <style lang="scss" scoped>

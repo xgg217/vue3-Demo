@@ -2,10 +2,10 @@
   <el-card class="card-container">
     <template #header>
       <div class="card-header">
-        <span>时间线</span>
+        <span> < 跟着上一个动画的起始位置开始 </span>
       </div>
     </template>
-    <div class="timeline-content2">
+    <div class="stagger1-content">
       <p class="red"></p>
       <p class="green"></p>
       <p class="blue"></p>
@@ -17,18 +17,15 @@
 import { gsap } from "gsap";
 
 onMounted(() => {
-  const tl = gsap.timeline();
-  tl.to(".timeline-content2 .red", {
-    x: 100,
-    duration: 2,
+  const tl = gsap.timeline({
+    defaults: {
+      x: 100,
+      duration: 1,
+    },
   });
-  tl.to(".timeline-content2 .green", {
-    x: 50,
-    duration: 2,
-  }).to(".timeline-content2 .blue", {
-    x: 200,
-    duration: 2,
-  });
+  tl.to(".stagger1-content .red", {}, 1)
+    .to(".stagger1-content .green", {}, "<")
+    .to(".stagger1-content .blue", {}, "<");
   // gsap.to(
   //   [
   //     ".timeline-content2 .red",
@@ -49,26 +46,4 @@ onMounted(() => {
 </script>
 
 <style src="@/views/GSAP/style.css" scoped></style>
-<style scoped>
-.red,
-.green,
-.blue {
-  /* position: absolute;
-  top: 0;
-  left: 0; */
-  width: 100px;
-  height: 100px;
-}
-
-.red {
-  background-color: red;
-}
-
-.green {
-  background-color: green;
-}
-
-.blue {
-  background-color: blue;
-}
-</style>
+<style scoped></style>

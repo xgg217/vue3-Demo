@@ -2,3 +2,25 @@
   width: 600px;
   height: 600px;
 }
+
+.red,
+.green,
+.blue {
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+  width: 100px;
+  height: 100px;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}

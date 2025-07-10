@@ -28,6 +28,24 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "timelineDemo",
+      name: "GSAPTimelineDemo",
+      component: () => import("@/views/GSAP/Timeline/index.vue"),
+      meta: {
+        title: "时间线",
+        imgSrc: "",
+      },
+    },
+    {
+      path: "StaggerDemo",
+      name: "GSAPStaggerDemo",
+      component: () => import("@/views/GSAP/Stagger/index.vue"),
+      meta: {
+        title: "stagger 交错",
+        imgSrc: "",
+      },
+    },
   ],
 };
 

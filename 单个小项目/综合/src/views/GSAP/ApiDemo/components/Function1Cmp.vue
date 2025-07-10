@@ -70,26 +70,4 @@ const onReverse = () => {
 </script>
 
 <style src="@/views/GSAP/style.css" scoped></style>
-<style scoped>
-.red,
-.green,
-.blue {
-  /* position: absolute;
-  top: 0;
-  left: 0; */
-  width: 100px;
-  height: 100px;
-}
-
-.red {
-  background-color: red;
-}
-
-.green {
-  background-color: green;
-}
-
-.blue {
-  background-color: blue;
-}
-</style>
+<style scoped></style>
