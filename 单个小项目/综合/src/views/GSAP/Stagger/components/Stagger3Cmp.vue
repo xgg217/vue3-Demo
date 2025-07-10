@@ -2,12 +2,13 @@
   <el-card class="card-container">
     <template #header>
       <div class="card-header">
-        <span> from end </span>
+        <span> from edges </span>
       </div>
     </template>
-    <div class="stagger1-content">
+    <div class="stagger3-content">
       <p class="red"></p>
       <p class="green"></p>
+      <p class="red"></p>
       <p class="blue"></p>
     </div>
   </el-card>
@@ -17,12 +18,13 @@
 import { gsap } from "gsap";
 
 onMounted(() => {
-  gsap.to(".stagger1-content p", {
+  gsap.to(".stagger3-content p", {
     x: 400,
+    delay: 2,
     duration: 2,
     stagger: {
       amount: 1,
-      from: "end",
+      from: "edges",
     },
   });
 

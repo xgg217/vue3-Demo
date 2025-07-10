@@ -2,12 +2,13 @@
   <el-card class="card-container">
     <template #header>
       <div class="card-header">
-        <span>时间线</span>
+        <span> from center </span>
       </div>
     </template>
-    <div class="timeline-content2">
+    <div class="stagger2-content">
       <p class="red"></p>
       <p class="green"></p>
+      <p class="red"></p>
       <p class="blue"></p>
     </div>
   </el-card>
@@ -17,18 +18,27 @@
 import { gsap } from "gsap";
 
 onMounted(() => {
-  const tl = gsap.timeline();
-  tl.to(".timeline-content2 .red", {
-    x: 100,
+  gsap.to(".stagger2-content p", {
+    x: 400,
     duration: 2,
+    stagger: {
+      amount: 1,
+      from: "center",
+    },
   });
-  tl.to(".timeline-content2 .green", {
-    x: 50,
-    duration: 2,
-  }).to(".timeline-content2 .blue", {
-    x: 200,
-    duration: 2,
-  });
+
+  // const tl = gsap.timeline({
+  //   defaults: {
+  //     x: 100,
+  //     duration: 1,
+  //   },
+  //   stagger: {
+  //     from: "end", // start end
+  //   },
+  // });
+  // tl.to(".stagger1-content ", {})
+  //   .to(".stagger1-content .green", {})
+  //   .to(".stagger1-content .blue", {});
   // gsap.to(
   //   [
   //     ".timeline-content2 .red",
