@@ -46,6 +46,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "GSDevTools",
+      name: "GSDevTools",
+      component: () => import("@/views/GSAP/RegisterPlugin/GSDevTools.vue"),
+      meta: {
+        title: "插件之GSDevTools",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
