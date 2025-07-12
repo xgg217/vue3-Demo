@@ -55,6 +55,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "ScrollTrigger",
+      name: "ScrollTrigger",
+      component: () => import("@/views/GSAP/RegisterPlugin/ScrollTrigger.vue"),
+      meta: {
+        title: "插件之ScrollTrigger",
+        imgSrc: "",
+      },
+    },
   ],
 };
 

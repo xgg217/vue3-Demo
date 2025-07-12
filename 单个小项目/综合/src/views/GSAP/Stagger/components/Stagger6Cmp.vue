@@ -2,10 +2,10 @@
   <el-card class="card-container">
     <template #header>
       <div class="card-header">
-        <span> stagger axis x </span>
+        <span> stagger axis y </span>
       </div>
     </template>
-    <div class="stagger5-content">
+    <div class="stagger6-content">
       <p class="red"></p>
       <p class="green"></p>
       <p class="blue"></p>
@@ -29,7 +29,7 @@
 import { gsap } from "gsap";
 
 onMounted(() => {
-  gsap.to(".stagger5-content p", {
+  gsap.to(".stagger6-content p", {
     x: 200,
     delay: 2,
     duration: 1.2,
@@ -37,7 +37,7 @@ onMounted(() => {
       amount: 1,
       grid: [4, 3],
       from: "center",
-      axis: "x",
+      axis: "y",
     },
   });
   // const tl = gsap.timeline({
@@ -73,7 +73,7 @@ onMounted(() => {
 
 <style src="@/views/GSAP/style.css" scoped></style>
 <style scoped>
-.stagger5-content {
+.stagger6-content {
   width: 320px;
   display: flex;
   flex-wrap: wrap;
