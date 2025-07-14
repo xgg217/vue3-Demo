@@ -40,7 +40,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.setOption {
+.bar {
   width: 100%;
   height: 500px;
 }

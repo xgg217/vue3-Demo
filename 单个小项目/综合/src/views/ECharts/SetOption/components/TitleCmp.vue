@@ -1,5 +1,5 @@
 <template>
-  <div class="setOption2"></div>
+  <div class="title"></div>
 </template>
 
 <script setup lang="ts">
@@ -7,11 +7,11 @@ import * as echarts from "echarts";
 
 onMounted(() => {
   // 基于准备好的dom，初始化echarts实例
-  var myChart = echarts.init(document.querySelector(".setOption2")!);
+  var myChart = echarts.init(document.querySelector(".title")!);
   // 绘制图表
   myChart.setOption({
     title: {
-      text: "ECharts 柱状图示例",
+      text: "ECharts 柱状图示例\n换行",
     },
     // 图例
     legend: {
@@ -40,7 +40,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.setOption {
+.title {
   width: 100%;
   height: 500px;
 }
