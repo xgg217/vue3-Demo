@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import animejs from "./animejs";
 import GSAP from "./GSAP";
+import ECharts from "./ECharts";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,22 +13,16 @@ const router = createRouter({
       component: HomeView,
     },
 
-    // Animejs 动画
-    animejs,
-
-    // GSAP 动画
-    GSAP,
-
     // 测试
-    {
-      path: "/ScrollTrigger",
-      name: "/ScrollTrigger",
-      component: () => import("@/views/GSAP/RegisterPlugin/ScrollTrigger.vue"),
-      meta: {
-        title: "插件之ScrollTrigger",
-        imgSrc: "",
-      },
-    },
+    // {
+    //   path: "/ScrollTrigger",
+    //   name: "/ScrollTrigger",
+    //   component: () => import("@/views/GSAP/RegisterPlugin/ScrollTrigger.vue"),
+    //   meta: {
+    //     title: "插件之ScrollTrigger",
+    //     imgSrc: "",
+    //   },
+    // },
 
     // 上班统计
     {
@@ -38,6 +33,14 @@ const router = createRouter({
         title: "上班统计",
       },
     },
+
+    // Animejs 动画
+    animejs,
+
+    // GSAP 动画
+    GSAP,
+
+    ECharts,
 
     {
       path: "/404",
