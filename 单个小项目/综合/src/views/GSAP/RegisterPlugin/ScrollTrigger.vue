@@ -62,20 +62,31 @@ gsap.registerPlugin(ScrollTrigger);
 // });
 
 onMounted(() => {
-  const tl = gsap.timeline({
-    scrollTrigger: ".red",
-  });
-
-  tl.to(".red", {
+  gsap.to(".red", {
     x: 500,
     duration: 2,
-    // scrollTrigger: {
-    //   trigger: ".red",
-    //   // markers: true, // 参考线
-    //   // start: "top center",
-    // },
+    scrollTrigger: {
+      trigger: ".red",
+      markers: true, // 参考线
+      start: "top center",
+    },
     // scrollTrigger: ".red", // 目标元素进入到可视区内，动画元素执行
   });
+
+  // const tl = gsap.timeline({
+  //   scrollTrigger: ".red",
+  // });
+
+  // tl.to(".red", {
+  //   x: 500,
+  //   duration: 2,
+  //   // scrollTrigger: {
+  //   //   trigger: ".red",
+  //   //   // markers: true, // 参考线
+  //   //   // start: "top center",
+  //   // },
+  //   // scrollTrigger: ".red", // 目标元素进入到可视区内，动画元素执行
+  // });
 
   // const boxs = gsap.utils.toArray("p")!;
   // console.log(boxs);
