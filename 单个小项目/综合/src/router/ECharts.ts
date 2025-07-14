@@ -19,6 +19,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "setOption",
+      name: "EChartsSetOption",
+      component: () => import("@/views/ECharts/SetOption/index.vue"),
+      meta: {
+        title: "setOption 示例",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
