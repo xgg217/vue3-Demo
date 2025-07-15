@@ -11,11 +11,23 @@ onMounted(() => {
   // 绘制图表
   myChart.setOption({
     title: {
-      text: "ECharts 柱状图示例\n换行",
+      text: "ECharts 柱状图示例换行",
+      textStyle: {
+        color: "blue",
+        textBorderColor: "red",
+        textBorderWidth: 2,
+      },
+      subtext: "副标题",
+      itemGap: 20,
     },
     // 图例
     legend: {
-      data: ["销量"],
+      data: ["1号销量", "2号销量", "3号销量"],
+      selected: {
+        "1号销量": true,
+        "2号销量": false,
+        "3号销量": true,
+      },
     },
     tooltip: {},
 
@@ -30,7 +42,17 @@ onMounted(() => {
     // 系列列表
     series: [
       {
-        name: "销量",
+        name: "1号销量",
+        type: "bar", // 图标的类型
+        data: [5, 20, 36, 10, 10, 20], // 图标的数据
+      },
+      {
+        name: "2号销量",
+        type: "bar", // 图标的类型
+        data: [5, 20, 36, 10, 10, 20], // 图标的数据
+      },
+      {
+        name: "3号销量",
         type: "bar", // 图标的类型
         data: [5, 20, 36, 10, 10, 20], // 图标的数据
       },
