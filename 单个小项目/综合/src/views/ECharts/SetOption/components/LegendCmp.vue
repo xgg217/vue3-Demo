@@ -1,5 +1,5 @@
 <template>
-  <div class="title"></div>
+  <div class="legend"></div>
 </template>
 
 <script setup lang="ts">
@@ -7,7 +7,7 @@ import * as echarts from "echarts";
 
 onMounted(() => {
   // 基于准备好的dom，初始化echarts实例
-  var myChart = echarts.init(document.querySelector(".title")!);
+  var myChart = echarts.init(document.querySelector(".legend")!);
   // 绘制图表
   myChart.setOption({
     title: {
@@ -62,7 +62,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.title {
+.legend {
   width: 100%;
   height: 500px;
 }
