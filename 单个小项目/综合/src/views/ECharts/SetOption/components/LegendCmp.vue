@@ -22,7 +22,20 @@ onMounted(() => {
     },
     // 图例
     legend: {
-      data: ["1号销量", "2号销量", "3号销量"],
+      data: [
+        {
+          name: "1号销量",
+
+          // 强制设置图形为圆
+          icon: "circle",
+          // 设置文本为红色
+          textStyle: {
+            color: "red",
+          },
+        },
+        "2号销量",
+        "3号销量",
+      ],
       selected: {
         "1号销量": true,
         "2号销量": false,
