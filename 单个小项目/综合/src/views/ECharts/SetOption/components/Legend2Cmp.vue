@@ -15,6 +15,7 @@ import {
 import { PieChart, PieSeriesOption } from "echarts/charts";
 import { LabelLayout } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
+import { setNameStr } from "./../utils";
 
 echarts.use([
   TitleComponent,
@@ -42,6 +43,8 @@ const option: EChartsOption = {
   // 系列列表
   series: [],
 };
+
+setNameStr();
 
 onMounted(() => {
   // 基于准备好的dom，初始化echarts实例
