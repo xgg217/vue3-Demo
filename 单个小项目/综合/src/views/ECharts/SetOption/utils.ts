@@ -22,7 +22,7 @@ export const { setNameStr } = (() => {
   // 组合名字
   const setNameStr = () => {
     // 初始化
-    const nameArr: string[] = Array.from({ length: 10 }, x => {
+    const nameArr: string[] = Array.from({ length: 20 }, x => {
       return "";
     });
     // console.log(nameArr);

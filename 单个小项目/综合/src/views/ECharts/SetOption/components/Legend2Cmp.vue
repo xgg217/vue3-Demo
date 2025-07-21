@@ -54,9 +54,34 @@ onMounted(() => {
 
   const { nameArr, nameValArr } = setNameStr();
 
+  // 设置默认选中前几个
+  const selectedObj = {};
+  {
+    nameArr.forEach((item, index) => {
+      if (index < 5) {
+        // @ts-ignore
+        selectedObj[item] = true;
+      } else {
+        // @ts-ignore
+        selectedObj[item] = false;
+      }
+    });
+  }
+  console.log(selectedObj);
+
+  // const selectedObj = nameArr.map(item => {})
+
   myChart.setOption({
     legend: {
-      // data: nameArr
+      data: nameArr,
+      type: "scroll",
+      selected: selectedObj,
+      // scrollDataIndex: 2,
+      // pageButtonItemGap: 30,
+      // pageButtonGap: 50,
+      // pageButtonPosition: "start",
+      pageIconColor: "red",
+      pageIconInactiveColor: "blue",
     },
     series: [
       {
