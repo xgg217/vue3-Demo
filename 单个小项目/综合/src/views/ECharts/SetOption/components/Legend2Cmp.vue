@@ -40,15 +40,32 @@ const option: EChartsOption = {
     subtext: "纯属虚构",
   },
 
+  legend: {
+    data: [],
+  },
+
   // 系列列表
   series: [],
 };
 
-setNameStr();
-
 onMounted(() => {
   // 基于准备好的dom，初始化echarts实例
   var myChart = echarts.init(legend2Ref.value);
+
+  const { nameArr, nameValArr } = setNameStr();
+
+  myChart.setOption({
+    legend: {
+      // data: nameArr
+    },
+    series: [
+      {
+        type: "pie",
+        radius: "50%",
+        data: nameValArr,
+      },
+    ],
+  });
 
   // option.series = [
   //   {
