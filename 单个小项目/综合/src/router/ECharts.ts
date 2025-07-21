@@ -28,6 +28,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "setOptionAxis",
+      name: "EChartsSetOptionAxis",
+      component: () => import("@/views/ECharts/SetOptionAxis/index.vue"),
+      meta: {
+        title: "setOption 轴体",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
