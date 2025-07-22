@@ -10,16 +10,6 @@ onMounted(() => {
   var myChart = echarts.init(document.querySelector(".title")!);
   // 绘制图表
   myChart.setOption({
-    title: {
-      text: "ECharts 柱状图示例换行",
-      textStyle: {
-        color: "blue",
-        textBorderColor: "red",
-        textBorderWidth: 2,
-      },
-      subtext: "副标题",
-      itemGap: 20,
-    },
     // 图例
     legend: {
       data: ["1号销量", "2号销量", "3号销量"],
@@ -27,26 +17,18 @@ onMounted(() => {
     tooltip: {},
 
     // x 轴 配置
-    xAxis: {
-      data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
-      type: "category",
-      // min: "dataMin",
-      // max: "dataMax",
-      name: "种类",
-      // nameLocation: "start",
-      // axisLine: {
-      //   symbol: ["none", "arrow"],
-      //   lineStyle: {
-      //     color: "red",
-      //   },
-      // },
-      // axisTick: {
-      //   show: false,
-      // },
-      splitLine: {
-        // show: true,
+    xAxis: [
+      {
+        data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
       },
-    },
+      {
+        data: ["衬衫2", "羊毛衫2", "雪纺衫2", "裤子2", "高跟鞋2", "袜子2"],
+      },
+      {
+        data: ["衬衫3", "羊毛衫3", "雪纺衫3", "裤子3", "高跟鞋3", "袜子3"],
+        offset: -50,
+      },
+    ],
 
     // y 轴 配置
     yAxis: {},
