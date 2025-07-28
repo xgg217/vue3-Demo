@@ -37,6 +37,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "setOptionDataZoom",
+      name: "SetOptionDataZoom",
+      component: () => import("@/views/ECharts/SetOptionDataZoom/index.vue"),
+      meta: {
+        title: "DataZoom 区域缩放",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
