@@ -46,6 +46,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "setOptionTooltiop",
+      name: "SetOptionTooltiop",
+      component: () => import("@/views/ECharts/SetOptionTooltiop/index.vue"),
+      meta: {
+        title: "tooltiop 提示框",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
