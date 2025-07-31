@@ -55,6 +55,15 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "dataset",
+      name: "Dataset",
+      component: () => import("@/views/ECharts/Dataset/index.vue"),
+      meta: {
+        title: "dataset 数据集",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
