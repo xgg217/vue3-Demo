@@ -44,6 +44,10 @@ const option: EChartsOption = {
     data: [],
   },
 
+  tooltip: {
+    trigger: "item",
+  },
+
   // 系列列表
   series: [],
 };
@@ -72,6 +76,9 @@ onMounted(() => {
   // const selectedObj = nameArr.map(item => {})
 
   myChart.setOption({
+    tooltip: {
+      trigger: "item",
+    },
     legend: {
       data: nameArr,
       type: "scroll",
