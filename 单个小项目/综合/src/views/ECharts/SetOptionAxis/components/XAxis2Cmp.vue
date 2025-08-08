@@ -1,5 +1,5 @@
 <template>
-  <div class="title"></div>
+  <div class="title2"></div>
 </template>
 
 <script setup lang="ts">
@@ -7,7 +7,7 @@ import * as echarts from "echarts";
 
 onMounted(() => {
   // 基于准备好的dom，初始化echarts实例
-  var myChart = echarts.init(document.querySelector(".title")!);
+  var myChart = echarts.init(document.querySelector(".title2")!);
   // 绘制图表
   myChart.setOption({
     // 图例
@@ -64,7 +64,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.title {
+.title2 {
   width: 100%;
   height: 500px;
 }
