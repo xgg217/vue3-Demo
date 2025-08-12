@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import * as echarts from "echarts";
-import { random, round } from "lodash-es";
+import { random, round } from "es-toolkit";
 
 type TItem = [number, number, number][];
 

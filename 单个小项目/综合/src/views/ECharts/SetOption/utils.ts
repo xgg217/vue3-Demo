@@ -1,4 +1,4 @@
-import { random, sampleSize } from "lodash-es";
+import { random, sampleSize } from "es-toolkit";
 import { nameArr } from "./consts";
 
 // 百家姓
