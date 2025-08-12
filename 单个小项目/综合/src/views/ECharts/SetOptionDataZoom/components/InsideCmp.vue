@@ -16,21 +16,21 @@ onMounted(() => {
   {
     for (let i = 0; i < 500; i++) {
       {
-        const val1 = round(random(0, 15, true), 3);
-        const val2 = round(random(0, 10, true), 3);
+        const val1 = round(random(0, 15), 3);
+        const val2 = round(random(0, 10), 3);
         const val3 = round(random(0.1, 1.9), 3);
         data1.push([val1, val2, val3]);
       }
       {
-        const val1 = round(random(0, 15, true), 3);
-        const val2 = round(random(0, 10, true), 3);
+        const val1 = round(random(0, 15), 3);
+        const val2 = round(random(0, 10), 3);
         const val3 = round(random(0.1, 1.9), 3);
         data2.push([val1, val2, val3]);
       }
 
       {
-        const val1 = round(random(0, 15, true), 3);
-        const val2 = round(random(0, 10, true), 3);
+        const val1 = round(random(0, 15), 3);
+        const val2 = round(random(0, 10), 3);
         const val3 = round(random(0.1, 1.9), 3);
         data3.push([val1, val2, val3]);
       }
