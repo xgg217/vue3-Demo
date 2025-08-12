@@ -64,6 +64,24 @@ const animejs: RouteRecordRaw = {
         imgSrc: "",
       },
     },
+    {
+      path: "visualMap",
+      name: "visualMap",
+      component: () => import("@/views/ECharts/visualMap/index.vue"),
+      meta: {
+        title: "视觉映射组件",
+        imgSrc: "",
+      },
+    },
+    {
+      path: "line",
+      name: "line",
+      component: () => import("@/views/ECharts/line/index.vue"),
+      meta: {
+        title: "折线图",
+        imgSrc: "",
+      },
+    },
   ],
 };
 
