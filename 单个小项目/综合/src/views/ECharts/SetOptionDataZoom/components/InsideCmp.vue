@@ -39,7 +39,9 @@ onMounted(() => {
   }
 
   // 基于准备好的dom，初始化echarts实例
-  const myChart = echarts.init(document.querySelector(".title")!);
+  const myChart = echarts.init(
+    document.querySelector(".title")! as HTMLElement,
+  );
 
   myChart.setOption({
     legend: {},

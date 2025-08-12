@@ -7,7 +7,7 @@ import * as echarts from "echarts";
 
 onMounted(() => {
   // 基于准备好的dom，初始化echarts实例
-  var myChart = echarts.init(document.querySelector(".title1")!);
+  var myChart = echarts.init(document.querySelector(".title1")! as HTMLElement);
   // 绘制图表
   myChart.setOption({
     title: {

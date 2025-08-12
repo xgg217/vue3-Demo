@@ -9,7 +9,7 @@ const colors = ["#5470C6", "#91CC75", "#EE6666"];
 
 onMounted(() => {
   // 基于准备好的dom，初始化echarts实例
-  var myChart = echarts.init(document.querySelector(".title")!);
+  var myChart = echarts.init(document.querySelector(".title")! as HTMLElement);
   // 绘制图表
   myChart.setOption({
     colors,

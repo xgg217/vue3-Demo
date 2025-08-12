@@ -3,38 +3,14 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from "echarts/core";
-import {
-  TitleComponent,
-  TitleComponentOption,
-  TooltipComponent,
-  TooltipComponentOption,
-  LegendComponent,
-  LegendComponentOption,
-} from "echarts/components";
-import { PieChart, PieSeriesOption } from "echarts/charts";
+import * as echarts from "echarts";
+
 import { LabelLayout } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import { setNameStr } from "./../utils";
 
-echarts.use([
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-  PieChart,
-  CanvasRenderer,
-  LabelLayout,
-]);
-
-type EChartsOption = echarts.ComposeOption<
-  | TitleComponentOption
-  | TooltipComponentOption
-  | LegendComponentOption
-  | PieSeriesOption
->;
-
 const legend2Ref = ref(null);
-const option: EChartsOption = {
+const option = {
   title: {
     text: "同名数量统计",
     subtext: "纯属虚构",
