@@ -9,6 +9,7 @@ import { china } from "./china";
 let i = 0;
 function getRandom() {
   // return randomInt(0, 1000);
+
   const val = i * 25 + 100;
   i++;
   return val;
