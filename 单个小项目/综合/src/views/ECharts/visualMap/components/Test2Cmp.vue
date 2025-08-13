@@ -1,5 +1,5 @@
 <template>
-  <div class="title1"></div>
+  <div class="title2"></div>
 </template>
 
 <script setup lang="ts">
@@ -19,26 +19,16 @@ onMounted(() => {
   echarts.registerMap("china", china);
 
   // 基于准备好的dom，初始化echarts实例
-  var myChart = echarts.init(document.querySelector(".title1")! as HTMLElement);
+  var myChart = echarts.init(document.querySelector(".title2")! as HTMLElement);
 
   myChart.setOption({
     visualMap: {
+      type: "piecewise",
       // show: true,
       min: 0,
       max: 1000,
-      range: [300, 800],
-      calculable: true,
-
-      // 表示 目标系列 的视觉样式
-      target: {
-        inRange: {
-          color: ["pink"],
-          symbolSize: [10, 20],
-        },
-        outOfRange: {
-          color: ["green"],
-        },
-      },
+      splitNumber: 4,
+      // range: [300, 800],
       // inRange: {
       //   color: ["pink"],
       // },
@@ -98,7 +88,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.title1 {
+.title2 {
   width: 100%;
   height: 800px;
 }
