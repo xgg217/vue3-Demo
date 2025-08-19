@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import animejs from "./animejs";
 import GSAP from "./GSAP";
 import ECharts from "./ECharts";
+import DashboardProject from "./DashboardProject";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,9 @@ const router = createRouter({
     GSAP,
 
     ECharts,
+
+    // 大屏展示
+    DashboardProject,
 
     {
       path: "/404",
